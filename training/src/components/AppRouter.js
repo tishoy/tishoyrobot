@@ -5,8 +5,8 @@ import { applyRouterMiddleware, browserHistory, Router, Route, IndexRoute } from
 import { useScroll } from 'react-router-scroll';
 import { kebabCase, titleize } from 'training/src/utils/helpers';
 import AppFrame from 'training/src/components/AppFrame';
-import AppContent from 'training/src/components/AppContent';
-import MarkdownDocs from 'training/src/components/MarkdownDocs';
+// import AppContent from 'training/src/components/AppContent';
+// import MarkdownDocs from 'training/src/components/MarkdownDocs';
 import Home from 'training/src/pages/Home';
 // import { componentAPIs, requireMarkdown, demos, requireDemo } from 'training/src/components/files';
 

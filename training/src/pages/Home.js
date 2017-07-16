@@ -6,6 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Link from 'react-router/lib/Link';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import LoginPanel from '../components'
 
 const styleSheet = createStyleSheet('Home', theme => {
   return {
@@ -53,7 +54,7 @@ function Home(props) {
           </Typography>
           <Typography type="subheading" component="h2" color="inherit">
             {"A React component library implementing Google's Material Design"}
-          </Typography>*/}
+          </Typography>
           <Button
             component={Link}
             className={classes.button}
@@ -61,7 +62,9 @@ function Home(props) {
             to="/getting-started/installation"
           >
             {'登陆'}
-          </Button>
+          </Button>*/}
+
+            
         </div>
       </div>
     </div>

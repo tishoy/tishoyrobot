@@ -13,10 +13,9 @@ import withWidth, { isWidthUp } from 'material-ui/utils/withWidth';
 import MenuIcon from 'material-ui-icons/Menu';
 import LightbulbOutline from 'material-ui-icons/LightbulbOutline';
 import Github from 'training/src/components/Github';
+import Refresh from 'material-ui/svg-icons/check-box.js';
 import AppDrawer from 'training/src/components/AppDrawer';
-import DemoButton from 'training/src/components/DemoButton';
 import AppSearch from 'training/src/components/AppSearch';
-import ApiMenu from 'training/src/components/ApiMenu';
 
 function getTitle(routes) {
   for (let i = routes.length - 1; i >= 0; i -= 1) {
@@ -137,8 +136,7 @@ class AppFrame extends Component {
               </Typography>}
             <div className={classes.grow} />
             <AppSearch />
-            <DemoButton routes={routes} />
-            <ApiMenu routes={routes} />
+            
             <IconButton
               title="Toggle light/dark theme"
               color="contrast"
@@ -146,11 +144,12 @@ class AppFrame extends Component {
             >
               <LightbulbOutline />
             </IconButton>
+            <IconButton>
+              <Refresh />
+            </IconButton>
             <IconButton
-              component="a"
               title="GitHub"
               color="contrast"
-              href="https://github.com/callemall/material-ui/tree/v1-alpha"
             >
               <Github />
             </IconButton>
