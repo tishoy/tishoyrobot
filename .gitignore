@@ -1,0 +1,6 @@
+# exclude everything except directory foo/bar
+/*
+!/training
+!.gitignore
+/training/*
+!/training/src

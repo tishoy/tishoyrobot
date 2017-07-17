@@ -25,3 +25,24 @@ export function titleize(string: String) {
     })
     .join(' ');
 }
+
+export function getTimeString(timeStamp) {
+  let date;
+  let ts = parseInt(timeStamp);
+  if (isNaN(ts)) {
+    data = new Date();
+  } else if (ts > 1000000000000) {
+    date = new Date(ts);
+  } else {
+    date = new Date(ts * 1000);
+  }
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  let hour = date.getHours();
+  let minute = date.getMinutes();
+  let second = date.getSeconds();
+
+  return [year, month, day].map(Util.number.formatTimeNumber).join('/') + ' ' + [hour, minute, second].map(Util.number.formatTimeNumber).join(':')
+}

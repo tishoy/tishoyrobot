@@ -1,0 +1,65 @@
+{
+    "base_info": {
+        "name": "tishoy",
+        "tel": "tishoy",
+        "email": "tishoy",
+        "city": "北京",
+        "level": "中级"
+    },
+    "personal_info": {
+        "licence": "232700198902230021",
+        "edu": "QH University",
+        "working_time": "5 year",
+        "total_amount": "",
+        "soft_amount": ""
+    },
+    "proj_exp": [
+        {
+            "name": "",
+            "time": "",
+            "actor": "",
+            "total_amount": "",
+            "soft_amount": ""
+        },
+        {
+            "name": "",
+            "time": "",
+            "actor": "",
+            "total_amount": "",
+            "soft_amount": ""
+        },
+        {
+            "name": "",
+            "time": "",
+            "actor": "",
+            "total_amount": "",
+            "soft_amount": ""
+        }
+    ],
+    "status": {
+        "enrolled": {
+            "status": 1,
+            "time": 1500262255
+        },
+        "arranged": {
+            "status": 1,
+            "time": 1500262255
+        },
+        "agreed": {
+            "status": 1,
+            "time": 1500262255
+        },
+        "examing": {
+            "status": 1,
+            "time": 1500262255
+        },
+        "passed": {
+            "score": 96,
+            "time": 1500262255
+        },
+        "retry": {
+            "status": 1,
+            "time": 1500262255
+        }
+    }
+}

@@ -6,7 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Link from 'react-router/lib/Link';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import LoginPanel from '../components'
+import LoginPanel from '../components/LoginPanel.js';
 
 const styleSheet = createStyleSheet('Home', theme => {
   return {

@@ -63,11 +63,11 @@ function LoginPanel(props) {
     );
 }
 
-AppContent.propTypes = {
+LoginPanel.propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
     route: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(AppContent);
+export default withStyles(styleSheet)(LoginPanel);
