@@ -1,4 +1,5 @@
 // @flow
+import config from "../config.js";
 
 export function kebabCase(string: String) {
   return string
@@ -45,4 +46,41 @@ export function getTimeString(timeStamp) {
   let second = date.getSeconds();
 
   return [year, month, day].map(Util.number.formatTimeNumber).join('/') + ' ' + [hour, minute, second].map(Util.number.formatTimeNumber).join(':')
+}
+
+export function getData(router, json) {
+
+  if (isJson(json)) {
+
+  }
+  fetch(config.server_addr + router, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(json)
+  }).then(function status(response) {
+    if (response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response);
+    }
+    else {
+      return Promise.reject(new Error(response.statusText));
+    }
+  }).then(function (response) {
+    return response.json()
+  }).then(function (data) {
+    console.log(data)
+    // return response.json();
+  }).catch(function (e) {
+    console.log(e);
+    console.log("服务器数据请求错误");
+  });
+  return
+}
+
+export function isJson(obj) {
+  return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
 }

@@ -7,8 +7,12 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import CheckBox from 'material-ui/CheckBox';
 import Button from 'material-ui/Button';
+import Checkbox from 'material-ui/Checkbox';
 
-const styleSheet = createStyleSheet('AppContent', theme => ({
+import { getData } from '../utils/helpers.js';
+import Lang from '../utils/language.js';
+
+const styleSheet = createStyleSheet('LoginPanel', theme => ({
     content: theme.mixins.gutters({
         paddingTop: 80,
         flex: '1 1 100%',
@@ -31,8 +35,8 @@ function LoginPanel(props) {
             <TextField
                 name="login_account"
                 id="login_account"
-                hintText={Lang[window.Lang].Common.input_your_account}
-                floatingLabelText={Lang[window.Lang].Master.account}
+                hintText={Lang["Chin"].Common.input_your_account}
+                floatingLabelText={Lang["Chin"].Common.account}
                 fullWidth={true}
                 defaultValue={sessionStorage.account}
             />
@@ -40,23 +44,30 @@ function LoginPanel(props) {
                 name="password"
                 id="login_password"
                 type="password"
-                hintText={Lang[window.Lang].Common.input_your_password}
-                floatingLabelText={Lang[window.Lang].Master.password}
+                hintText={Lang["Chin"].Common.input_your_password}
+                floatingLabelText={Lang["Chin"].Common.password}
                 fullWidth={true}
                 defaultValue={""}
             />
             <Checkbox
-                label="记住登录状态"
-                checked={this.state.rememberLogin}
+                label="记住密码"
+                // checked={this.state.rememberLogin}
                 style={{
                     checkbox: {
                         marginTop: 10,
                         marginBottom: 10
                     },
                 }}
-                onCheck={this.onRememberLogin}
+                onCheck={() => { }}
             />
-            <Button raised className={classes.button}>
+            <Button
+                raised
+                className={classes.button}
+                onClick={() => {
+                    console.log("123");
+                    var result = getData("post", { name: "tishoy", aaa: 3 });
+                }}
+            >
 
             </Button>
         </div>
@@ -67,7 +78,7 @@ LoginPanel.propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
-    route: PropTypes.object.isRequired,
+    // route: PropTypes.object.isRequired,
 };
 
 export default withStyles(styleSheet)(LoginPanel);

@@ -48,6 +48,7 @@ function Home(props) {
     <div className={classes.root}>
       <div className={classes.hero}>
         <div className={classes.content}>
+          <LoginPanel />
           {/*<img src={muiLogo} alt="Material-UI Logo" className={classes.logo} />
           <Typography type="display2" component="h1" color="inherit">
             {'Material-UI'}
@@ -64,7 +65,7 @@ function Home(props) {
             {'登陆'}
           </Button>*/}
 
-            
+
         </div>
       </div>
     </div>

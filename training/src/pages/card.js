@@ -35,22 +35,22 @@ function SimpleCard(props) {
     <div>
       <Card className={classes.card}>
         <CardContent>
-          <Typography type="body1" className={classes.title}>
-            Word of the Day
+          <Typography type="name" className={classes.title}>
+            太帅
           </Typography>
-          <Typography type="headline" component="h2">
-            be{bull}nev{bull}o{bull}lent
+          <Typography type="tel" component="h2">
+            13845773125
           </Typography>
-          <Typography type="body1" className={classes.pos}>
-            adjective
+          <Typography type="email" className={classes.pos}>
+            182161673@qq.com
           </Typography>
           <Typography component="p">
-            well meaning and kindly.<br />
-            {'"a benevolent smile"'}
+            中级<br />
+            {'"北京"'}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button dense>Learn More</Button>
+          <Button dense>修改</Button>
         </CardActions>
       </Card>
     </div>
