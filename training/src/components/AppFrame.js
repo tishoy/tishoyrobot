@@ -72,10 +72,10 @@ const styleSheet = createStyleSheet('AppFrame', theme => ({
   },
   [theme.breakpoints.up('lg')]: {
     drawer: {
-      width: '250px',
+      width: '100px',
     },
     appBarShift: {
-      width: 'calc(100% - 250px)',
+      width: 'calc(100% - 100px)',
     },
     navIconHide: {
       display: 'none',
@@ -136,7 +136,7 @@ class AppFrame extends Component {
               </Typography>}
             <div className={classes.grow} />
             <AppSearch />
-            
+
             <IconButton
               title="Toggle light/dark theme"
               color="contrast"

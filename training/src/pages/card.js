@@ -6,6 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import Style from '../Style.js';
 
 const styleSheet = createStyleSheet('SimpleCard', theme => ({
   card: {
@@ -33,7 +34,7 @@ function SimpleCard(props) {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={card} style={Style.card}>
         <CardContent>
           <Typography type="body1" className={classes.title}>
             Word of the Day

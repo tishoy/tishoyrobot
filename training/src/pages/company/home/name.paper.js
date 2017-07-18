@@ -8,8 +8,9 @@ import Typography from 'material-ui/Typography';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
   root: theme.mixins.gutters({
-    paddingTop: 16,
+    paddingTop: 32,
     paddingBottom: 16,
+    
   }),
 }));
 
@@ -17,8 +18,8 @@ function PaperSheet(props) {
   const classes = props.classes;
   return (
     <div>
-      <Paper width="500px" className={classes.root} elevation={4}>
-        <Typography type="headline" component="h3">
+      <Paper id="companyid" width="500px">
+        <Typography type="headline" component="h5">
           企业名称
         </Typography>
         <Typography type="body1" component="p">

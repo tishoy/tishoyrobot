@@ -31,23 +31,19 @@ function PaperSheet(props) {
     return (
         <div>
             <Paper className={classes.root} elevation={4}>
-                <Typography type="headline" component="h3">
-                    {"待安排的学员"}
-                </Typography>
-                <List>
-                    <ListItem button>
-
-                        <ListItemText primary="Photos" secondary="Jan 9, 2016" />
-                    </ListItem>
-                    <ListItem button>
-
-                        <ListItemText primary="Photos" secondary="Jan 9, 2016" />
-                        <ListItemSecondaryAction>
-                            <IconButton aria-label="Delete">
-                                <DeleteIcon />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
+                <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
+                    {[0, 1, 2, 3].map(value =>
+                        <ListItem dense button key={value}>
+                            {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
+                            <ListItemText primary={`Tishoy`} />
+                            <ListItemSecondaryAction>
+                                {/* <Checkbox
+                  onClick={event => this.handleToggle(event, value)}
+                  checked={this.state.checked.indexOf(value) !== -1}
+                /> */}
+                            </ListItemSecondaryAction>
+                        </ListItem>,
+                    )}
                 </List>
             </Paper>
         </div>
