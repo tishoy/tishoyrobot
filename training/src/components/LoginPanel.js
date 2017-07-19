@@ -76,7 +76,7 @@ function LoginPanel(props) {
                     className={classes.button}
                     onClick={() => {
                         console.log("123");
-                        var result = getData("post", { name: "tishoy", aaa: 3 });
+                        var result = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
                     }}
                 >
 

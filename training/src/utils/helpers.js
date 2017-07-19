@@ -48,12 +48,12 @@ export function getTimeString(timeStamp) {
   return [year, month, day].map(Util.number.formatTimeNumber).join('/') + ' ' + [hour, minute, second].map(Util.number.formatTimeNumber).join(':')
 }
 
-export function getData(router, json) {
+export function getData(addr, router, json) {
 
   if (isJson(json)) {
 
   }
-  fetch(config.server_addr + router, {
+  fetch(addr + router, {
     method: 'POST',
     mode: 'cors',
     cache: 'default',
