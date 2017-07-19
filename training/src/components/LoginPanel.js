@@ -7,7 +7,13 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import CheckBox from 'material-ui/CheckBox';
 import Button from 'material-ui/Button';
-import Checkbox from 'material-ui/Checkbox';
+// import Checkbox from 'material-ui/Checkbox';
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from 'material-ui/Dialog';
 
 import { getData } from '../utils/helpers.js';
 import Lang from '../utils/language.js';
@@ -26,6 +32,8 @@ const styleSheet = createStyleSheet('LoginPanel', theme => ({
     },
 }));
 
+
+
 function LoginPanel(props) {
     const classes = props.classes;
 
@@ -33,10 +41,7 @@ function LoginPanel(props) {
     return (
         <div>
             <Dialog
-                title={"输入连接服务器地址"}
-                modal={false}
-                open={this.state.loginFormOpen}
-                onRequestClose={this.handleClose}
+                open={true}
             >
                 <TextField
                     name="login_account"
@@ -55,7 +60,7 @@ function LoginPanel(props) {
                     fullWidth={true}
                     defaultValue={""}
                 />
-                <Checkbox
+                {/* <Checkbox
                     label="记住密码"
                     // checked={this.state.rememberLogin}
                     style={{
@@ -65,7 +70,7 @@ function LoginPanel(props) {
                         },
                     }}
                     onCheck={() => { }}
-                />
+                /> */}
                 <Button
                     raised
                     className={classes.button}
@@ -80,14 +85,6 @@ function LoginPanel(props) {
         </div>
     );
 }
-
-LoginPanle.handleClose = () => {
-    this.setState({ loginFormOpen: false });
-};
-
-LoginPanel.state = {
-    loginFormOpen: true
-};
 
 LoginPanel.propTypes = {
     children: PropTypes.node,
