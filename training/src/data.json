@@ -1,10 +1,11 @@
 {
     "base_info": {
         "name": "tishoy",
-        "tel": "tishoy",
+        "tel": "13810100010",
         "email": "tishoy",
         "city": "北京",
-        "level": "中级"
+        "level": "中级",
+        "company": "中软"
     },
     "personal_info": {
         "licence": "232700198902230021",
@@ -15,6 +16,7 @@
     },
     "proj_exp": [
         {
+            "id": "",
             "name": "",
             "time": "",
             "actor": "",
@@ -22,6 +24,7 @@
             "soft_amount": ""
         },
         {
+            "id": "",
             "name": "",
             "time": "",
             "actor": "",
@@ -29,6 +32,7 @@
             "soft_amount": ""
         },
         {
+            "id": "",
             "name": "",
             "time": "",
             "actor": "",
@@ -54,6 +58,7 @@
             "time": 1500262255
         },
         "passed": {
+            "status": 1,
             "score": 96,
             "time": 1500262255
         },

@@ -13,7 +13,7 @@ import Link from 'training/src/components/Link';
 
 const styleSheet = createStyleSheet('AppDrawer', theme => ({
   paper: {
-    width: 250,
+    width: 125,
     backgroundColor: theme.palette.background.paper,
   },
   title: {
@@ -89,17 +89,9 @@ function AppDrawer(props) {
         <Toolbar className={classes.toolbar}>
           <Link className={classes.title} to="/" onClick={props.onRequestClose}>
             <Typography type="title" gutterBottom color="inherit">
-              Material-UI
+              企业登陆
             </Typography>
           </Link>
-          {process.env.MATERIAL_UI_VERSION
-            ? <Link
-                className={classes.anchor}
-                href={`${GITHUB_RELEASE_BASE_URL}v${process.env.MATERIAL_UI_VERSION}`}
-              >
-                <Typography type="caption">{`v${process.env.MATERIAL_UI_VERSION}`}</Typography>
-              </Link>
-            : null}
           <Divider absolute />
         </Toolbar>
         {renderNavItems(props, props.routes[0])}

@@ -4,10 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
+import Avatar from 'material-ui/Avatar';
+import List, {
+  ListItem, ListItemSecondaryAction, ListItemText,
+  ListSubheader,
+} from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
   root: theme.mixins.gutters({
+    magain: 10,
     paddingTop: 16,
     paddingBottom: 16,
   }),
@@ -18,15 +24,23 @@ function PaperSheet(props) {
   return (
     <div>
       <Paper className={classes.root} elevation={4}>
-        <Typography type="headline" component="h3">
-          企业名称
-        </Typography>
-        <Typography type="body1" component="p">
-          已安排/已报名：10人次/15人次
-        </Typography>
-        <Typography type="body1" component="p">
-          已安排/已报名：人次/人次
-        </Typography>
+
+        <List subheader={<ListSubheader>已安排的学员</ListSubheader>}>
+          {[0, 1, 2, 3].map(value =>
+            <ListItem dense button key={value}>
+              {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
+              <ListItemText primary={`Tishoy`} />
+              <ListItemSecondaryAction>
+                {/* <Checkbox
+                  onClick={event => this.handleToggle(event, value)}
+                  checked={this.state.checked.indexOf(value) !== -1}
+                /> */}
+              </ListItemSecondaryAction>
+            </ListItem>,
+          )}
+        </List>
+
+
       </Paper>
     </div>
   );

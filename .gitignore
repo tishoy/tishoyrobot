@@ -1,6 +1,5 @@
-# exclude everything except directory foo/bar
-/*
-!/training
-!.gitignore
-/training/*
-!/training/src
+# 
+
+training/build/dll.manifest.json
+training/build/dll.bundle.js
+.gitignore

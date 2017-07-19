@@ -10,10 +10,12 @@ import AppFrame from 'training/src/components/AppFrame';
 import Home from 'training/src/pages/Home';
 // import { componentAPIs, requireMarkdown, demos, requireDemo } from 'training/src/components/files';
 
-import Enrolled from '../pages/company/enrolled.page.js';
-import CompanyHome from '../pages/company/home.page.js';
-import Students from '../pages/company/students.page.js';
-import Exams from '../pages/company/exams.page.js';
+import Enrolled from '../pages/company/enrolled/enrolled.page.js';
+import CompanyHome from '../pages/company/home/home.page.js';
+import Students from '../pages/company/students/students.page.js';
+import Exams from '../pages/company/exams/exams.page.js';
+import Infos from '../pages/company/infos/info.page.js';
+
 
 
 
@@ -23,32 +25,38 @@ export default function AppRouter() {
     <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
       <Route title="Material-UI" path="/" component={AppFrame}>
         <IndexRoute dockDrawer component={Home} title={null} />
-        
-        <Route title="企业账号" path="/company" nav >
-          <Route
-            title={titleize("首页")}
-            path={'/company/home'}
-            nav component={CompanyHome}
-          />
-          <Route
-            title={titleize("学生")}
-            path={'/company/students'}
-            content={Students}
-            nav component={Students}
-          />
-          <Route
-            title={titleize("报名")}
-            path={'/company/enrolled'}
-            content={Enrolled}
-            nav component={Enrolled}
-          />
-          <Route
-            title={titleize("考试")}
-            path={'/company/exams'}
-            content={Exams}
-            nav component={Exams}
-          />
-        </Route>
+
+        {/* <Route title="企业账号" path="/company" nav > */}
+        <Route
+          title={titleize("首页")}
+          path={'/company/home'}
+          nav component={CompanyHome}
+        />
+        <Route
+          title={titleize("企业信息")}
+          path={'/company/infos'}
+          content={Students}
+          nav component={Students}
+        />
+        <Route
+          title={titleize("学生")}
+          path={'/company/students'}
+          content={Students}
+          nav component={Students}
+        />
+        <Route
+          title={titleize("报名")}
+          path={'/company/enrolled'}
+          content={Enrolled}
+          nav component={Enrolled}
+        />
+        <Route
+          title={titleize("考试")}
+          path={'/company/exams'}
+          content={Exams}
+          nav component={Exams}
+        />
+        {/* </Route> */}
       </Route>
     </Router>
   )
