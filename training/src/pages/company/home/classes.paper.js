@@ -4,24 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
+import Avatar from 'material-ui/Avatar';
 import List, {
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
+    ListItem, ListItemSecondaryAction, ListItemText,
     ListSubheader,
 } from 'material-ui/List';
-import IconButton from 'material-ui/IconButton';
-
-import DeleteIcon from 'material-ui-icons/Delete';
-
-import StudentCard from '../card.js';
-
-
+import Typography from 'material-ui/Typography';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
+        magain: 10,
         paddingTop: 16,
         paddingBottom: 16,
     }),
@@ -32,20 +24,23 @@ function PaperSheet(props) {
     return (
         <div>
             <Paper className={classes.root} elevation={4}>
-                <StudentCard>
-                </StudentCard>
-                {/*
-                <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
+
+                <List subheader={<ListSubheader>企业所属地区正在开设班级的</ListSubheader>}>
                     {[0, 1, 2, 3].map(value =>
                         <ListItem dense button key={value}>
-                            <ListItemText primary={`Tishoy`} />
+                            {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
+                            <ListItemText primary={`班级 ${value + 1}`} />
                             <ListItemSecondaryAction>
-                               
+                                {/* <Checkbox
+                  onClick={event => this.handleToggle(event, value)}
+                  checked={this.state.checked.indexOf(value) !== -1}
+                /> */}
                             </ListItemSecondaryAction>
                         </ListItem>,
                     )}
                 </List>
-                */}
+
+
             </Paper>
         </div>
     );

@@ -32,47 +32,62 @@ function LoginPanel(props) {
 
     return (
         <div>
-            <TextField
-                name="login_account"
-                id="login_account"
-                hintText={Lang["Chin"].Common.input_your_account}
-                floatingLabelText={Lang["Chin"].Common.account}
-                fullWidth={true}
-                defaultValue={sessionStorage.account}
-            />
-            <TextField
-                name="password"
-                id="login_password"
-                type="password"
-                hintText={Lang["Chin"].Common.input_your_password}
-                floatingLabelText={Lang["Chin"].Common.password}
-                fullWidth={true}
-                defaultValue={""}
-            />
-            <Checkbox
-                label="记住密码"
-                // checked={this.state.rememberLogin}
-                style={{
-                    checkbox: {
-                        marginTop: 10,
-                        marginBottom: 10
-                    },
-                }}
-                onCheck={() => { }}
-            />
-            <Button
-                raised
-                className={classes.button}
-                onClick={() => {
-                    console.log("123");
-                    var result = getData("post", { name: "tishoy", aaa: 3 });
-                }}
+            <Dialog
+                title={"输入连接服务器地址"}
+                modal={false}
+                open={this.state.loginFormOpen}
+                onRequestClose={this.handleClose}
             >
+                <TextField
+                    name="login_account"
+                    id="login_account"
+                    hintText={Lang["Chin"].Common.input_your_account}
+                    floatingLabelText={Lang["Chin"].Common.account}
+                    fullWidth={true}
+                    defaultValue={sessionStorage.account}
+                />
+                <TextField
+                    name="password"
+                    id="login_password"
+                    type="password"
+                    hintText={Lang["Chin"].Common.input_your_password}
+                    floatingLabelText={Lang["Chin"].Common.password}
+                    fullWidth={true}
+                    defaultValue={""}
+                />
+                <Checkbox
+                    label="记住密码"
+                    // checked={this.state.rememberLogin}
+                    style={{
+                        checkbox: {
+                            marginTop: 10,
+                            marginBottom: 10
+                        },
+                    }}
+                    onCheck={() => { }}
+                />
+                <Button
+                    raised
+                    className={classes.button}
+                    onClick={() => {
+                        console.log("123");
+                        var result = getData("post", { name: "tishoy", aaa: 3 });
+                    }}
+                >
 
-            </Button>
+                </Button>
+            </Dialog>
         </div>
     );
 }
+
+LoginPanle.handleClose = () => {
+    this.setState({ loginFormOpen: false });
+};
+
+LoginPanel.state = {
+    loginFormOpen: true
+};
 
 LoginPanel.propTypes = {
     children: PropTypes.node,

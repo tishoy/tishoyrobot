@@ -29,6 +29,9 @@ const styleSheet = createStyleSheet('SimpleCard', theme => ({
 }));
 
 function SimpleCard(props) {
+
+  console.log(props);
+
   const classes = props.classes;
   const bull = <span className={classes.bullet}>•</span>;
 
