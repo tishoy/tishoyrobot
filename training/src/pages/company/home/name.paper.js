@@ -17,9 +17,23 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Name extends Component {
+
+  state = {
+    data: {}
+  }
+
   componentDidMount() {
-    getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
-    console.log(1234);
+    this.getNameData();
+  }
+
+  getNameData() {
+    var cb = (route, message, arg) => {
+      console.log(route);
+      console.log(message);
+    }
+
+    var data = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 }, cb);
+    console.log(data);
   }
 
   render() {
@@ -29,14 +43,14 @@ class Name extends Component {
       <div>
         <Paper id="companyid" width="500px">
           <Typography type="headline" component="h5">
-            企业名称
-        </Typography>
+            {this.state.data.Company}
+          </Typography>
           <Typography type="body1" component="p">
-            已安排/已报名：10人次/15人次
-        </Typography>
+            {"已安排/已报名：10人次/15人次"}
+          </Typography>
           <Typography type="body1" component="p">
-            已通过/已培训：人次/人次
-        </Typography>
+            {"已通过/已培训：人次/人次"}
+          </Typography>
         </Paper>
       </div>
     );

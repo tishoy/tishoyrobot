@@ -48,7 +48,7 @@ export function getTimeString(timeStamp) {
   return [year, month, day].map(Util.number.formatTimeNumber).join('/') + ' ' + [hour, minute, second].map(Util.number.formatTimeNumber).join(':')
 }
 
-export function getData(addr, router, json) {
+export function getData(addr, router, json, callback = null, args = []) {
   if (isJson(json)) {
 
   }
@@ -69,9 +69,12 @@ export function getData(addr, router, json) {
       return Promise.reject(new Error(response.statusText));
     }
   }).then(function (response) {
-    return response.json()
+    return response.json();
   }).then(function (data) {
-    console.log(data)
+    if (callback !== null) {
+      callback(router, data, args);
+    }
+    return data;
     // return response.json();
   }).catch(function (e) {
     console.log(e);

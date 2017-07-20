@@ -29,8 +29,7 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Unarranged extends Component {
     componentDidMount() {
-        getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
-        console.log(123);
+        var cc = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
     }
 
     render() {

@@ -26,8 +26,8 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 class Arranged extends Component {
 
   componentDidMount() {
-    getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
-    console.log(12311);
+    var aa = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
+    console.log(aa);
   }
 
   render() {

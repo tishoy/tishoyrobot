@@ -23,9 +23,20 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Clazzes extends Component {
 
+    state = {}
+
     componentDidMount() {
-        getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
-        console.log(12322);
+        this.getClassesData();
+    }
+
+    getClassesData() {
+        var cb = (id, message, arg) => {
+            console.log(id);
+            console.log(message);
+        }
+
+        var data = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 }, cb);
+        console.log(data);
     }
 
     render() {

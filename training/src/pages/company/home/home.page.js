@@ -14,8 +14,17 @@ const Style = {
 }
 
 class Home extends Component {
+
+
     state = {
+        students: {}
     };
+
+    componentDidMount() {
+
+    }
+
+
 
 
 
@@ -23,7 +32,7 @@ class Home extends Component {
         return (
             <div>
                 <div
-                    style={{ paddingTop: 80, paddingLeft: 40,  justifyContent: 'space-between' }}
+                    style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}
                 >
                     <div style={Style.paper}>
                         <NamePaper />
