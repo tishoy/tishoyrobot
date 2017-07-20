@@ -6,6 +6,8 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
+import { getData } from '../../../utils/helpers.js';
+
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
   root: theme.mixins.gutters({
     paddingTop: 32,
@@ -15,6 +17,11 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Name extends Component {
+  componentDidMount() {
+    getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
+    console.log(1234);
+  }
+
   render() {
 
 

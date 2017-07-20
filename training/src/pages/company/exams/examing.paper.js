@@ -30,7 +30,6 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 class Examing extends Component {
     render() {
 
-        const classes = props.classes;
         return (
             <div>
                 <Paper  elevation={4}>

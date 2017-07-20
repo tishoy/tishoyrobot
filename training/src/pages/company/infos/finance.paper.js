@@ -25,21 +25,21 @@ class Finance extends Component {
         return (
             <div>
 
-                <Paper className={classes.paper}>
+                <Paper >
                     <Typography type="body1" component="p">
-                        {企业名称}
+                        {"企业名称"}
                     </Typography>
                     <TextField>
 
                     </TextField>
                     <Typography type="body1" component="p">
-                        {省市地区}
+                        {"省市地区"}
                     </Typography>
                     <TextField>
 
                     </TextField>
                     <Typography type="body1" component="p">
-                        {一级资质}
+                        {"一级资质"}
                     </Typography>
                     <TextField>
 

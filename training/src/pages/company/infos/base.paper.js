@@ -25,96 +25,28 @@ class Base extends Component {
 
         return (
             <div>
-                <Grid container gutter={24}>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
+                <Paper >
+                    <Typography type="body1" component="p">
+                        {"企业名称"}
+                    </Typography>
+                    <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
+                    </TextField>
+                    <Typography type="body1" component="p">
+                        {"省市地区"}
+                    </Typography>
+                    <TextField>
 
-                            </TextField>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
+                    </TextField>
+                    <Typography type="body1" component="p">
+                        {"一级资质"}
+                    </Typography>
+                    <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
+                    </TextField>
+                </Paper>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
-                    </Grid>
-                </Grid>
             </div>
         );
     }

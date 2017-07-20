@@ -18,7 +18,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 
 import StudentCard from '../card.js';
 
-
+import { getData } from '../../../utils/helpers.js';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
@@ -28,10 +28,15 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Unarranged extends Component {
+    componentDidMount() {
+        getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
+        console.log(123);
+    }
+
     render() {
         return (
             <div>
-                <Paper  elevation={4}>
+                <Paper elevation={4}>
                     <StudentCard>
                     </StudentCard>
                     {/*

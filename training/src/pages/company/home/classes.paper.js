@@ -11,6 +11,8 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
+import { getData } from '../../../utils/helpers.js';
+
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
         magain: 10,
@@ -20,12 +22,18 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Clazzes extends Component {
+
+    componentDidMount() {
+        getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
+        console.log(12322);
+    }
+
     render() {
 
 
         return (
             <div>
-                <Paper  elevation={4}>
+                <Paper elevation={4}>
 
                     <List subheader={<ListSubheader>企业所属地区正在开设班级的</ListSubheader>}>
                         {[0, 1, 2, 3].map(value =>

@@ -17,8 +17,6 @@ import Exams from '../pages/company/exams/exams.page.js';
 import Infos from '../pages/company/infos/info.page.js';
 
 
-
-
 export default function AppRouter() {
 
   return (
@@ -35,8 +33,8 @@ export default function AppRouter() {
         <Route
           title={titleize("企业信息")}
           path={'/company/infos'}
-          content={Students}
-          nav component={Students}
+          content={Infos}
+          nav component={Infos}
         />
         <Route
           title={titleize("学生")}

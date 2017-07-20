@@ -13,7 +13,6 @@ const Style = {
     paper: { margin: 10, width: 400, float: "left" }
 }
 
-
 class Home extends Component {
     state = {
     };

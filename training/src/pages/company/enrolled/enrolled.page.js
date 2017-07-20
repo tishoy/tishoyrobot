@@ -19,7 +19,7 @@ class Enrolled extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}>
                 <div style={Style.paper}>
                     <UnenrollPaper />
                 </div>

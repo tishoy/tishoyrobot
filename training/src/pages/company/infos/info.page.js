@@ -8,6 +8,11 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 
+import Base from './base.paper';
+import Finance from './finance.paper';
+import Express from './express.paper';
+import Admin from './admin.paper';
+
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
         paddingTop: 16,
@@ -27,92 +32,16 @@ class Info extends Component {
             <div>
                 <Grid container gutter={24}>
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
+                        <Base />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
+                        <Finance />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
+                        <Express />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
-                            <Typography type="body1" component="p">
-                                {企业名称}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {省市地区}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {一级资质}
-                            </Typography>
-                            <TextField>
-
-                            </TextField>
-                        </Paper>
+                        <Admin />
                     </Grid>
                 </Grid>
             </div>

@@ -10,7 +10,10 @@ import List, {
   ListSubheader,
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
+
 import StudentCard from '../card.js';
+
+import { getData } from '../../../utils/helpers.js';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
   root: theme.mixins.gutters({
@@ -21,11 +24,17 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Arranged extends Component {
+
+  componentDidMount() {
+    getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
+    console.log(12311);
+  }
+
   render() {
 
     return (
       <div>
-        <Paper  elevation={4}>
+        <Paper elevation={4}>
 
           <List subheader={<ListSubheader>已安排的学员</ListSubheader>}>
             {[0, 1, 2, 3].map(value =>

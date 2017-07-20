@@ -49,7 +49,6 @@ export function getTimeString(timeStamp) {
 }
 
 export function getData(addr, router, json) {
-
   if (isJson(json)) {
 
   }
@@ -83,4 +82,8 @@ export function getData(addr, router, json) {
 
 export function isJson(obj) {
   return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
+}
+
+export function getStorage(key) {
+  return localStorage.getItem(key);
 }

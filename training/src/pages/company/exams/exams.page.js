@@ -10,7 +10,7 @@ import UnpassPaper from './unpass.paper.js';
 // import 
 
 const Style = {
-    paper: { margin: 10 }
+    paper: { margin: 10, width: 400, float: "left" }
 }
 
 
