@@ -14,7 +14,7 @@ const Style = {
 }
 
 
-class HomePage extends Component {
+class Home extends Component {
     state = {
     };
 
@@ -45,4 +45,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default Home;

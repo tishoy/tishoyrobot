@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -20,106 +20,106 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     },
 }));
 
-function PaperSheet(props) {
-    const classes = props.classes;
-    return (
-        <div>
-            <Grid container gutter={24}>
-                <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>
-                        <Typography type="body1" component="p">
-                            {企业名称}
-                        </Typography>
-                        <TextField>
+class Admin extends Componet {
+    render() {
+        return (
+            <div>
+                <Grid container gutter={24}>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                            <Typography type="body1" component="p">
+                                {企业名称}
+                            </Typography>
+                            <TextField>
 
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {省市地区}
-                        </Typography>
-                        <TextField>
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {省市地区}
+                            </Typography>
+                            <TextField>
 
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {一级资质}
-                        </Typography>
-                        <TextField>
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {一级资质}
+                            </Typography>
+                            <TextField>
 
-                        </TextField>
-                    </Paper>
+                            </TextField>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                            <Typography type="body1" component="p">
+                                {企业名称}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {省市地区}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {一级资质}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                            <Typography type="body1" component="p">
+                                {企业名称}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {省市地区}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {一级资质}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                            <Typography type="body1" component="p">
+                                {企业名称}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {省市地区}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                            <Typography type="body1" component="p">
+                                {一级资质}
+                            </Typography>
+                            <TextField>
+
+                            </TextField>
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>
-                        <Typography type="body1" component="p">
-                            {企业名称}
-                        </Typography>
-                        <TextField>
+            </div>
+        );
+    }
 
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {省市地区}
-                        </Typography>
-                        <TextField>
 
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {一级资质}
-                        </Typography>
-                        <TextField>
 
-                        </TextField>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>
-                        <Typography type="body1" component="p">
-                            {企业名称}
-                        </Typography>
-                        <TextField>
-
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {省市地区}
-                        </Typography>
-                        <TextField>
-
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {一级资质}
-                        </Typography>
-                        <TextField>
-
-                        </TextField>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>
-                        <Typography type="body1" component="p">
-                            {企业名称}
-                        </Typography>
-                        <TextField>
-
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {省市地区}
-                        </Typography>
-                        <TextField>
-
-                        </TextField>
-                        <Typography type="body1" component="p">
-                            {一级资质}
-                        </Typography>
-                        <TextField>
-
-                        </TextField>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div>
-    );
-}
-
-PaperSheet.propTypes = {
-    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(PaperSheet);
+export default Admin;

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -19,37 +19,38 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     },
 }));
 
-function PaperSheet(props) {
-    const classes = props.classes;
-    return (
-        <div>
+class Finance extends Componet {
+    render() {
 
-            <Paper className={classes.paper}>
-                <Typography type="body1" component="p">
-                    {企业名称}
-                </Typography>
-                <TextField>
+        return (
+            <div>
 
-                </TextField>
-                <Typography type="body1" component="p">
-                    {省市地区}
-                </Typography>
-                <TextField>
+                <Paper className={classes.paper}>
+                    <Typography type="body1" component="p">
+                        {企业名称}
+                    </Typography>
+                    <TextField>
 
-                </TextField>
-                <Typography type="body1" component="p">
-                    {一级资质}
-                </Typography>
-                <TextField>
+                    </TextField>
+                    <Typography type="body1" component="p">
+                        {省市地区}
+                    </Typography>
+                    <TextField>
 
-                </TextField>
-            </Paper>
-        </div>
-    );
-}
+                    </TextField>
+                    <Typography type="body1" component="p">
+                        {一级资质}
+                    </Typography>
+                    <TextField>
 
-PaperSheet.propTypes = {
-    classes: PropTypes.object.isRequired,
+                    </TextField>
+                </Paper>
+            </div>
+        );
+    }
+
+
+
 };
 
-export default withStyles(styleSheet)(PaperSheet);
+export default Finance;

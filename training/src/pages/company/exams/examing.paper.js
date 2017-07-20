@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -27,14 +27,16 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     }),
 }));
 
-function PaperSheet(props) {
-    const classes = props.classes;
-    return (
-        <div>
-            <Paper className={classes.root} elevation={4}>
-                <StudentCard>
-                </StudentCard>
-                {/*
+class Examing extends Component {
+    render() {
+
+        const classes = props.classes;
+        return (
+            <div>
+                <Paper className={classes.root} elevation={4}>
+                    <StudentCard>
+                    </StudentCard>
+                    {/*
                 <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
                     {[0, 1, 2, 3].map(value =>
                         <ListItem dense button key={value}>
@@ -46,13 +48,11 @@ function PaperSheet(props) {
                     )}
                 </List>
                 */}
-            </Paper>
-        </div>
-    );
+                </Paper>
+            </div>
+        );
+
+    }
 }
 
-PaperSheet.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styleSheet)(PaperSheet);
+export default Examing;

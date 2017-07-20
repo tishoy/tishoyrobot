@@ -11,7 +11,7 @@ const Style = {
 }
 
 
-class EnrolledPage extends Component {
+class Enrolled extends Component {
     state = {
     };
 
@@ -34,4 +34,4 @@ class EnrolledPage extends Component {
     }
 }
 
-export default EnrolledPage;
+export default Enrolled;
