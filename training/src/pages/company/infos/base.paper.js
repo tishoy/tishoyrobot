@@ -20,7 +20,7 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     },
 }));
 
-class Base extends Componet {
+class Base extends Component {
     render() {
 
         return (

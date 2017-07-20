@@ -26,7 +26,7 @@ class Students extends Component {
                     <div style={Style.paper}>
                         <NamePaper />
                     </div>
-                    <Paper className={classes.root} elevation={4}>
+                    <Paper  elevation={4}>
                         <div>
                             <Typography type="headline" component="h3">
                                 {基本信息}

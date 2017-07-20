@@ -31,7 +31,7 @@ class Unarranged extends Component {
     render() {
         return (
             <div>
-                <Paper className={classes.root} elevation={4}>
+                <Paper elevation={4}>
                     <StudentCard>
                     </StudentCard>
                     {/*

@@ -27,11 +27,11 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     }),
 }));
 
-class Unarranged extends Componet {
+class Unarranged extends Component {
     render() {
         return (
             <div>
-                <Paper className={classes.root} elevation={4}>
+                <Paper  elevation={4}>
                     <StudentCard>
                     </StudentCard>
                     {/*

@@ -21,7 +21,6 @@ class Exams extends Component {
 
 
     render() {
-        console.log("123");
         return (
             <div>
                 <div

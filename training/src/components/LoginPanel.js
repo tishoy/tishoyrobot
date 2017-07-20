@@ -69,7 +69,6 @@ class LoginPanel extends Component {
                 /> */}
                     <Button
                         raised
-                        className={classes.button}
                         onClick={() => {
                             console.log("123");
                             var result = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
@@ -90,4 +89,4 @@ class LoginPanel extends Component {
 //     // route: PropTypes.object.isRequired,
 // };
 
-export default withStyles(styleSheet)(LoginPanel);
+export default LoginPanel;

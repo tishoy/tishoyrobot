@@ -26,7 +26,7 @@ class Arranaged extends Component {
 
     return (
       <div>
-        <Paper className={classes.root} elevation={4}>
+        <Paper  elevation={4}>
 
           <List subheader={<ListSubheader>已安排的学员</ListSubheader>}>
             {[0, 1, 2, 3].map(value =>

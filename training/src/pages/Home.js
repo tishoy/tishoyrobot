@@ -45,10 +45,9 @@ function Home(props) {
   const classes = props.classes;
 
   return (
-    <div className={classes.root}>
+    <div >
       <div className={classes.hero}>
         <div className={classes.content}>
-          <LoginPanel />
           {/*<img src={muiLogo} alt="Material-UI Logo" className={classes.logo} />
           <Typography type="display2" component="h1" color="inherit">
             {'Material-UI'}

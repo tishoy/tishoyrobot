@@ -36,7 +36,7 @@ function SimpleCard(props) {
 
   return (
     <div>
-      <Card className={card} style={Style.card}>
+      <Card>
         <CardContent>
           <Typography type="name" className={classes.title}>
             太帅

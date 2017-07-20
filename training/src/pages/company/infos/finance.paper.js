@@ -19,7 +19,7 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     },
 }));
 
-class Finance extends Componet {
+class Finance extends Component {
     render() {
 
         return (

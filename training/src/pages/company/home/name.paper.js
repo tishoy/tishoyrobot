@@ -14,7 +14,7 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
   }),
 }));
 
-class Name extends Componet {
+class Name extends Component {
   render() {
 
 

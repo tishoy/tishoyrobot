@@ -19,13 +19,13 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     }),
 }));
 
-class Clazzes extends Componet {
+class Clazzes extends Component {
     render() {
 
 
         return (
             <div>
-                <Paper className={classes.root} elevation={4}>
+                <Paper  elevation={4}>
 
                     <List subheader={<ListSubheader>企业所属地区正在开设班级的</ListSubheader>}>
                         {[0, 1, 2, 3].map(value =>
