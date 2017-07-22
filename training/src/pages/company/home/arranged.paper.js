@@ -25,10 +25,18 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Arranged extends Component {
 
-  componentDidMount() {
-    var aa = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 });
-    console.log(aa);
+  state = {
+    data: []
   }
+
+  componentDidMount() {
+    var cb = (router, message, args) => {
+      this.setState({ data: message.data })
+    }
+    getData("arrange", { session: "tishoy" }, cb, {});
+  }
+
+
 
   render() {
 
@@ -37,10 +45,10 @@ class Arranged extends Component {
         <Paper elevation={4}>
 
           <List subheader={<ListSubheader>已安排的学员</ListSubheader>}>
-            {[0, 1, 2, 3].map(value =>
-              <ListItem dense button key={value}>
+            {this.state.data.map(students =>
+              <ListItem dense button key={students.id}>
                 {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
-                <ListItemText primary={`Tishoy`} />
+                <ListItemText primary={students.name} />
                 <ListItemSecondaryAction>
                   {/* <Checkbox
                   onClick={event => this.handleToggle(event, value)}

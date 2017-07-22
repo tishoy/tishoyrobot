@@ -6,73 +6,198 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Link from 'react-router/lib/Link';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import LoginPanel from '../components/LoginPanel.js';
+import TextField from 'material-ui/TextField';
+import CheckBox from 'material-ui/CheckBox';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
-const styleSheet = createStyleSheet('Home', theme => {
-  return {
-    root: {
-      flex: '1 0 100%',
-    },
-    hero: {
-      minHeight: '100vh', // Makes the hero full height until we get some more content.
-      flex: '0 0 auto',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: theme.palette.primary[500],
-      color: theme.palette.getContrastText(theme.palette.primary[500]),
-    },
-    content: {
-      padding: '60px 30px',
-      textAlign: 'center',
-      [theme.breakpoints.up('sm')]: {
-        padding: '120px 30px',
-      },
-    },
-    button: {
-      marginTop: 20,
-    },
-    logo: {
-      margin: '20px -40%',
-      width: '100%',
-      height: '40vw',
-      maxHeight: 230,
-    },
-  };
-});
+import { getData, getRouter } from '../utils/helpers';
+import config from '../config';
 
-function Home(props) {
-  const classes = props.classes;
+class Home extends Component {
 
-  return (
-    <div >
-      <div className={classes.hero}>
-        <div className={classes.content}>
-          {/*<img src={muiLogo} alt="Material-UI Logo" className={classes.logo} />
-          <Typography type="display2" component="h1" color="inherit">
-            {'Material-UI'}
-          </Typography>
-          <Typography type="subheading" component="h2" color="inherit">
-            {"A React component library implementing Google's Material Design"}
-          </Typography>
+  state = {
+    logged: Boolean(sessionStorage.getItem("logged")),
+  }
+
+  componentDidMount() {
+
+
+    getRoutes();
+  }
+
+  getRoutes = (account) => {
+    var cb = (route, message, arg) => {
+      console.log(route);
+      console.log(message);
+      message.map(({ key, route }) => {
+        sessionStorage.setItem(key, route);
+      })
+    }
+
+    getData(config.routers, { type: 1, version: config.version }, cb);
+  }
+
+  check_available = () => {
+    var cb = (route, message, arg) => {
+      console.log(route);
+      console.log(message);
+    }
+    getData(getRouter("available"), { account: "", type: 1 }, cb);
+  }
+
+  register = (account, password, repeat) => {
+    // 判断两次密码是否一致
+    if (password !== repeat) {
+
+    }
+
+    var cb = (route, message, arg) => {
+      console.log(route);
+      console.log(message);
+    }
+    getData(getRouter("register"), { account: "", password: "", type: 1 }, cb);
+  }
+
+  login = (account, password) => {
+    var cb = (route, message, arg) => {
+      console.log(route);
+      console.log(message);
+      if (message.code === 0) {
+        sessionStorage.logged = true;
+        sessionStorage.account = arg["account"];
+        sessionStorage.session = message.session;
+        Cache = message.data;
+        console.log(Cache);
+      }
+    }
+    getData(getRouter("login"), { account: account, password: password, type: 1 }, cb, { account: account });
+  }
+
+
+  RegisterDialog = () => {
+
+    return (
+      <div>
+        <Dialog
+          open={true}
+        >
+          {Lang["Chin"].Common.input_your_account}
+          <TextField
+            name="register_account"
+            id="register_account"
+            hintText={Lang["Chin"].Common.input_your_account}
+            floatingLabelText={Lang["Chin"].Common.account}
+            fullWidth={true}
+            defaultValue={sessionStorage.account}
+            onBlur={() => {
+              this.check_available(document.getElementById("register_account").value);
+            }}
+          />
+          {Lang["Chin"].Common.input_your_password}
+          <TextField
+            name="register_password"
+            id="register_password"
+            type="password"
+            hintText={Lang["Chin"].Common.input_your_password}
+            floatingLabelText={Lang["Chin"].Common.password}
+            fullWidth={true}
+            defaultValue={""}
+          />
+          {/* <Checkbox
+                    label="记住密码"
+                    // checked={this.state.rememberLogin}
+                    style={{
+                        checkbox: {
+                            marginTop: 10,
+                            marginBottom: 10
+                        },
+                    }}
+                    onCheck={() => { }}
+                /> */}
           <Button
-            component={Link}
-            className={classes.button}
             raised
-            to="/getting-started/installation"
+            onClick={() => {
+              console.log("123");
+              this.register();
+            }}
           >
-            {'登陆'}
-          </Button>*/}
 
-
-        </div>
+          </Button>
+        </Dialog>
       </div>
-    </div>
-  );
+    )
+  }
+
+
+  LoginDialog = () => {
+
+    return (
+      <div>
+        <Dialog
+          open={true}
+        >
+          {Lang["Chin"].Common.input_your_account}
+          <TextField
+            name="login_account"
+            id="login_account"
+            hintText={Lang["Chin"].Common.input_your_account}
+            floatingLabelText={Lang["Chin"].Common.account}
+            fullWidth={true}
+            defaultValue={sessionStorage.account}
+          />
+          {Lang["Chin"].Common.input_your_password}
+          <TextField
+            name="password"
+            id="login_password"
+            type="password"
+            hintText={Lang["Chin"].Common.input_your_password}
+            floatingLabelText={Lang["Chin"].Common.password}
+            fullWidth={true}
+            defaultValue={""}
+          />
+          {/* <Checkbox
+                    label="记住密码"
+                    // checked={this.state.rememberLogin}
+                    style={{
+                        checkbox: {
+                            marginTop: 10,
+                            marginBottom: 10
+                        },
+                    }}
+                    onCheck={() => { }}
+                /> */}
+          <Button
+            raised
+            onClick={() => {
+              console.log("123");
+              this.login();
+            }}
+          >
+
+          </Button>
+        </Dialog>
+      </div>
+    )
+  }
+
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+
+
+
+
 }
 
-Home.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styleSheet)(Home);
+export default Home;

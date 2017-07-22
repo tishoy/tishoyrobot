@@ -160,9 +160,10 @@ class AppFrame extends Component {
           docked={drawerDocked}
           routes={routes}
           onRequestClose={this.handleDrawerClose}
-          open={drawerDocked || this.state.drawerOpen}
+          open={sessionStorage.getItem("logged") && (drawerDocked || this.state.drawerOpen)}
         />
         {children}
+        
       </div>
     );
   }

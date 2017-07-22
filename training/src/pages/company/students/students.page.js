@@ -8,6 +8,8 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
+import StudentCard from '../card';
+
 const Style = {
     paper: { paddingTop: 80, paddingLeft: 40, display: 'flex', FlexDirection: 'row', justifyContent: 'spacebetween' }
 
@@ -15,16 +17,28 @@ const Style = {
 
 
 class Students extends Component {
+
     state = {
-    };
+        students: {},
+        current: {}
+    }
 
+    componentDidMount() {
+        this.getStudents();
+    }
 
+    getStudents() {
+
+    }
 
     render() {
         return (
             <div>
                 <div>
                     <div style={Style.paper}>
+                        {this.state.students.map(student => {
+                            <StudentCard />
+                        })}
                     </div>
                     <Paper elevation={4}>
                         <div>

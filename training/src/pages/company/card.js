@@ -16,52 +16,60 @@ const styleSheet = createStyleSheet('SimpleCard', theme => ({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-    color: theme.palette.text.secondary,
-  },
-  pos: {
-    marginBottom: 12,
-    color: theme.palette.text.secondary,
-  },
+  
 }));
 
-function SimpleCard(props) {
+class SimpleCard extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    tel: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired,
+    city: PropTypes.number.isRequired
+  };
 
-  console.log(props);
 
-  const classes = props.classes;
-  const bull = <span className={classes.bullet}>•</span>;
+  render() {
+    const {
+      name,
+      tel,
+      email,
+      level,
+      city
+    } = this.props;
 
-  return (
-    <div>
-      <Card>
-        <CardContent>
-          <Typography type="name" className={classes.title}>
-            太帅
-          </Typography>
-          <Typography type="tel" component="h2">
-            13845773125
-          </Typography>
-          <Typography type="email" className={classes.pos}>
-            182161673@qq.com
-          </Typography>
-          <Typography component="p">
-            中级<br />
-            {'"北京"'}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button dense>修改</Button>
-        </CardActions>
-      </Card>
-    </div>
-  );
+    return (
+      <div>
+        <Card>
+          <CardContent>
+            <Typography type="name" style={{
+              marginBottom: 16,
+              fontSize: 14,
+              color: theme.palette.text.secondary,
+            }}>
+              {name}
+            </Typography>
+            <Typography type="tel" component="h2">
+              {tel}
+            </Typography>
+            <Typography type="email" style={{
+              marginBottom: 12,
+              color: theme.palette.text.secondary,
+            }}>
+              email
+            </Typography>
+            <Typography component="p">
+              level<br />
+              city
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button dense>修改</Button>
+          </CardActions>
+        </Card>
+      </div>
+    );
+  }
 }
 
-SimpleCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styleSheet)(SimpleCard);
+export default SimpleCard;

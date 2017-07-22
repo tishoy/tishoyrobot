@@ -40,6 +40,7 @@
             "soft_amount": ""
         }
     ],
+    // 状态 0 未进行 1 进行中 2 进行结束
     "status": {
         "enrolled": {
             "status": 1,

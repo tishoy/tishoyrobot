@@ -35,7 +35,6 @@ class Clazzes extends Component {
             console.log(message);
         }
 
-        var data = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 }, cb);
         console.log(data);
     }
 

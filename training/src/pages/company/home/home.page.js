@@ -9,12 +9,7 @@ import UnarrangedPaper from './unarranged.paper.js';
 import ArrangedPaper from './arranged.paper.js';
 import ClassesPaper from './classes.paper.js';
 
-const Style = {
-    paper: { margin: 10, width: 400, float: "left" }
-}
-
 class Home extends Component {
-
 
     state = {
         students: {}
@@ -24,29 +19,22 @@ class Home extends Component {
 
     }
 
-
-
-
-
     render() {
         return (
             <div>
                 <div
                     style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}
                 >
-                    <div style={Style.paper}>
+                    <div style={{ margin: 10, width: 400, float: "left" }}>
                         <NamePaper />
-                        <UnarrangedPaper />
+                        <UnarrangedPaper style={{ margin: 10 }} />
                     </div>
-                    <div style={Style.paper}>
+                    <div style={{ margin: 10, width: 800, float: "left" }}>
                         <ArrangedPaper />
                     </div>
-                    <div style={Style.paper}>
+                    <div style={{ margin: 10, width: 400, float: "left" }}>
                         <ClassesPaper />
                     </div>
-
-                    {/*<NamePaper />*/}
-                    {/*<UnarrangedPaper />*/}
                 </div>
             </div>
         )

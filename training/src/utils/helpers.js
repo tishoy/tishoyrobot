@@ -48,7 +48,7 @@ export function getTimeString(timeStamp) {
   return [year, month, day].map(Util.number.formatTimeNumber).join('/') + ' ' + [hour, minute, second].map(Util.number.formatTimeNumber).join(':')
 }
 
-export function getData(addr, router, json, callback = null, args = []) {
+export function getData(router, json, callback = null, args = {}) {
   if (isJson(json)) {
 
   }
@@ -87,6 +87,32 @@ export function isJson(obj) {
   return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
 }
 
+export function getRouter(key) {
+  var router = sessionStorage.getItem(key);
+  return router === null ? config.routers : router;
+}
+
 export function getStorage(key) {
   return localStorage.getItem(key);
+}
+
+export function getCache(key = "all") {
+  var students = [];
+  if (key === "all") {
+    return Cache;
+  }
+  for (var i = 0; i < Cache.data.length; i++) {
+    if (message.data[i].status[key].status === 1) {
+      students.push(message.data[i]);
+    }
+  }
+  return students;
+}
+
+export function notification() {
+  var source = new EventSource(config.notification);
+  source.onmessage = function (event) {
+    console.log(event.data);
+
+  };
 }
