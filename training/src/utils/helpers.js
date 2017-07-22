@@ -52,7 +52,7 @@ export function getData(router, json, callback = null, args = {}) {
   if (isJson(json)) {
 
   }
-  fetch(addr + router, {
+  fetch(router, {
     method: 'POST',
     mode: 'cors',
     cache: 'default',
@@ -69,16 +69,16 @@ export function getData(router, json, callback = null, args = {}) {
       return Promise.reject(new Error(response.statusText));
     }
   }).then(function (response) {
+    console.log("respond");
     return response.json();
   }).then(function (data) {
     if (callback !== null) {
       callback(router, data, args);
     }
     return data;
-    // return response.json();
   }).catch(function (e) {
     console.log(e);
-    console.log("服务器数据请求错误");
+    console.log("调用" + router + "接口出错");
   });
   return
 }

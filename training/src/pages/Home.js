@@ -17,6 +17,7 @@ import Dialog, {
 
 import { getData, getRouter } from '../utils/helpers';
 import config from '../config';
+import Lang from '../utils/language';
 
 class Home extends Component {
 
@@ -27,19 +28,24 @@ class Home extends Component {
   componentDidMount() {
 
 
-    getRoutes();
+    this.getRoutes();
   }
 
   getRoutes = (account) => {
     var cb = (route, message, arg) => {
-      console.log(route);
-      console.log(message);
-      message.map(({ key, route }) => {
-        sessionStorage.setItem(key, route);
-      })
+      try {
+        console.log(route);
+        console.log(message);
+        for (var key in message) {
+          sessionStorage.setItem(key, message[key]);
+        }
+        console.log(sessionStorage);
+      } catch (e) {
+        console.log("回调出错");
+      }
     }
 
-    getData(config.routers, { type: 1, version: config.version }, cb);
+    getData(config.routes, { type: 1, version: config.version }, cb);
   }
 
   check_available = () => {
@@ -67,12 +73,13 @@ class Home extends Component {
     var cb = (route, message, arg) => {
       console.log(route);
       console.log(message);
-      if (message.code === 0) {
+      if (message.code === "0") {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-        Cache = message.data;
+        Cache = message;
         console.log(Cache);
+        this.context.router.push("/company/home");
       }
     }
     getData(getRouter("login"), { account: account, password: password, type: 1 }, cb, { account: account });
@@ -175,7 +182,7 @@ class Home extends Component {
             raised
             onClick={() => {
               console.log("123");
-              this.login();
+              this.login("tishoy", "hantishoy123");
             }}
           >
 
@@ -189,7 +196,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-
+        {this.LoginDialog()}
       </div>
     )
   }
