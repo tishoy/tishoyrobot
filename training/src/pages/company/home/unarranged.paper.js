@@ -34,22 +34,23 @@ class Unarranged extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{
+                paddingTop: 16,
+                paddingBottom: 16,
+            }}>
                 <Paper elevation={4}>
-                    <StudentCard>
-                    </StudentCard>
-                    {/*
-                <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
-                    {[0, 1, 2, 3].map(value =>
-                        <ListItem dense button key={value}>
-                            <ListItemText primary={`Tishoy`} />
-                            <ListItemSecondaryAction>
-                               
-                            </ListItemSecondaryAction>
-                        </ListItem>,
-                    )}
-                </List>
-                */}
+                    {/* <StudentCard>
+                    </StudentCard> */}
+                    <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
+                        {[0, 1, 2, 3].map(value =>
+                            <ListItem dense button key={value}>
+                                <ListItemText primary={`Tishoy`} />
+                                <ListItemSecondaryAction>
+
+                                </ListItemSecondaryAction>
+                            </ListItem>,
+                        )}
+                    </List>
                 </Paper>
             </div>
         );

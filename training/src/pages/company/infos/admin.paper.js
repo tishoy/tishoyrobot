@@ -23,8 +23,10 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 class Admin extends Component {
     render() {
         return (
-            <div>
-                <Paper >
+            <div
+
+            >
+                <Paper style={{ width: 600 }}>
                     <Typography type="body1" component="p">
                         {"企业名称"}
                     </Typography>

@@ -26,7 +26,7 @@ class Base extends Component {
         return (
             <div>
 
-                <Paper >
+                <Paper style={{ width: 600 }}>
                     <Typography type="body1" component="p">
                         {"企业名称"}
                     </Typography>
@@ -47,7 +47,7 @@ class Base extends Component {
                     </TextField>
                 </Paper>
 
-            </div>
+            </div >
         );
     }
 

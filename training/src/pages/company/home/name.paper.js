@@ -19,6 +19,7 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 class Name extends Component {
 
   state = {
+    name: {},
     enrolled: [],
     arranged: [],
     agreed: [],
@@ -35,7 +36,7 @@ class Name extends Component {
   getStudentsStatus() {
     var students = getCache()
 
-    for (var i = 0; i < Cache.data.length; i++) {
+    for (var i = 0; i < students.length; i++) {
       if (message.data[i].status['enrolled'].status === 1) {
         this.state.enrolled.push(message.data[i]);
       }
@@ -72,13 +73,13 @@ class Name extends Component {
       <div>
         <Paper id="companyid" width="500px">
           <Typography type="headline" component="h5">
-            {this.state.data["company"]}
+            {this.state.name["company"]}
           </Typography>
           <Typography type="body1" component="p">
-            {"已安排/已报名：" + this.state.data["arranged"].length + "人次/" + this.state.data["enrolled"].length + "人次"}
+            {"已安排/已报名：" + this.state.arranged.length + "人次/" + this.state.enrolled.length + "人次"}
           </Typography>
           <Typography type="body1" component="p">
-            {"已通过/已培训：" + this.state.data["passed"].length + "人次/" + this.state.data["examing"].length + "人次"}
+            {"已通过/已培训：" + this.state.passed.length + "人次/" + this.state.examing.length + "人次"}
           </Typography>
         </Paper>
       </div>

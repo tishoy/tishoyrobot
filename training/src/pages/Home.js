@@ -14,7 +14,10 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
+import theme from 'material-ui/';
 
+import AppFrame from '../components/AppFrame';
 import { getData, getRouter } from '../utils/helpers';
 import config from '../config';
 import Lang from '../utils/language';
@@ -77,9 +80,10 @@ class Home extends Component {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-        Cache = message;
+        window.Cache = message.students;
         console.log(Cache);
-        this.context.router.push("/company/home");
+        // window.
+        // this.context.router.push("/company/home");
       }
     }
     getData(getRouter("login"), { account: account, password: password, type: 1 }, cb, { account: account });
@@ -145,17 +149,25 @@ class Home extends Component {
 
     return (
       <div>
-        <Dialog
-          open={true}
-        >
-          {Lang["Chin"].Common.input_your_account}
+        <AppFrame />
+        <Paper style={{
+          margin: '20px 30%',
+          width: '100%',
+          height: '40vw',
+          maxHeight: 230,
+        }}>
+          {/* {Lang["Chin"].Common.input_your_account} */}
           <TextField
-            name="login_account"
-            id="login_account"
-            hintText={Lang["Chin"].Common.input_your_account}
-            floatingLabelText={Lang["Chin"].Common.account}
-            fullWidth={true}
-            defaultValue={sessionStorage.account}
+            id="name"
+            label="Name"
+            style={{
+              marginLeft: 200,//styleManager.theme.spacing.unit,
+              marginRight: 200,//theme.spacing.unit,  
+              width: 200,
+            }}
+            value={this.state.name}
+            onChange={event => this.setState({ name: event.target.value })}
+            margin="normal"
           />
           {Lang["Chin"].Common.input_your_password}
           <TextField
@@ -187,7 +199,7 @@ class Home extends Component {
           >
 
           </Button>
-        </Dialog>
+        </Paper>
       </div>
     )
   }

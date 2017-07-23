@@ -97,11 +97,11 @@ export function getStorage(key) {
 }
 
 export function getCache(key = "all") {
-  var students = [];
   if (key === "all") {
-    return Cache;
+    return window.CacheData;
   }
-  for (var i = 0; i < Cache.data.length; i++) {
+  var students = [];
+  for (var i = 0; i < window.CacheData.data.length; i++) {
     if (message.data[i].status[key].status === 1) {
       students.push(message.data[i]);
     }

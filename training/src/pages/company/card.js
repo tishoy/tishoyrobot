@@ -16,7 +16,9 @@ const styleSheet = createStyleSheet('SimpleCard', theme => ({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  
+  text: {
+
+  }
 }));
 
 class SimpleCard extends Component {
@@ -42,20 +44,13 @@ class SimpleCard extends Component {
       <div>
         <Card>
           <CardContent>
-            <Typography type="name" style={{
-              marginBottom: 16,
-              fontSize: 14,
-              color: theme.palette.text.secondary,
-            }}>
+            <Typography type="name">
               {name}
             </Typography>
             <Typography type="tel" component="h2">
               {tel}
             </Typography>
-            <Typography type="email" style={{
-              marginBottom: 12,
-              color: theme.palette.text.secondary,
-            }}>
+            <Typography type="email">
               email
             </Typography>
             <Typography component="p">
