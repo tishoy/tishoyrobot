@@ -57,6 +57,7 @@ class Info extends Component {
                     <Grid container gutter={27}>
                         <Grid item xs={3} sm={3}>
                             <List style={{
+                                height: "100%"
                             }} disablePadding>
                                 <div>
                                     <ListItem button>

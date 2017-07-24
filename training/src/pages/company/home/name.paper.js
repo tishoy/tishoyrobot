@@ -37,23 +37,23 @@ class Name extends Component {
     var students = getCache()
 
     for (var i = 0; i < students.length; i++) {
-      if (message.data[i].status['enrolled'].status === 1) {
-        this.state.enrolled.push(message.data[i]);
+      if (students[i].status['enrolled'].status === 1) {
+        this.state.enrolled.push(students[i]);
       }
-      if (message.data[i].status['arranged'].status === 1) {
-        this.state.arranged.push(message.data[i]);
+      if (students[i].status['arranged'].status === 1) {
+        this.state.arranged.push(students[i]);
       }
-      if (message.data[i].status['agreed'].status === 1) {
-        this.state.agreed.push(message.data[i]);
+      if (students[i].status['agreed'].status === 1) {
+        this.state.agreed.push(students[i]);
       }
-      if (message.data[i].status['examing'].status === 1) {
-        this.state.examing.push(message.data[i]);
+      if (students[i].status['examing'].status === 1) {
+        this.state.examing.push(students[i]);
       }
-      if (message.data[i].status['passed'].status === 1) {
-        this.state.passed.push(message.data[i]);
+      if (students[i].status['passed'].status === 1) {
+        this.state.passed.push(students[i]);
       }
-      if (message.data[i].status['retry'].status === 1) {
-        this.state.retry.push(message.data[i]);
+      if (students[i].status['retry'].status === 1) {
+        this.state.retry.push(students[i]);
       }
     }
   }

@@ -21,7 +21,7 @@ export default function AppRouter() {
 
   return (
     <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
-      <Route title="Material-UI" path="/" component={AppFrame}>
+      <Route title="Training" path="/" component={AppFrame}>
         <IndexRoute dockDrawer title={null} nav component={Home} />
 
         {/* <Route title="企业账号" path="/company" nav > */}

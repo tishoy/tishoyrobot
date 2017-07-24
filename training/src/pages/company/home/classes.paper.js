@@ -35,7 +35,6 @@ class Clazzes extends Component {
             console.log(message);
         }
 
-        console.log(data);
     }
 
     render() {

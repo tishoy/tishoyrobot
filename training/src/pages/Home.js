@@ -7,7 +7,6 @@ import Link from 'react-router/lib/Link';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import CheckBox from 'material-ui/CheckBox';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -15,23 +14,45 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
-import theme from 'material-ui/';
 
 import AppFrame from '../components/AppFrame';
 import { getData, getRouter } from '../utils/helpers';
 import config from '../config';
-import Lang from '../utils/language';
+import Lang from '../language';
+
+import { createMuiTheme } from 'material-ui/styles';
+import createPalette from 'material-ui/styles/palette';
+
+
+import blue from 'material-ui/colors/blue';
+import pink from 'material-ui/colors/pink';
+
+const palette = createPalette({
+  primary: blue,
+  accent: pink,
+
+});
+
+const theme = createMuiTheme({ palette });
 
 class Home extends Component {
+
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
 
   state = {
     logged: Boolean(sessionStorage.getItem("logged")),
   }
 
   componentDidMount() {
-
+    console.log(this.context.router)
 
     this.getRoutes();
+
+    // this.context.
   }
 
   getRoutes = (account) => {
@@ -80,8 +101,10 @@ class Home extends Component {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-        window.Cache = message.students;
-        console.log(Cache);
+        window.CacheData = message.students;
+        console.log(window.CacheData);
+        this.context.router.push("/company/home");
+
         // window.
         // this.context.router.push("/company/home");
       }
@@ -97,25 +120,25 @@ class Home extends Component {
         <Dialog
           open={true}
         >
-          {Lang["Chin"].Common.input_your_account}
+          {Lang[window.Lang].pages.input_your_account}
           <TextField
             name="register_account"
             id="register_account"
-            hintText={Lang["Chin"].Common.input_your_account}
-            floatingLabelText={Lang["Chin"].Common.account}
+            hintText={Lang[window.Lang].pages.input_your_account}
+            floatingLabelText={Lang[window.Lang].pages.account}
             fullWidth={true}
             defaultValue={sessionStorage.account}
             onBlur={() => {
               this.check_available(document.getElementById("register_account").value);
             }}
           />
-          {Lang["Chin"].Common.input_your_password}
+          {Lang[window.Lang].pages.input_your_password}
           <TextField
             name="register_password"
             id="register_password"
             type="password"
-            hintText={Lang["Chin"].Common.input_your_password}
-            floatingLabelText={Lang["Chin"].Common.password}
+            hintText={Lang[window.Lang].pages.input_your_password}
+            floatingLabelText={Lang[window.Lang].pages.password}
             fullWidth={true}
             defaultValue={""}
           />
@@ -156,7 +179,7 @@ class Home extends Component {
           height: '40vw',
           maxHeight: 230,
         }}>
-          {/* {Lang["Chin"].Common.input_your_account} */}
+          {Lang[window.Lang].pages.input_your_account}
           <TextField
             id="name"
             label="Name"
@@ -169,13 +192,11 @@ class Home extends Component {
             onChange={event => this.setState({ name: event.target.value })}
             margin="normal"
           />
-          {Lang["Chin"].Common.input_your_password}
+          {Lang[window.Lang].pages.input_your_password}
           <TextField
             name="password"
             id="login_password"
             type="password"
-            hintText={Lang["Chin"].Common.input_your_password}
-            floatingLabelText={Lang["Chin"].Common.password}
             fullWidth={true}
             defaultValue={""}
           />
@@ -207,8 +228,34 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        {this.LoginDialog()}
+      <div style={{ flex: '1 0 100%', }}>
+        <div style={{
+          minHeight: '100vh', // Makes the hero full height until we get some more content.
+          flex: '0 0 auto',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: theme.palette.primary[500],
+          color: theme.palette.getContrastText(theme.palette.primary[500]),
+        }}>
+          <div style={{
+            padding: '60px 30px',
+            textAlign: 'center',
+            [theme.breakpoints.up('sm')]: {
+              padding: '120px 30px',
+            },
+          }}>
+            <Button
+              raised
+              onClick={() => {
+                console.log("123");
+                this.login("tishoy", "hantishoy123");
+              }}
+            >
+
+            </Button>
+          </div>
+        </div>
       </div>
     )
   }

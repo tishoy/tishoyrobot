@@ -9,14 +9,33 @@ import UnarrangedPaper from './unarranged.paper.js';
 import ArrangedPaper from './arranged.paper.js';
 import ClassesPaper from './classes.paper.js';
 
+import { getData, getRouter } from '../../../utils/helpers';
+
 class Home extends Component {
 
     state = {
         students: {}
     };
 
-    componentDidMount() {
+    componentWillMount() {
 
+        if (!window.CacheData) {
+            var cb = (route, message, arg) => {
+                console.log(route);
+                console.log(message);
+                if (message.code === "0") {
+                    sessionStorage.logged = true;
+                    sessionStorage.account = arg["account"];
+                    sessionStorage.session = message.session;
+                    window.CacheData = message.students;
+                    console.log(window.CacheData);
+
+                    // window.
+                    // this.context.router.push("/company/home");
+                }
+            }
+            getData(getRouter("login"), { account: "tishoy", password: "hantishoy123", type: 1 }, cb, { account: "tishoy" });
+        }
     }
 
     render() {

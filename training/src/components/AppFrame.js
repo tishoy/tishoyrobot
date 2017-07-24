@@ -8,14 +8,20 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
 import withWidth, { isWidthUp } from 'material-ui/utils/withWidth';
+import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
+import IconButton from 'material-ui/IconButton';
 import LightbulbOutline from 'material-ui-icons/LightbulbOutline';
+import Menu, { MenuItem } from 'material-ui/Menu';
 import Github from 'training/src/components/Github';
-import Refresh from 'material-ui/svg-icons/check-box.js';
+import ArrowDropRight from 'material-ui/svg-icons/navigation/chevron-left';
+import Refresh from 'material-ui/svg-icons/navigation/refresh';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import AppDrawer from 'training/src/components/AppDrawer';
 import AppSearch from 'training/src/components/AppSearch';
+
+import Lang from '../language';
 
 function getTitle(routes) {
   for (let i = routes.length - 1; i >= 0; i -= 1) {
@@ -86,6 +92,8 @@ const styleSheet = createStyleSheet('AppFrame', theme => ({
 class AppFrame extends Component {
   state = {
     drawerOpen: false,
+    open: false,
+    logged: sessionStorage.getItem("logged"),
   };
 
   handleDrawerClose = () => {
@@ -99,6 +107,17 @@ class AppFrame extends Component {
   handleToggleShade = () => {
     this.props.dispatch({ type: 'TOGGLE_THEME_SHADE' });
   };
+
+  handleLogin = () => {
+    this.setState({ logged: sessionStorage.getItem("logged") });
+  }
+
+  logout = () => {
+    sessionStorage.logged = false;
+    sessionStorage.account = "";
+    sessionStorage.session = "";
+    this.handleLogin();
+  }
 
   render() {
     const { children, routes, width } = this.props;
@@ -148,11 +167,43 @@ class AppFrame extends Component {
               <Refresh />
             </IconButton>
             <IconButton
-              title="GitHub"
               color="contrast"
+              onClick={this.handleMenuClick}
+              aria-owns="api-menu"
+              aria-haspopup="true"
             >
-              <Github />
+              <MoreVertIcon />
             </IconButton>
+            <Menu
+              id="api-menu"
+              anchorEl={this.state.anchorEl}
+              open={this.state.open}
+              onRequestClose={this.handleMenuRequestClose}
+            >
+              <MenuItem key={Lang[window.Lang].components.AppFrame.Info}
+                onClick={() => {
+                  this.handleOpenDetail();
+                }} />
+
+              <MenuItem
+                key={Lang[window.Lang].components.AppFrame.Reset}
+                onClick={() => {
+                  this.handleOpenReset();
+                }} />
+              <MenuItem
+                key={Lang[window.Lang].components.AppFrame.Logout}
+                onClick={() => {
+
+                  // location.reload();
+                  // location.replace("/web_client");
+                  this.logout();
+
+                }
+                } />
+
+            </Menu>
+
+
           </Toolbar>
         </AppBar>
         <AppDrawer

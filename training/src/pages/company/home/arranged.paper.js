@@ -33,7 +33,7 @@ class Arranged extends Component {
     var cb = (router, message, args) => {
       this.setState({ data: message.data })
     }
-    getData("arrange", { session: "tishoy" }, cb, {});
+    // getData("arrange", { session: sessionStorage.getItem("session") }, cb, {});
   }
 
 
