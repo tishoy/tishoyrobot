@@ -28,6 +28,10 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Unarranged extends Component {
+    state = {
+        data: {}
+    }
+
     componentDidMount() {
         // var cc = getData("enroll", { session: sessionStorage.getItem("session") });
     }
@@ -38,20 +42,7 @@ class Unarranged extends Component {
                 paddingTop: 16,
                 paddingBottom: 16,
             }}>
-                <Paper elevation={4}>
-                    {/* <StudentCard>
-                    </StudentCard> */}
-                    <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
-                        {[0, 1, 2, 3].map(value =>
-                            <ListItem dense button key={value}>
-                                <ListItemText primary={`Tishoy`} />
-                                <ListItemSecondaryAction>
-
-                                </ListItemSecondaryAction>
-                            </ListItem>,
-                        )}
-                    </List>
-                </Paper>
+                
             </div>
         );
     }

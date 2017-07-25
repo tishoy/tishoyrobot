@@ -11,7 +11,7 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import { getData } from '../../../utils/helpers.js';
+import { getData, getRouter } from '../../../utils/helpers.js';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
@@ -30,11 +30,11 @@ class Clazzes extends Component {
     }
 
     getClassesData() {
-        var cb = (id, message, arg) => {
-            console.log(id);
-            console.log(message);
-        }
-
+        // var cb = (id, message, arg) => {
+        //     console.log(id);
+        //     console.log(message);
+        // }
+        // getData(getRouter('query'), { collection: 'classes', sentence: '{}' }, cb);
     }
 
     render() {
@@ -42,25 +42,7 @@ class Clazzes extends Component {
 
         return (
             <div>
-                <Paper elevation={4}>
-
-                    <List subheader={<ListSubheader>企业所属地区正在开设班级的</ListSubheader>}>
-                        {[0, 1, 2, 3].map(value =>
-                            <ListItem dense button key={value}>
-                                {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
-                                <ListItemText primary={`班级 ${value + 1}`} />
-                                <ListItemSecondaryAction>
-                                    {/* <Checkbox
-                  onClick={event => this.handleToggle(event, value)}
-                  checked={this.state.checked.indexOf(value) !== -1}
-                /> */}
-                                </ListItemSecondaryAction>
-                            </ListItem>,
-                        )}
-                    </List>
-
-
-                </Paper>
+                
             </div>
         );
     }

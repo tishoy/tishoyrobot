@@ -47,7 +47,7 @@ class Base extends Component {
                     </TextField>
                 </Paper>
 
-            </div >
+            </div>
         );
     }
 

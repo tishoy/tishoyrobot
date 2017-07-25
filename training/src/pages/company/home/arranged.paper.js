@@ -13,7 +13,7 @@ import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
 
-import { getData } from '../../../utils/helpers.js';
+import { getData, getRouter, getCache } from '../../../utils/helpers.js';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
   root: theme.mixins.gutters({
@@ -30,9 +30,10 @@ class Arranged extends Component {
   }
 
   componentDidMount() {
-    var cb = (router, message, args) => {
-      this.setState({ data: message.data })
-    }
+    // var cb = (router, message, args) => {
+    //   this.setState({ data: message.data })
+    // }
+    // getData(getRouter('query'), { collection: 'students', sentence: '{}' }, cb);
     // getData("arrange", { session: sessionStorage.getItem("session") }, cb, {});
   }
 
@@ -42,25 +43,7 @@ class Arranged extends Component {
 
     return (
       <div>
-        <Paper elevation={4}>
-
-          <List subheader={<ListSubheader>已安排的学员</ListSubheader>}>
-            {this.state.data.map(students =>
-              <ListItem dense button key={students.id}>
-                {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
-                <ListItemText primary={students.name} />
-                <ListItemSecondaryAction>
-                  {/* <Checkbox
-                  onClick={event => this.handleToggle(event, value)}
-                  checked={this.state.checked.indexOf(value) !== -1}
-                /> */}
-                </ListItemSecondaryAction>
-              </ListItem>,
-            )}
-          </List>
-
-
-        </Paper>
+        
       </div>
     );
   }

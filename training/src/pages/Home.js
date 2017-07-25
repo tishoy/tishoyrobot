@@ -101,7 +101,41 @@ class Home extends Component {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-        window.CacheData = message.students;
+        window.CacheData = {};
+        // window.CacheData = message.data;
+        // 严谨检查服务端传过来的数据正确性
+        if (message.data.base !== undefined) {
+          window.CacheData.base = message.data.base;
+        } else {
+
+        }
+        if (message.data.finance !== undefined) {
+          window.CacheData.finance = message.data.finance;
+        } else {
+
+        }
+        if (message.data.express !== undefined) {
+          window.CacheData.express = message.data.express;
+        } else {
+
+        }
+        if (message.data.admin !== undefined) {
+          window.CacheData.admin = message.data.admin;
+        } else {
+
+        }
+        if (message.data.student !== undefined) {
+          window.CacheData.student = message.data.student;
+        } else {
+
+        }
+        if (message.data.clazz !== undefined) {
+          window.CacheData.clazz = message.data.clazz;
+        } else {
+
+        }
+
+
         console.log(window.CacheData);
         this.context.router.push("/company/home");
 

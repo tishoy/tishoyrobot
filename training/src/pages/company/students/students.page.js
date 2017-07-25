@@ -10,6 +10,9 @@ import Button from 'material-ui/Button';
 
 import StudentCard from '../card';
 
+
+import { getData, getRouter, getCache } from '../../../utils/helpers';
+
 const Style = {
     paper: { paddingTop: 80, paddingLeft: 40, display: 'flex', FlexDirection: 'row', justifyContent: 'spacebetween' }
 
@@ -28,7 +31,8 @@ class Students extends Component {
     }
 
     getStudents() {
-
+        let students = getCache(student);
+        this.setState({ students: student })
     }
 
     render() {

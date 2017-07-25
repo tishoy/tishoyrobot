@@ -32,8 +32,11 @@ class Examing extends Component {
 
         return (
             <div>
-                <Paper  elevation={4}>
-                    <StudentCard>
+                <Paper elevation={4}>
+                    <StudentCard
+                        name="tishoy"
+                        tel="100"
+                    >
                     </StudentCard>
                     {/*
                 <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>

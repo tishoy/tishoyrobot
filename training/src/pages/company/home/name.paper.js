@@ -6,7 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
-import { getData, getCache } from '../../../utils/helpers.js';
+import { getData, getRouter, getCache } from '../../../utils/helpers.js';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
   root: theme.mixins.gutters({
@@ -29,12 +29,10 @@ class Name extends Component {
   }
 
   componentDidMount() {
-    this.getStudentsStatus()
     this.getNameData();
   }
 
   getStudentsStatus() {
-    var students = getCache()
 
     for (var i = 0; i < students.length; i++) {
       if (students[i].status['enrolled'].status === 1) {
@@ -59,12 +57,12 @@ class Name extends Component {
   }
 
   getNameData() {
-    // var cb = (route, message, arg) => {
-    //   console.log(route);
-    //   console.log(message);
-    // }
+    var cb = (route, message, arg) => {
+      console.log(route);
+      console.log(message);
+    }
 
-    // var data = getData("http://localhost:3008/", "users/login", { name: "tishoy", aaa: 3 }, cb);
+    getData(getRouter(query), { session: sessionStorage.session, collection: "company", sentence: "{}" }, cb);
     // console.log(data);
   }
 

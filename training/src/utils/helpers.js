@@ -96,17 +96,21 @@ export function getStorage(key) {
   return localStorage.getItem(key);
 }
 
+/**
+ * 保存所有数据
+ * info 个人与公司信息
+ * - base
+ * - finance
+ * - express
+ * - admin
+ * students 所有学生
+ * clazz 所属班级
+ */
 export function getCache(key = "all") {
   if (key === "all") {
     return window.CacheData;
   }
-  var students = [];
-  for (var i = 0; i < window.CacheData.data.length; i++) {
-    if (message.data[i].status[key].status === 1) {
-      students.push(message.data[i]);
-    }
-  }
-  return students;
+  return window.CacheData[key];
 }
 
 export function notification() {

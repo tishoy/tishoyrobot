@@ -34,18 +34,6 @@ class Unarranged extends Component {
                 <Paper elevation={4}>
                     <StudentCard>
                     </StudentCard>
-                    {/*
-                <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
-                    {[0, 1, 2, 3].map(value =>
-                        <ListItem dense button key={value}>
-                            <ListItemText primary={`Tishoy`} />
-                            <ListItemSecondaryAction>
-                               
-                            </ListItemSecondaryAction>
-                        </ListItem>,
-                    )}
-                </List>
-                */}
                 </Paper>
             </div>
         );
