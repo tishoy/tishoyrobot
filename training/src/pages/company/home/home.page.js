@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-
+import Paper from 'material-ui/Paper';
 import GridList from 'material-ui/Grid';
+import List, {
+    ListItem, ListItemSecondaryAction, ListItemText,
+    ListSubheader,
+} from 'material-ui/List';
+import Typography from 'material-ui/Typography';
 
-import NamePaper from './name.paper.js';
-import UnarrangedPaper from './unarranged.paper.js';
-import ArrangedPaper from './arranged.paper.js';
-import ClassesPaper from './classes.paper.js';
-
-import { getData, getRouter } from '../../../utils/helpers';
+import { getData, getRouter, getCache } from '../../../utils/helpers';
 
 class Home extends Component {
 

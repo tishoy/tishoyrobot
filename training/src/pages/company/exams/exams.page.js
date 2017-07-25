@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-
-import GridList from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
+import Avatar from 'material-ui/Avatar';
+import List, {
+  ListItem, ListItemSecondaryAction, ListItemText,
+  ListSubheader,
+} from 'material-ui/List';
+import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
 import { getData, getRouter, getCache } from '../../../utils/helpers';
