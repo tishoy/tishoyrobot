@@ -10,6 +10,11 @@ import List, {
 import Typography from 'material-ui/Typography';
 
 import { getData, getRouter, getCache } from '../../../utils/helpers';
+import {
+    DATA_TYPE_BASE, DATA_TYPE_CLAZZ, STATUS_ENROLLED, STATUS_ARRANGED, STATUS_ARRANGED_DOING, STATUS_ARRANGED_UNDO,
+    STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY
+} from '../../../enum';
+import Lang from '../../../language';
 
 class Home extends Component {
 
@@ -50,30 +55,30 @@ class Home extends Component {
                     // this.context.router.push("/company/home");
                 }
             }
-            getData(getRouter("query"), { session: sessionStorage.session, type: 1 }, cb, { self: this });
+            getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
         } else {
             // 设置界面
             let students = getCache("student");
             let enrolled = 0, arranged = 0, passed = 0, examing = 0,
                 unarragedStudents = [], arrangedStudents = [];
             for (var i = 0; i < students.length; i++) {
-                if (students[i].status['enrolled'].status === 1) {
+                if (students[i].status[STATUS_ENROLLED].status === STATUS_ENROLLED_DID) {
                     enrolled++
-                    if (students[i].status['arranged'].status !== 1) {
+                    if (students[i].status[STATUS_ARRANGED].status === STATUS_ARRANGED_UNDO) {
                         unarragedStudents.push(students[i]);
                     }
                 }
-                if (students[i].status['arranged'].status === 1) {
+                if (students[i].status[STATUS_ARRANGED].status === STATUS_ARRANGED_DOING) {
                     arranged++
                     arrangedStudents.push(students[i]);
                 }
                 // if (students[i].status['agreed'].status === 1) {
                 //     this.state.agreed.push(students[i]);
                 // }
-                if (students[i].status['examing'].status === 1) {
+                if (students[i].status[STATUS_EXAMING].status === STATUS_EXAMING_DID) {
                     examing++
                 }
-                if (students[i].status['passed'].status === 1) {
+                if (students[i].status[STATUS_PASSED].status === STATUS_PASSED_DID) {
                     passed++
                 }
                 // if (students[i].status['retry'].status === 1) {
@@ -82,14 +87,14 @@ class Home extends Component {
 
             }
             this.setState({
-                name: getCache("base").name,
+                name: getCache(DATA_TYPE_BASE).name,
                 enrolled: enrolled,
                 arranged: arranged,
                 examing: examing,
                 passed: passed,
                 unarragedStudents: unarragedStudents,
                 arrangedStudents: arrangedStudents,
-                clazz: getCache("clazz")
+                clazz: getCache(DATA_TYPE_CLAZZ)
             })
         }
 
@@ -107,16 +112,18 @@ class Home extends Component {
                                 {this.state.company}
                             </Typography>
                             <Typography type="body1" component="p">
-                                {"已安排/已报名：" + this.state.arranged + "人次/" + this.state.enrolled + "人次"}
+                                {Lang[window.Lang].pages.company.home.arranged + "/" + Lang[window.Lang].pages.company.home.arranged + ":"
+                                    + this.state.arranged + Lang[window.Lang].pages.company.home.human + "/" + this.state.enrolled + Lang[window.Lang].pages.company.home.human}
                             </Typography>
                             <Typography type="body1" component="p">
-                                {"已通过/已培训：" + this.state.passed + "人次/" + this.state.examing + "人次"}
+                                {Lang[window.Lang].pages.company.home.passed + "/" + Lang[window.Lang].pages.company.home.trained + ":"
+                                    + this.state.passed + Lang[window.Lang].pages.company.home.human + "/" + this.state.examing + Lang[window.Lang].pages.company.home.human}
                             </Typography>
                         </Paper>
                         <Paper elevation={4} style={{ margin: 10 }}>
                             {/* <StudentCard>
                     </StudentCard> */}
-                            <List subheader={<ListSubheader>待安排的学员</ListSubheader>}>
+                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarraged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(value =>
                                     <ListItem dense button key={value}>
                                         <ListItemText primary={`Tishoy`} />
@@ -131,7 +138,7 @@ class Home extends Component {
                     <div style={{ margin: 10, width: 800, float: "left" }}>
                         <Paper elevation={4}>
 
-                            <List subheader={<ListSubheader>已安排的学员</ListSubheader>}>
+                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arraged_title}</ListSubheader>}>
                                 {this.state.arrangedStudents.map(students =>
                                     <ListItem dense button key={students.id}>
                                         {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
@@ -152,7 +159,7 @@ class Home extends Component {
                     <div style={{ margin: 10, width: 400, float: "left" }}>
                         <Paper elevation={4}>
 
-                            <List subheader={<ListSubheader>企业所属地区正在开设班级的</ListSubheader>}>
+                            <List subheader={<ListSubheader>Lang[window.Lang].pages.company.home.clazz_title</ListSubheader>}>
                                 {this.state.clazz.map(value =>
                                     <ListItem dense button key={value}>
                                         {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}

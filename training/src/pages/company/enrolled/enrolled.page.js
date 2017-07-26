@@ -4,14 +4,17 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import List, {
-  ListItem, ListItemSecondaryAction, ListItemText,
-  ListSubheader,
+    ListItem, ListItemSecondaryAction, ListItemText,
+    ListSubheader,
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
 
-import { getData, getRouter } from '../../../utils/helpers';
+import { getData, getRouter, getStudent } from '../../../utils/helpers';
+import { QUERY, ENROLL_STUDENT, STATUS_ENROLLED, AGREE_ARRANGE, REFUSE_ARRANGE } from '../../../enum';
+import Lang from '../../../language';
+import Code from '../../../code';
 
 const Style = {
     paper: { margin: 10, width: 400, float: "left" }
@@ -52,7 +55,7 @@ class Enrolled extends Component {
                     // this.context.router.push("/company/home");
                 }
             }
-            getData(getRouter("query"), { session: sessionStorage.session, type: 1 }, cb, { self: this });
+            getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
         } else {
             // 设置界面
             let students = getCache("student");
@@ -78,6 +81,46 @@ class Enrolled extends Component {
             })
         }
 
+    }
+
+    // 将新加入的学生排队
+    erollStudent() {
+        var cb = (router, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                // getCache(DATA_TYPE_STUDENT).
+                // newStudents slice
+                // unarragedStudents push
+                // getCache(STUDENT)[]
+                getStudent(arg.id)[STATUS_ENROLLED] = STATUS_ENROLLED_DID;
+            }
+        }
+        getData(getRouter(ENROLL_STUDENT), { session: sessionStorage.session, id: id }, cb, { id: id });
+    }
+
+    agreeArrange() {
+        var cb = (router, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                // getCache(DATA_TYPE_STUDENT).
+                // newStudents slice
+                // unarragedStudents push
+                // getCache(STUDENT)[]
+                getStudent(arg.id)[STATUS_ENROLLED] = STATUS_AGREED_AGREE;
+            }
+        }
+        getData(getRouter(AGREE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
+    }
+
+    refuseArrange() {
+        var cb = (router, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                // getCache(DATA_TYPE_STUDENT).
+                // newStudents slice
+                // unarragedStudents push
+                // getCache(STUDENT)[]
+                getStudent(arg.id)[STATUS_AGREED] = STATUS_AGREED_REFUSED;
+            }
+        }
+        getData(getRouter(REFUSE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
     render() {

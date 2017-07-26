@@ -1,5 +1,6 @@
 // @flow
 import config from "../config.js";
+import { DATA_TYPE_ALL } from "../enum.js";
 
 export function kebabCase(string: String) {
   return string
@@ -98,19 +99,28 @@ export function getStorage(key) {
 
 /**
  * 保存所有数据
- * info 个人与公司信息
- * - base
- * - finance
- * - express
- * - admin
- * students 所有学生
- * clazz 所属班级
+ * - info 个人与公司信息
+ *  - base
+ *  - finance
+ *  - express
+ *  - admin
+ * - students 所有学生
+ * - clazz 所属班级
  */
-export function getCache(key = "all") {
-  if (key === "all") {
+export function getCache(key = DATA_TYPE_ALL) {
+  if (key === DATA_TYPE_ALL) {
     return window.CacheData;
   }
   return window.CacheData[key];
+}
+
+export function getStudent(id = 0) {
+  for (var i = 0; i < window.CacheData[STUDENT].length; i++) {
+    if (window.CacheData[STUDENT].id === id) {
+      return window.CacheData[STUDENT][i];
+    }
+  }
+  return {};
 }
 
 export function notification() {

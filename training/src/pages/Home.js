@@ -14,18 +14,19 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
-
-import AppFrame from '../components/AppFrame';
-import { getData, getRouter } from '../utils/helpers';
-import config from '../config';
-import Lang from '../language';
-
 import { createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
-
-
 import blue from 'material-ui/colors/blue';
 import pink from 'material-ui/colors/pink';
+import AppFrame from '../components/AppFrame';
+
+import { getData, getRouter } from '../utils/helpers';
+import { APP_TYPE_COMPANY, LOGIN, REGISTER_COMPANY, CHECK_AVAILABLE } from '../enum';
+import config from '../config';
+import Lang from '../language';
+import Code from '../code';
+
+
 
 const palette = createPalette({
   primary: blue,
@@ -55,7 +56,7 @@ class Home extends Component {
     // this.context.
   }
 
-  getRoutes = (account) => {
+  getRoutes = () => {
     var cb = (route, message, arg) => {
       try {
         console.log(route);
@@ -69,15 +70,15 @@ class Home extends Component {
       }
     }
 
-    getData(config.routes, { type: 1, version: config.version }, cb);
+    getData(config.routes, { type: APP_TYPE_COMPANY, version: config.version }, cb);
   }
 
-  check_available = () => {
+  check_available = (account) => {
     var cb = (route, message, arg) => {
       console.log(route);
       console.log(message);
     }
-    getData(getRouter("available"), { account: "", type: 1 }, cb);
+    getData(getRouter(CHECK_AVAILABLE), { account: account, type: APP_TYPE_COMPANY }, cb);
   }
 
   register = (account, password, repeat) => {
@@ -90,14 +91,14 @@ class Home extends Component {
       console.log(route);
       console.log(message);
     }
-    getData(getRouter("register"), { account: "", password: "", type: 1 }, cb);
+    getData(getRouter(REGISTER_COMPANY), { account: account, password: password, type: APP_TYPE_COMPANY }, cb);
   }
 
   login = (account, password) => {
     var cb = (route, message, arg) => {
       console.log(route);
       console.log(message);
-      if (message.code === "0") {
+      if (message.code === Code.LOGIC_SUCCESS) {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
@@ -135,7 +136,6 @@ class Home extends Component {
 
         }
 
-
         console.log(window.CacheData);
         this.context.router.push("/company/home");
 
@@ -143,7 +143,7 @@ class Home extends Component {
         // this.context.router.push("/company/home");
       }
     }
-    getData(getRouter("login"), { account: account, password: password, type: 1 }, cb, { account: account });
+    getData(getRouter(LOGIN), { account: account, password: password, type: APP_TYPE_COMPANY }, cb, { account: account });
   }
 
 
@@ -206,55 +206,36 @@ class Home extends Component {
 
     return (
       <div>
-        <AppFrame />
-        <Paper style={{
-          margin: '20px 30%',
-          width: '100%',
-          height: '40vw',
-          maxHeight: 230,
-        }}>
-          {Lang[window.Lang].pages.input_your_account}
-          <TextField
-            id="name"
-            label="Name"
-            style={{
-              marginLeft: 200,//styleManager.theme.spacing.unit,
-              marginRight: 200,//theme.spacing.unit,  
-              width: 200,
-            }}
-            value={this.state.name}
-            onChange={event => this.setState({ name: event.target.value })}
-            margin="normal"
-          />
-          {Lang[window.Lang].pages.input_your_password}
-          <TextField
-            name="password"
-            id="login_password"
-            type="password"
-            fullWidth={true}
-            defaultValue={""}
-          />
-          {/* <Checkbox
-                    label="记住密码"
-                    // checked={this.state.rememberLogin}
-                    style={{
-                        checkbox: {
-                            marginTop: 10,
-                            marginBottom: 10
-                        },
-                    }}
-                    onCheck={() => { }}
-                /> */}
-          <Button
-            raised
-            onClick={() => {
-              console.log("123");
-              this.login("tishoy", "hantishoy123");
-            }}
-          >
+        {Lang[window.Lang].pages.input_your_account}
+        <TextField
+          id="name"
+          label="Name"
+          style={{
+            marginLeft: 200,//styleManager.theme.spacing.unit,
+            marginRight: 200,//theme.spacing.unit,  
+            width: 200,
+          }}
+          value={this.state.name}
+          onChange={event => this.setState({ name: event.target.value })}
+          margin="normal"
+        />
+        {Lang[window.Lang].pages.input_your_password}
+        <TextField
+          name="password"
+          id="login_password"
+          type="password"
+          defaultValue={""}
+          margin="normal"
+        />
+        <Button
+          raised
+          onClick={() => {
+            console.log("123");
+            this.login("tishoy", "hantishoy123");
+          }}
+        >
 
-          </Button>
-        </Paper>
+        </Button>
       </div>
     )
   }
@@ -279,15 +260,7 @@ class Home extends Component {
               padding: '120px 30px',
             },
           }}>
-            <Button
-              raised
-              onClick={() => {
-                console.log("123");
-                this.login("tishoy", "hantishoy123");
-              }}
-            >
-
-            </Button>
+            {LoginDialog()}
           </div>
         </div>
       </div>

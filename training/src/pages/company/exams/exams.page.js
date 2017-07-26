@@ -4,8 +4,8 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import List, {
-  ListItem, ListItemSecondaryAction, ListItemText,
-  ListSubheader,
+    ListItem, ListItemSecondaryAction, ListItemText,
+    ListSubheader,
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
@@ -75,6 +75,33 @@ class Exams extends Component {
             })
         }
 
+    }
+
+    // 安排考试
+    arrangeExam() {
+        var cb = (router, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                // getCache(DATA_TYPE_STUDENT).
+                // newStudents slice
+                // unarragedStudents push
+                // getCache(STUDENT)[]
+                getStudent(arg.id)[STATUS_ENROLLED] = STATUS_ENROLLED_DID;
+            }
+        }
+        getData(getRouter(ENROLL_STUDENT), { session: sessionStorage.session, id: id }, cb, { id: id });
+    }
+
+    retryExam() {
+        var cb = (router, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                // getCache(DATA_TYPE_STUDENT).
+                // newStudents slice
+                // unarragedStudents push
+                // getCache(STUDENT)[]
+                // getStudent(arg.id)[STATUS_AGREED] = STATUS_AGREED_REFUSED;
+            }
+        }
+        getData(getRouter(RETRY_EXAM), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
     render() {

@@ -35,6 +35,33 @@ class Students extends Component {
         this.setState({ students: student })
     }
 
+    newStudent(student) {
+        var cb = (route, message, arg) => {
+            if (message.code === 0) {
+                getCache(student).push(student)
+
+            }
+        }
+    }
+
+    removeStudent(id) {
+        for (var i = 0; i < getCache(student).length; i++) {
+            if (getCache(student)[i].id === student.id) {
+                getCache(student).splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    updateStudent(id, key, info) {
+        for (var i = 0; i < getCache(student).length; i++) {
+            if (getCache(student)[i].id === id) {
+                getCache(student)[i].key = info;
+                break;
+            }
+        }
+    }
+
     render() {
         return (
             <div>

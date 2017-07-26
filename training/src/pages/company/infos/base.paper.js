@@ -8,6 +8,11 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 
+import { getData, getCache, getRouter } from '../../../utils/helpers';
+import { DATA_TYPE_BASE, RESET } from '../../../enum';
+import Code from '../../../code';
+import Lang from '../../../language';
+
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
         paddingTop: 16,
@@ -21,30 +26,63 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Base extends Component {
+    state = {
+        data: {}
+    }
+
+    componentDidMount() {
+        getCache(DATA_TYPE_BASE)
+    }
+
+    submit = () => {
+
+        var name = document.getElementById("name").value;
+        var province = document.getElementById("province").value;
+        var qualification = document.getElementById("qualification").value;
+
+        var cb = (route, message, arg) => {
+            if (message.id === Code.LOGIC_SUCCESS) {
+
+                getCache(DATA_TYPE_BASE) = arg.base;
+                // arg.self.state.data = 
+            }
+
+        }
+        var obj = {
+            name: name,
+            province: province,
+            qualification: qualification
+        }
+        getData(getRouter(RESET), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: base });
+    }
+
     render() {
 
         return (
             <div>
-
                 <Paper style={{ width: 600 }}>
                     <Typography type="body1" component="p">
-                        {"企业名称"}
+                        {Lang[window.Lang].pages.company.infos.company_name}
                     </Typography>
-                    <TextField>
-
-                    </TextField>
+                    <TextField
+                        id="name"
+                        defaultValue={this.state.data.name}
+                    />
                     <Typography type="body1" component="p">
-                        {"省市地区"}
+                        {Lang[window.Lang].pages.company.infos.province}
                     </Typography>
-                    <TextField>
+                    <TextField
+                        id="province"
+                        defaultValue={this.state.data.province}
+                    />
 
-                    </TextField>
                     <Typography type="body1" component="p">
-                        {"一级资质"}
+                        {Lang[window.Lang].pages.company.infos.qualification}
                     </Typography>
-                    <TextField>
-
-                    </TextField>
+                    <TextField
+                        id="qualification"
+                        defaultValue={this.state.data.qualification}
+                    />
                 </Paper>
 
             </div>

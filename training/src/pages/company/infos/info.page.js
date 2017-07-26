@@ -23,6 +23,8 @@ import Finance from './finance.paper';
 import Express from './express.paper';
 import Admin from './admin.paper';
 
+import { getCache } from '../../../utils/helpers';
+
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
         paddingTop: 16,
