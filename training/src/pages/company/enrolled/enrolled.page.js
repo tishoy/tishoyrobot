@@ -11,7 +11,7 @@ import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
 
-import { getData, getRouter, getStudent } from '../../../utils/helpers';
+import { getData, getRouter, getStudent, getCache } from '../../../utils/helpers';
 import { QUERY, ENROLL_STUDENT, STATUS_ENROLLED, AGREE_ARRANGE, REFUSE_ARRANGE } from '../../../enum';
 import Lang from '../../../language';
 import Code from '../../../code';

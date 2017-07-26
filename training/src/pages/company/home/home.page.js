@@ -109,7 +109,7 @@ class Home extends Component {
                     <div style={{ margin: 10, width: 400, float: "left" }}>
                         <Paper id="companyid" width="500px">
                             <Typography type="headline" component="h5">
-                                {this.state.company}
+                                {this.state.name}
                             </Typography>
                             <Typography type="body1" component="p">
                                 {Lang[window.Lang].pages.company.home.arranged + "/" + Lang[window.Lang].pages.company.home.arranged + ":"

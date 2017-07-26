@@ -46,6 +46,7 @@ class Home extends Component {
 
   state = {
     logged: Boolean(sessionStorage.getItem("logged")),
+    name: ""
   }
 
   componentDidMount() {
@@ -189,6 +190,7 @@ class Home extends Component {
                 /> */}
           <Button
             raised
+            value={"登陆"}
             onClick={() => {
               console.log("123");
               this.register();
@@ -217,7 +219,6 @@ class Home extends Component {
           }}
           value={this.state.name}
           onChange={event => this.setState({ name: event.target.value })}
-          margin="normal"
         />
         {Lang[window.Lang].pages.input_your_password}
         <TextField
@@ -225,10 +226,10 @@ class Home extends Component {
           id="login_password"
           type="password"
           defaultValue={""}
-          margin="normal"
         />
         <Button
           raised
+          value={"登陆"}
           onClick={() => {
             console.log("123");
             this.login("tishoy", "hantishoy123");
@@ -260,7 +261,7 @@ class Home extends Component {
               padding: '120px 30px',
             },
           }}>
-            {LoginDialog()}
+            {this.LoginDialog()}
           </div>
         </div>
       </div>

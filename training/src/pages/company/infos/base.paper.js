@@ -31,7 +31,7 @@ class Base extends Component {
     }
 
     componentDidMount() {
-        getCache(DATA_TYPE_BASE)
+        // getCache(DATA_TYPE_BASE)
     }
 
     submit = () => {
@@ -43,7 +43,9 @@ class Base extends Component {
         var cb = (route, message, arg) => {
             if (message.id === Code.LOGIC_SUCCESS) {
 
-                getCache(DATA_TYPE_BASE) = arg.base;
+                getCache(DATA_TYPE_BASE).value = arg.base;
+
+                console.log(getCache(DATA_TYPE_BASE));
                 // arg.self.state.data = 
             }
 
