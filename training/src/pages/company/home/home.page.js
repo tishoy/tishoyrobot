@@ -124,8 +124,8 @@ class Home extends Component {
                             {/* <StudentCard>
                     </StudentCard> */}
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarraged_title}</ListSubheader>}>
-                                {this.state.unarragedStudents.map(value =>
-                                    <ListItem dense button key={value}>
+                                {this.state.unarragedStudents.map(student =>
+                                    <ListItem dense button key={student.id}>
                                         <ListItemText primary={`Tishoy`} />
                                         <ListItemSecondaryAction>
 
@@ -142,7 +142,7 @@ class Home extends Component {
                                 {this.state.arrangedStudents.map(students =>
                                     <ListItem dense button key={students.id}>
                                         {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
-                                        <ListItemText primary={students.name} />
+                                        <ListItemText primary={students.base_info.name} />
                                         <ListItemSecondaryAction>
                                             {/* <Checkbox
                   onClick={event => this.handleToggle(event, value)}

@@ -12,6 +12,9 @@ import StudentCard from '../card';
 
 
 import { getData, getRouter, getCache } from '../../../utils/helpers';
+import {INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP} from '../../../enum';
+
+
 
 const Style = {
     paper: { paddingTop: 80, paddingLeft: 40, display: 'flex', FlexDirection: 'row', justifyContent: 'spacebetween' }
@@ -42,6 +45,7 @@ class Students extends Component {
 
             }
         }
+        getData(getRouter(IN))
     }
 
     removeStudent(id) {

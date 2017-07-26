@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 
 import { getData, getCache, getRouter } from '../../../utils/helpers';
-import { DATA_TYPE_BASE, RESET } from '../../../enum';
+import { DATA_TYPE_BASE, RESET_INFO } from '../../../enum';
 import Code from '../../../code';
 import Lang from '../../../language';
 
