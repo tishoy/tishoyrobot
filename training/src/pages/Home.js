@@ -190,13 +190,13 @@ class Home extends Component {
                 /> */}
           <Button
             raised
-            value={"登陆"}
+            color="accent"
             onClick={() => {
               console.log("123");
               this.register();
             }}
           >
-
+            注册
           </Button>
         </Dialog>
       </div>
@@ -210,7 +210,7 @@ class Home extends Component {
       <div>
         {Lang[window.Lang].pages.input_your_account}
         <TextField
-          id="name"
+          id="login_name"
           label="Name"
           style={{
             marginLeft: 200,//styleManager.theme.spacing.unit,
@@ -229,13 +229,17 @@ class Home extends Component {
         />
         <Button
           raised
-          value={"登陆"}
+          color="accent"
           onClick={() => {
-            console.log("123");
-            this.login("tishoy", "hantishoy123");
+            var name = document.getElementById("login_name").value;
+            var password = document.getElementById("login_password").value;
+            if (name === "" || password === "") {
+              return
+            }
+            this.login(name, password);
           }}
         >
-
+          登陆
         </Button>
       </div>
     )

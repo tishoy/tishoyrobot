@@ -112,29 +112,35 @@ class Exams extends Component {
                 >
 
                     <Paper elevation={4} style={Style.paper}>
-                        {this.state.examingStudents.map(value =>
+                        {this.state.examingStudents.map(student =>
                             <StudentCard
-                                name="tishoy"
-                                tel="100"
-                            >
+                                name={student.base_info.name}
+                                tel={student.base_info.tel}
+                                email={student.base_info.email}
+                                level={student.base_info.level}
+                                city={student.base_info.city}>
                             </StudentCard>
                         )}
                     </Paper>
                     <Paper elevation={4} style={Style.paper}>
-                        {this.state.passedStudents.map(value =>
+                        {this.state.passedStudents.map(student =>
                             <StudentCard
-                                name="tishoy"
-                                tel="100"
-                            >
+                                name={student.base_info.name}
+                                tel={student.base_info.tel}
+                                email={student.base_info.email}
+                                level={student.base_info.level}
+                                city={student.base_info.city}>
                             </StudentCard>
                         )}
                     </Paper>
                     <Paper elevation={4} style={Style.paper}>
-                        {this.state.unpassedStudents.map(value =>
+                        {this.state.unpassedStudents.map(student =>
                             <StudentCard
-                                name="tishoy"
-                                tel="100"
-                            >
+                                name={student.base_info.name}
+                                tel={student.base_info.tel}
+                                email={student.base_info.email}
+                                level={student.base_info.level}
+                                city={student.base_info.city}>
                             </StudentCard>
                         )}
                     </Paper>

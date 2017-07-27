@@ -127,20 +127,35 @@ class Enrolled extends Component {
         return (
             <div style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}>
                 <Paper style={Style.paper}>
-                    {this.state.newStudents.map(value =>
-                        <StudentCard>
+                    {this.state.newStudents.map(student =>
+                        <StudentCard
+                            name={student.base_info.name}
+                            tel={student.base_info.tel}
+                            email={student.base_info.email}
+                            level={student.base_info.level}
+                            city={student.base_info.city}>
                         </StudentCard>
                     )}
                 </Paper>
                 <Paper style={Style.paper}>
-                    {this.state.unarragedStudents.map(value =>
-                        <StudentCard>
+                    {this.state.unarragedStudents.map(student =>
+                        <StudentCard
+                            name={student.base_info.name}
+                            tel={student.base_info.tel}
+                            email={student.base_info.email}
+                            level={student.base_info.level}
+                            city={student.base_info.city}>
                         </StudentCard>
                     )}
                 </Paper>
                 <Paper style={Style.paper}>
-                    {this.state.arrangedStudents.map(value =>
-                        <StudentCard>
+                    {this.state.arrangedStudents.map(student =>
+                        <StudentCard
+                            name={student.base_info.name}
+                            tel={student.base_info.tel}
+                            email={student.base_info.email}
+                            level={student.base_info.level}
+                            city={student.base_info.city}>
                         </StudentCard>
                     )}
                 </Paper>

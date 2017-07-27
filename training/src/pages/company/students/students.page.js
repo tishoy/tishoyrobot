@@ -12,7 +12,7 @@ import StudentCard from '../card';
 
 
 import { getData, getRouter, getCache } from '../../../utils/helpers';
-import {INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP} from '../../../enum';
+import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP } from '../../../enum';
 
 
 
@@ -26,7 +26,7 @@ class Students extends Component {
 
     state = {
         students: {},
-        current: {}
+        selected: {}
     }
 
     componentDidMount() {

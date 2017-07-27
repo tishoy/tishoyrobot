@@ -15,6 +15,7 @@ import {
     STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY
 } from '../../../enum';
 import Lang from '../../../language';
+import StudentCard from '../card.js';
 
 class Home extends Component {
 
@@ -125,12 +126,13 @@ class Home extends Component {
                     </StudentCard> */}
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarraged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(student =>
-                                    <ListItem dense button key={student.id}>
-                                        <ListItemText primary={`Tishoy`} />
-                                        <ListItemSecondaryAction>
-
-                                        </ListItemSecondaryAction>
-                                    </ListItem>,
+                                    <StudentCard
+                                        name={student.base_info.name}
+                                        tel={student.base_info.tel}
+                                        email={student.base_info.email}
+                                        level={student.base_info.level}
+                                        city={student.base_info.city}>
+                                    </StudentCard>
                                 )}
                             </List>
                         </Paper>
@@ -139,17 +141,14 @@ class Home extends Component {
                         <Paper elevation={4}>
 
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arraged_title}</ListSubheader>}>
-                                {this.state.arrangedStudents.map(students =>
-                                    <ListItem dense button key={students.id}>
-                                        {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
-                                        <ListItemText primary={students.base_info.name} />
-                                        <ListItemSecondaryAction>
-                                            {/* <Checkbox
-                  onClick={event => this.handleToggle(event, value)}
-                  checked={this.state.checked.indexOf(value) !== -1}
-                /> */}
-                                        </ListItemSecondaryAction>
-                                    </ListItem>,
+                                {this.state.arrangedStudents.map(student =>
+                                    <StudentCard
+                                        name={student.base_info.name}
+                                        tel={student.base_info.tel}
+                                        email={student.base_info.email}
+                                        level={student.base_info.level}
+                                        city={student.base_info.city}>
+                                    </StudentCard>
                                 )}
                             </List>
 

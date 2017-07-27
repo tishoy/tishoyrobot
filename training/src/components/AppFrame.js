@@ -22,6 +22,7 @@ import AppDrawer from 'training/src/components/AppDrawer';
 import AppSearch from 'training/src/components/AppSearch';
 
 import Lang from '../language';
+import Tip from '../Tip';
 
 function getTitle(routes) {
   for (let i = routes.length - 1; i >= 0; i -= 1) {
@@ -214,6 +215,7 @@ class AppFrame extends Component {
           open={(drawerDocked || this.state.drawerOpen)}
         />
         {children}
+        <Tip />
 
       </div>
     );
