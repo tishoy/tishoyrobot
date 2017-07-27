@@ -31,10 +31,7 @@ class Exams extends Component {
             if (sessionStorage.logged === undefined || sessionStorage.logged === false) {
                 // 请先登录
                 // 路由转到 Home
-
             }
-
-
             var cb = (route, message, arg) => {
                 console.log(route);
                 console.log(message);
@@ -45,8 +42,6 @@ class Exams extends Component {
                     window.CacheData = message.students;
                     console.log(window.CacheData);
                     // arg.self.
-
-
                     // window.
                     // this.context.router.push("/company/home");
                 }

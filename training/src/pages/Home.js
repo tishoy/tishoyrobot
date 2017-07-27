@@ -76,6 +76,12 @@ class Home extends Component {
 
   check_available = (account) => {
     var cb = (route, message, arg) => {
+      if (message.code === Code.LOGIC_SUCCESS) {
+        // 与其他玩家不冲突
+      } else {
+        // 名字已经被占用，需要重新起一个有特色的名字
+      }
+
       console.log(route);
       console.log(message);
     }
@@ -147,9 +153,7 @@ class Home extends Component {
     getData(getRouter(LOGIN), { account: account, password: password, type: APP_TYPE_COMPANY }, cb, { account: account });
   }
 
-
   RegisterDialog = () => {
-
     return (
       <div>
         <Dialog
@@ -203,9 +207,7 @@ class Home extends Component {
     )
   }
 
-
   LoginDialog = () => {
-
     return (
       <div>
         {Lang[window.Lang].pages.input_your_account}
@@ -245,7 +247,6 @@ class Home extends Component {
     )
   }
 
-
   render() {
     return (
       <div style={{ flex: '1 0 100%', }}>
@@ -271,11 +272,6 @@ class Home extends Component {
       </div>
     )
   }
-
-
-
-
 }
-
 
 export default Home;
