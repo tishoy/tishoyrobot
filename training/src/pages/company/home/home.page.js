@@ -12,7 +12,7 @@ import Typography from 'material-ui/Typography';
 import { getData, getRouter, getCache } from '../../../utils/helpers';
 import {
     DATA_TYPE_BASE, DATA_TYPE_CLAZZ, STATUS_ENROLLED, STATUS_ARRANGED, STATUS_ARRANGED_DOING, STATUS_ARRANGED_UNDO,
-    STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY
+    STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT
 } from '../../../enum';
 import Lang from '../../../language';
 import StudentCard from '../card.js';
@@ -47,58 +47,57 @@ class Home extends Component {
                     sessionStorage.logged = true;
                     sessionStorage.account = arg['account'];
                     sessionStorage.session = message.session;
-                    window.CacheData = message.students;
-                    console.log(window.CacheData);
-                    // arg.self.
-
-
-                    // window.
-                    // this.context.router.push("/company/home");
+                    window.CacheData = message.data;
+                    arg.self.cacheToState();
                 }
             }
             getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
         } else {
             // 设置界面
-            let students = getCache("student");
-            let enrolled = 0, arranged = 0, passed = 0, examing = 0,
-                unarragedStudents = [], arrangedStudents = [];
-            for (var i = 0; i < students.length; i++) {
-                if (students[i].status[STATUS_ENROLLED].status === STATUS_ENROLLED_DID) {
-                    enrolled++
-                    if (students[i].status[STATUS_ARRANGED].status === STATUS_ARRANGED_UNDO) {
-                        unarragedStudents.push(students[i]);
-                    }
-                }
-                if (students[i].status[STATUS_ARRANGED].status === STATUS_ARRANGED_DOING) {
-                    arranged++
-                    arrangedStudents.push(students[i]);
-                }
-                // if (students[i].status['agreed'].status === 1) {
-                //     this.state.agreed.push(students[i]);
-                // }
-                if (students[i].status[STATUS_EXAMING].status === STATUS_EXAMING_DID) {
-                    examing++
-                }
-                if (students[i].status[STATUS_PASSED].status === STATUS_PASSED_DID) {
-                    passed++
-                }
-                // if (students[i].status['retry'].status === 1) {
-                //     this.state.retry.push(students[i]);
-                // }
-
-            }
-            this.setState({
-                name: getCache(DATA_TYPE_BASE).name,
-                enrolled: enrolled,
-                arranged: arranged,
-                examing: examing,
-                passed: passed,
-                unarragedStudents: unarragedStudents,
-                arrangedStudents: arrangedStudents,
-                clazz: getCache(DATA_TYPE_CLAZZ)
-            })
+            this.cacheToState();
         }
 
+    }
+
+    cacheToState() {
+        let students = getCache(DATA_TYPE_STUDENT);
+        let enrolled = 0, arranged = 0, passed = 0, examing = 0,
+            unarragedStudents = [], arrangedStudents = [];
+        for (var i = 0; i < students.length; i++) {
+            if (students[i].status[STATUS_ENROLLED].status === STATUS_ENROLLED_DID) {
+                enrolled++
+                if (students[i].status[STATUS_ARRANGED].status === STATUS_ARRANGED_UNDO) {
+                    unarragedStudents.push(students[i]);
+                }
+            }
+            if (students[i].status[STATUS_ARRANGED].status === STATUS_ARRANGED_DOING) {
+                arranged++
+                arrangedStudents.push(students[i]);
+            }
+            // if (students[i].status['agreed'].status === 1) {
+            //     this.state.agreed.push(students[i]);
+            // }
+            if (students[i].status[STATUS_EXAMING].status === STATUS_EXAMING_DID) {
+                examing++
+            }
+            if (students[i].status[STATUS_PASSED].status === STATUS_PASSED_DID) {
+                passed++
+            }
+            // if (students[i].status['retry'].status === 1) {
+            //     this.state.retry.push(students[i]);
+            // }
+
+        }
+        this.setState({
+            name: getCache(DATA_TYPE_BASE).name,
+            enrolled: enrolled,
+            arranged: arranged,
+            examing: examing,
+            passed: passed,
+            unarragedStudents: unarragedStudents,
+            arrangedStudents: arrangedStudents,
+            clazz: getCache(DATA_TYPE_CLAZZ)
+        })
     }
 
     render() {
@@ -121,10 +120,10 @@ class Home extends Component {
                                     + this.state.passed + Lang[window.Lang].pages.company.home.human + "/" + this.state.examing + Lang[window.Lang].pages.company.home.human}
                             </Typography>
                         </Paper>
-                        <Paper elevation={4} style={{ margin: 10 }}>
+                        <Paper elevation={4} style={{ margin: 10, width: 400, }}>
                             {/* <StudentCard>
                     </StudentCard> */}
-                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarraged_title}</ListSubheader>}>
+                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(student =>
                                     <StudentCard
                                         name={student.base_info.name}
@@ -140,7 +139,7 @@ class Home extends Component {
                     <div style={{ margin: 10, width: 800, float: "left" }}>
                         <Paper elevation={4}>
 
-                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arraged_title}</ListSubheader>}>
+                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arranged_title}</ListSubheader>}>
                                 {this.state.arrangedStudents.map(student =>
                                     <StudentCard
                                         name={student.base_info.name}
@@ -158,7 +157,7 @@ class Home extends Component {
                     <div style={{ margin: 10, width: 400, float: "left" }}>
                         <Paper elevation={4}>
 
-                            <List subheader={<ListSubheader>Lang[window.Lang].pages.company.home.clazz_title</ListSubheader>}>
+                            <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.clazz_title}</ListSubheader>}>
                                 {this.state.clazz.map(value =>
                                     <ListItem dense button key={value}>
                                         {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}

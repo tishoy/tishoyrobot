@@ -11,6 +11,8 @@ import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
 import { getData, getRouter, getCache } from '../../../utils/helpers';
+import { DATA_TYPE_STUDENT, STATUS_EXAMING, STATUS_PASSED, STATUS_PASSED_DID, STATUS_EXAMING_DOING, STATUS_PASSED_UNDO, STATUS_EXAMING_DID } from '../../../enum';
+import Lang from '../../../language';
 
 const Style = {
     paper: { margin: 10, width: 400, float: "left" }
@@ -33,43 +35,44 @@ class Exams extends Component {
                 // 路由转到 Home
             }
             var cb = (route, message, arg) => {
-                console.log(route);
-                console.log(message);
                 if (message.code === "0") {
                     sessionStorage.logged = true;
                     sessionStorage.account = arg['account'];
                     sessionStorage.session = message.session;
-                    window.CacheData = message.students;
-                    console.log(window.CacheData);
-                    // arg.self.
-                    // window.
-                    // this.context.router.push("/company/home");
+                    window.CacheData = message.data;
+                    arg.self.cacheToState();
+
                 }
             }
             getData(getRouter("query"), { session: sessionStorage.session, type: 1 }, cb, { self: this });
         } else {
+            this.cacheToState();
             // 设置界面
-            let students = getCache("student");
-            let examingStudents = [], passedStudents = [], unpassedStudents = [];
-            for (var i = 0; i < students.length; i++) {
-                if (students[i].status['examing'].status === 0) {
-                    examingStudents.push(students[i]);
-                }
-                if (students[i].status['examing'].status === 1 && students[i].status['passed'].status === 1) {
-                    passedStudents.push(students[i]);
-                }
-                if (students[i].status['examing'].status === 1 && students[i].status['passed'].status !== 1) {
-                    unpassedStudents.push(students[i]);
-                }
-            }
 
-            this.setState({
-                examingStudents: examingStudents,
-                passedStudents: passedStudents,
-                unpassedStudents: unpassedStudents,
-            })
         }
 
+    }
+
+    cacheToState() {
+        let students = getCache(DATA_TYPE_STUDENT);
+        let examingStudents = [], passedStudents = [], unpassedStudents = [];
+        for (var i = 0; i < students.length; i++) {
+            if (students[i].status[STATUS_EXAMING].status === STATUS_EXAMING_DOING) {
+                examingStudents.push(students[i]);
+            }
+            if (students[i].status[STATUS_EXAMING].status === STATUS_EXAMING_DID && students[i].status[STATUS_PASSED].status === STATUS_PASSED_DID) {
+                passedStudents.push(students[i]);
+            }
+            if (students[i].status[STATUS_EXAMING].status === STATUS_EXAMING_DID && students[i].status[STATUS_PASSED].status !== STATUS_PASSED_UNDO) {
+                unpassedStudents.push(students[i]);
+            }
+        }
+
+        this.setState({
+            examingStudents: examingStudents,
+            passedStudents: passedStudents,
+            unpassedStudents: unpassedStudents,
+        })
     }
 
     // 安排考试
@@ -107,37 +110,43 @@ class Exams extends Component {
                 >
 
                     <Paper elevation={4} style={Style.paper}>
-                        {this.state.examingStudents.map(student =>
-                            <StudentCard
-                                name={student.base_info.name}
-                                tel={student.base_info.tel}
-                                email={student.base_info.email}
-                                level={student.base_info.level}
-                                city={student.base_info.city}>
-                            </StudentCard>
-                        )}
+                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.examing}</ListSubheader>}>
+                            {this.state.examingStudents.map(student =>
+                                <StudentCard
+                                    name={student.base_info.name}
+                                    tel={student.base_info.tel}
+                                    email={student.base_info.email}
+                                    level={student.base_info.level}
+                                    city={student.base_info.city}>
+                                </StudentCard>
+                            )}
+                        </List>
                     </Paper>
                     <Paper elevation={4} style={Style.paper}>
-                        {this.state.passedStudents.map(student =>
-                            <StudentCard
-                                name={student.base_info.name}
-                                tel={student.base_info.tel}
-                                email={student.base_info.email}
-                                level={student.base_info.level}
-                                city={student.base_info.city}>
-                            </StudentCard>
-                        )}
+                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.passed}</ListSubheader>}>
+                            {this.state.passedStudents.map(student =>
+                                <StudentCard
+                                    name={student.base_info.name}
+                                    tel={student.base_info.tel}
+                                    email={student.base_info.email}
+                                    level={student.base_info.level}
+                                    city={student.base_info.city}>
+                                </StudentCard>
+                            )}
+                        </List>
                     </Paper>
                     <Paper elevation={4} style={Style.paper}>
-                        {this.state.unpassedStudents.map(student =>
-                            <StudentCard
-                                name={student.base_info.name}
-                                tel={student.base_info.tel}
-                                email={student.base_info.email}
-                                level={student.base_info.level}
-                                city={student.base_info.city}>
-                            </StudentCard>
-                        )}
+                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.unpassed}</ListSubheader>}>
+                            {this.state.unpassedStudents.map(student =>
+                                <StudentCard
+                                    name={student.base_info.name}
+                                    tel={student.base_info.tel}
+                                    email={student.base_info.email}
+                                    level={student.base_info.level}
+                                    city={student.base_info.city}>
+                                </StudentCard>
+                            )}
+                        </List>
                     </Paper>
                 </div>
             </div>

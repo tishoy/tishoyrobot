@@ -7,12 +7,17 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import List, {
+    ListItem, ListItemSecondaryAction, ListItemText,
+    ListSubheader,
+} from 'material-ui/List';
+
 
 import StudentCard from '../card';
 
-
+import Lang from '../../../language';
 import { getData, getRouter, getCache } from '../../../utils/helpers';
-import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP } from '../../../enum';
+import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP, DATA_TYPE_STUDENT, QUERY } from '../../../enum';
 
 
 
@@ -25,17 +30,53 @@ const Style = {
 class Students extends Component {
 
     state = {
-        students: {},
+        students: [],
         selected: {}
     }
 
     componentDidMount() {
-        this.getStudents();
+        if (!window.CacheData) {
+            if (sessionStorage.logged === undefined || sessionStorage.logged === false) {
+                // 请先登录
+                // 路由转到 Home
+
+            }
+
+
+            var cb = (route, message, arg) => {
+                console.log(route);
+                console.log(message);
+                if (message.code === "0") {
+                    sessionStorage.logged = true;
+                    sessionStorage.account = arg['account'];
+                    sessionStorage.session = message.session;
+                    window.CacheData = message.data;
+                    console.log(window.CacheData);
+                    arg.self.cacheToState();
+
+
+                    // window.
+                    // this.context.router.push("/company/home");
+                }
+            }
+            getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
+        } else {
+            // 设置界面
+            this.cacheToState();
+        }
+
     }
 
+    cacheToState() {
+        let students = getCache(DATA_TYPE_STUDENT);
+        this.setState({ students: students })
+
+
+    }
+
+
     getStudents() {
-        let students = getCache(student);
-        this.setState({ students: student })
+
     }
 
     newStudent(student) {
@@ -69,13 +110,23 @@ class Students extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <div style={Style.paper}>
-                        {this.state.students.map(student => {
-                            <StudentCard />
-                        })}
+                <div
+                    style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}
+                >
+                    <div style={{ margin: 10, width: 400, float: "left" }}>
+                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
+                            {this.state.students.map(student =>
+                                <StudentCard
+                                    name={student.base_info.name}
+                                    tel={student.base_info.tel}
+                                    email={student.base_info.email}
+                                    level={student.base_info.level}
+                                    city={student.base_info.city}>
+                                </StudentCard>
+                            )}
+                        </List>
                     </div>
-                    <Paper elevation={4}>
+                    <Paper style={{ margin: 10, width: 800, float: "left" }} elevation={4}>
                         <div>
                             <Typography type="headline" component="h3">
                                 {"基本信息"}
