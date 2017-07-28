@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 
 import { getData, getCache, getRouter } from '../../../utils/helpers';
-import { DATA_TYPE_BASE, RESET_INFO } from '../../../enum';
+import { DATA_TYPE_BASE, RESET_INFO, DATA_TYPE_ADMIN } from '../../../enum';
 import Code from '../../../code';
 import Lang from '../../../language';
 
@@ -26,28 +26,46 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 }));
 
 class Admin extends Component {
+    state = {
+        data: {}
+    }
+
+    componentDidMount() {
+        this.setState({
+            data: getCache(DATA_TYPE_ADMIN)
+        });
+    }
+
     render() {
         return (
             <div
 
             >
                 <Paper style={{ width: 600 }}>
-                    <Typography type="body1" component="p">
-                        {"企业名称"}
-                    </Typography>
-                    <TextField>
-
+                    <TextField
+                        id="account"
+                        label={Lang[window.Lang].pages.company.infos.admin.account}
+                        defaultValue={this.state.data.name}>
                     </TextField>
-                    <Typography type="body1" component="p">
-                        {"省市地区"}
-                    </Typography>
-                    <TextField>
-
+                    <TextField
+                        id="password"
+                        label={Lang[window.Lang].pages.company.infos.admin.password}
+                        defaultValue={this.state.data.password}>
                     </TextField>
-                    <Typography type="body1" component="p">
-                        {"一级资质"}
-                    </Typography>
-                    <TextField>
+                    <TextField
+                        id="name"
+                        label={Lang[window.Lang].pages.company.infos.admin.name}
+                        defaultValue={this.state.data.name}>
+                    </TextField>
+                    <TextField
+                        id="tel"
+                        label={Lang[window.Lang].pages.company.infos.admin.tel}
+                        defaultValue={this.state.data.tel}>
+                    </TextField>
+                    <TextField
+                        id="email"
+                        label={Lang[window.Lang].pages.company.infos.admin.email}
+                        defaultValue={this.state.data.email}>
 
                     </TextField>
                 </Paper>

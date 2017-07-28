@@ -9,17 +9,21 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import { getData, getRouter, getCache } from '../../../utils/helpers';
+import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import {
     DATA_TYPE_BASE, DATA_TYPE_CLAZZ, STATUS_ENROLLED, STATUS_ARRANGED, STATUS_ARRANGED_DOING, STATUS_ARRANGED_UNDO,
     STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT
 } from '../../../enum';
 import Lang from '../../../language';
 import StudentCard from '../card.js';
+import Code from '../../../code';
+
+import CommonAlert from '../../../components/CommonAlert';
 
 class Home extends Component {
 
     state = {
+        // 数据状态
         name: "",
         enrolled: 0,
         arranged: 0,
@@ -27,36 +31,19 @@ class Home extends Component {
         passed: 0,
         unarragedStudents: [],
         arrangedStudents: [],
-        clazz: []
+        clazz: [],
+        // 界面状态
+
+        // 提示状态
+        alertOpen: false,
+        alertType: "alert",
+        alertCode: Code.LOGIC_SUCCESS,
+        alertContent: "登录成功"
     };
 
     componentWillMount() {
-
-        if (!window.CacheData) {
-            if (sessionStorage.logged === undefined || sessionStorage.logged === false) {
-                // 请先登录
-                // 路由转到 Home
-
-            }
-
-
-            var cb = (route, message, arg) => {
-                console.log(route);
-                console.log(message);
-                if (message.code === "0") {
-                    sessionStorage.logged = true;
-                    sessionStorage.account = arg['account'];
-                    sessionStorage.session = message.session;
-                    window.CacheData = message.data;
-                    arg.self.cacheToState();
-                }
-            }
-            getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
-        } else {
-            // 设置界面
-            this.cacheToState();
-        }
-
+        window.currentPage = this;
+        initCache(this.cacheToState);
     }
 
     cacheToState() {
@@ -88,8 +75,8 @@ class Home extends Component {
             // }
 
         }
-        this.setState({
-            name: getCache(DATA_TYPE_BASE).name,
+        window.currentPage.setState({
+            name: getCache(DATA_TYPE_BASE).company_name,
             enrolled: enrolled,
             arranged: arranged,
             examing: examing,
@@ -98,6 +85,10 @@ class Home extends Component {
             arrangedStudents: arrangedStudents,
             clazz: getCache(DATA_TYPE_CLAZZ)
         })
+    }
+
+    popUpNotice = (type, code, content) => {
+        this.setState({ type: type, code: code, content: content, alertOpen: true });
     }
 
     render() {
@@ -120,12 +111,13 @@ class Home extends Component {
                                     + this.state.passed + Lang[window.Lang].pages.company.home.human + "/" + this.state.examing + Lang[window.Lang].pages.company.home.human}
                             </Typography>
                         </Paper>
-                        <Paper elevation={4} style={{ margin: 10, width: 400, }}>
+                        <Paper elevation={4} style={{ width: "500px", }}>
                             {/* <StudentCard>
                     </StudentCard> */}
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(student =>
                                     <StudentCard
+                                        key={student.id}
                                         name={student.base_info.name}
                                         tel={student.base_info.tel}
                                         email={student.base_info.email}
@@ -142,6 +134,7 @@ class Home extends Component {
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arranged_title}</ListSubheader>}>
                                 {this.state.arrangedStudents.map(student =>
                                     <StudentCard
+                                        key={student.id}
                                         name={student.base_info.name}
                                         tel={student.base_info.tel}
                                         email={student.base_info.email}
@@ -174,6 +167,18 @@ class Home extends Component {
 
 
                         </Paper>
+                        <CommonAlert
+                            show={this.state.alertOpen}
+                            type={this.state.alertType}
+                            code={this.state.alertCode}
+                            content={this.state.alertContent}
+                            handleCertainClose={() => {
+                                this.setState({ alertOpen: false });
+                            }}
+                            handleCancelClose={() => {
+                                this.setState({ alertOpen: false })
+                            }}>
+                        </CommonAlert>
                     </div>
                 </div>
             </div>

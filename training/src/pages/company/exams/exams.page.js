@@ -10,7 +10,7 @@ import List, {
 import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
-import { getData, getRouter, getCache } from '../../../utils/helpers';
+import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import { DATA_TYPE_STUDENT, STATUS_EXAMING, STATUS_PASSED, STATUS_PASSED_DID, STATUS_EXAMING_DOING, STATUS_PASSED_UNDO, STATUS_EXAMING_DID } from '../../../enum';
 import Lang from '../../../language';
 
@@ -28,28 +28,8 @@ class Exams extends Component {
 
 
     componentWillMount() {
-
-        if (!window.CacheData) {
-            if (sessionStorage.logged === undefined || sessionStorage.logged === false) {
-                // 请先登录
-                // 路由转到 Home
-            }
-            var cb = (route, message, arg) => {
-                if (message.code === "0") {
-                    sessionStorage.logged = true;
-                    sessionStorage.account = arg['account'];
-                    sessionStorage.session = message.session;
-                    window.CacheData = message.data;
-                    arg.self.cacheToState();
-
-                }
-            }
-            getData(getRouter("query"), { session: sessionStorage.session, type: 1 }, cb, { self: this });
-        } else {
-            this.cacheToState();
-            // 设置界面
-
-        }
+        window.currentPage = this;
+        initCache(this.cacheToState);
 
     }
 
@@ -68,7 +48,7 @@ class Exams extends Component {
             }
         }
 
-        this.setState({
+        window.currentPage.setState({
             examingStudents: examingStudents,
             passedStudents: passedStudents,
             unpassedStudents: unpassedStudents,
@@ -113,6 +93,7 @@ class Exams extends Component {
                         <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.examing}</ListSubheader>}>
                             {this.state.examingStudents.map(student =>
                                 <StudentCard
+                                    key={student.id}
                                     name={student.base_info.name}
                                     tel={student.base_info.tel}
                                     email={student.base_info.email}
@@ -126,6 +107,7 @@ class Exams extends Component {
                         <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.passed}</ListSubheader>}>
                             {this.state.passedStudents.map(student =>
                                 <StudentCard
+                                    key={student.id}
                                     name={student.base_info.name}
                                     tel={student.base_info.tel}
                                     email={student.base_info.email}
@@ -139,6 +121,7 @@ class Exams extends Component {
                         <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.unpassed}</ListSubheader>}>
                             {this.state.unpassedStudents.map(student =>
                                 <StudentCard
+                                    key={student.id}
                                     name={student.base_info.name}
                                     tel={student.base_info.tel}
                                     email={student.base_info.email}

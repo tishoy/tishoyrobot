@@ -15,7 +15,10 @@ const Language = {
                 password: "密码",
                 input_your_password: "输入密码",
                 change_account: "切换账号",
-
+                login_button: "登录",
+                register_button: "注册",
+                certain_button: "确定",
+                cancel_button: "取消"
             },
             company: {
                 home: {
@@ -144,6 +147,14 @@ const Language = {
                 Reset: "修改密码",
                 Logout: "登出"
             },
+            CommonAlert: {
+                warning: "警告",
+                alert: "提示",
+                notice: "通知"
+            }
+        },
+        ErrorCode: {
+            0: "操作成功"
         }
     }
 }

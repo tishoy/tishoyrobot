@@ -1,6 +1,7 @@
 // @flow
-import config from "../config.js";
-import { DATA_TYPE_ALL } from "../enum.js";
+import config from "../config";
+import { DATA_TYPE_ALL, QUERY, APP_TYPE_COMPANY } from "../enum";
+import Code from "../code";
 
 export function kebabCase(string: String) {
   return string
@@ -49,8 +50,15 @@ export function getTimeString(timeStamp) {
   return [year, month, day].map(Util.number.formatTimeNumber).join('/') + ' ' + [hour, minute, second].map(Util.number.formatTimeNumber).join(':')
 }
 
+/**
+ * 向服务器发送消息
+ * @param {*} router 
+ * @param {*} json 
+ * @param {*} callback 
+ * @param {*} args 
+ */
 export function getData(router, json, callback = null, args = {}) {
-  if (isJson(json)) {
+  if (!isJson(json)) {
 
   }
   fetch(router, {
@@ -88,17 +96,25 @@ export function isJson(obj) {
   return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
 }
 
+/**
+ * 获取路由
+ * @param {*路由键} key 
+ */
 export function getRouter(key) {
   var router = sessionStorage.getItem(key);
   return router === null ? config.routers : router;
 }
 
+/**
+ * 
+ * @param {*} key 
+ */
 export function getStorage(key) {
   return localStorage.getItem(key);
 }
 
 /**
- * 保存所有数据
+ * 获取保存所有数据
  * - info 个人与公司信息
  *  - base
  *  - finance
@@ -114,6 +130,10 @@ export function getCache(key = DATA_TYPE_ALL) {
   return window.CacheData[key];
 }
 
+/**
+ * 获取单个学生
+ * @param {*学生ID} id 
+ */
 export function getStudent(id = 0) {
   for (var i = 0; i < window.CacheData[STUDENT].length; i++) {
     if (window.CacheData[STUDENT].id === id) {
@@ -123,6 +143,34 @@ export function getStudent(id = 0) {
   return {};
 }
 
+/**
+ * 每个页面初始化使用的cache
+ * @param {*回调函数} callback 
+ */
+export function initCache(callback = () => { }) {
+  if (!window.CacheData) {
+    if (sessionStorage.logged === true || sessionStorage.session !== undefined) {
+      var cb = (route, message, arg) => {
+        if (message.code === Code.LOGIC_SUCCESS) {
+          window.CacheData = message.data;
+          callback()
+        }
+
+      }
+      getData(getRouter(QUERY), { session: sessionStorage.session, type: APP_TYPE_COMPANY }, cb, { callback: callback });
+    } else {
+      // 请登录
+      // window.di
+    }
+  } else {
+    callback();
+    // window.currentPage.cacheToState();
+  }
+}
+
+/**
+ * 服务器通知
+ */
 export function notification() {
   var source = new EventSource(config.notification);
   source.onmessage = function (event) {

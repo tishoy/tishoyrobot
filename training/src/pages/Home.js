@@ -159,25 +159,23 @@ class Home extends Component {
         <Dialog
           open={true}
         >
-          {Lang[window.Lang].pages.input_your_account}
           <TextField
             name="register_account"
             id="register_account"
-            hintText={Lang[window.Lang].pages.input_your_account}
-            floatingLabelText={Lang[window.Lang].pages.account}
+            hintText={Lang[window.Lang].pages.main.input_your_account}
+            floatingLabelText={Lang[window.Lang].pages.main.account}
             fullWidth={true}
             defaultValue={sessionStorage.account}
             onBlur={() => {
               this.check_available(document.getElementById("register_account").value);
             }}
           />
-          {Lang[window.Lang].pages.input_your_password}
           <TextField
             name="register_password"
             id="register_password"
             type="password"
-            hintText={Lang[window.Lang].pages.input_your_password}
-            floatingLabelText={Lang[window.Lang].pages.password}
+            hintText={Lang[window.Lang].pages.main.input_your_password}
+            floatingLabelText={Lang[window.Lang].pages.main.password}
             fullWidth={true}
             defaultValue={""}
           />
@@ -200,7 +198,7 @@ class Home extends Component {
               this.register();
             }}
           >
-            注册
+            Lang[window.Lang].pages.main.register_button
           </Button>
         </Dialog>
       </div>
@@ -210,24 +208,23 @@ class Home extends Component {
   LoginDialog = () => {
     return (
       <div>
-        {Lang[window.Lang].pages.input_your_account}
         <TextField
           id="login_name"
-          label="Name"
+          label={Lang[window.Lang].pages.main.account}
           style={{
             marginLeft: 200,//styleManager.theme.spacing.unit,
             marginRight: 200,//theme.spacing.unit,  
             width: 200,
           }}
+          defaultValue={Lang[window.Lang].pages.main.input_your_account}
           value={this.state.name}
           onChange={event => this.setState({ name: event.target.value })}
         />
-        {Lang[window.Lang].pages.input_your_password}
         <TextField
-          name="password"
+          label={Lang[window.Lang].pages.main.password}
           id="login_password"
           type="password"
-          defaultValue={""}
+          // defaultValue={Lang[window.Lang].pages.main.input_your_password}
         />
         <Button
           raised
@@ -241,7 +238,7 @@ class Home extends Component {
             this.login(name, password);
           }}
         >
-          登陆
+          {Lang[window.Lang].pages.main.login_button}
         </Button>
       </div>
     )

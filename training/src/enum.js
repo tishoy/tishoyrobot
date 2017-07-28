@@ -4,6 +4,12 @@
 export const  APP_TYPE_COMPANY = 1;                //公司
 export const  APP_TYPE_ORANIZATION = 2;            //培训机构
 /**
+ * Alert 類型
+ */
+export const WARNING = "warning";
+export const ALERT = "alert";
+export const NOTICE = "notice";
+/**
  * 数据类型枚举
  */
 export const DATA_TYPE_ALL = "all";               // 全部数据

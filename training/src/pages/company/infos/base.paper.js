@@ -31,7 +31,9 @@ class Base extends Component {
     }
 
     componentDidMount() {
-        // getCache(DATA_TYPE_BASE)
+        this.setState({
+            data: getCache(DATA_TYPE_BASE)
+        });
     }
 
     submit = () => {
@@ -63,26 +65,19 @@ class Base extends Component {
         return (
             <div>
                 <Paper style={{ width: 600 }}>
-                    <Typography type="body1" component="p">
-                        {Lang[window.Lang].pages.company.infos.company_name}
-                    </Typography>
                     <TextField
                         id="name"
+                        label={Lang[window.Lang].pages.company.infos.base.company_name}
                         defaultValue={this.state.data.name}
                     />
-                    <Typography type="body1" component="p">
-                        {Lang[window.Lang].pages.company.infos.province}
-                    </Typography>
                     <TextField
                         id="province"
+                        label={Lang[window.Lang].pages.company.infos.base.province}
                         defaultValue={this.state.data.province}
                     />
-
-                    <Typography type="body1" component="p">
-                        {Lang[window.Lang].pages.company.infos.qualification}
-                    </Typography>
                     <TextField
                         id="qualification"
+                        label={Lang[window.Lang].pages.company.infos.base.qualification}
                         defaultValue={this.state.data.qualification}
                     />
                 </Paper>

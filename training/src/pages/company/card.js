@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
@@ -42,25 +42,32 @@ class SimpleCard extends Component {
 
     return (
       <div>
-        <Card>
-          <CardContent>
-            <Typography type="name">
-              {name}
-            </Typography>
-            <Typography type="tel" component="h2">
-              {tel}
-            </Typography>
-            <Typography type="email">
-              email
-            </Typography>
-            <Typography component="p">
-              level<br />
-              city
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button dense>修改</Button>
-          </CardActions>
+        <Card style={{ display: 'flex', }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            <CardContent>
+              <Typography type="name">
+                {name}
+              </Typography>
+              <Typography type="tel" component="h2">
+                {tel}
+              </Typography>
+              <Typography type="email">
+                {email}
+              </Typography>
+              <Typography component="p">
+                {level}<br />
+                {city}
+              </Typography>
+            </CardContent>
+          </div>
+          <div>
+            <CardActions>
+              <Button dense>修改</Button>
+            </CardActions>
+          </div>
         </Card>
       </div>
     );

@@ -22,7 +22,7 @@ import AppDrawer from 'training/src/components/AppDrawer';
 import AppSearch from 'training/src/components/AppSearch';
 
 import Lang from '../language';
-import Tip from './Tip';
+import { initCache, getData, getRouter, getCache } from '../utils/helpers';
 
 function getTitle(routes) {
   for (let i = routes.length - 1; i >= 0; i -= 1) {
@@ -97,6 +97,10 @@ class AppFrame extends Component {
     logged: sessionStorage.getItem("logged"),
   };
 
+  componentDidMount() {
+    console.log("frame mouted");
+  }
+
   handleDrawerClose = () => {
     this.setState({ drawerOpen: false });
   };
@@ -121,6 +125,9 @@ class AppFrame extends Component {
   }
 
   render() {
+
+    console.log("render frame")
+
     const { children, routes, width } = this.props;
 
     const classes = this.props.classes;
@@ -164,7 +171,11 @@ class AppFrame extends Component {
             >
               <LightbulbOutline />
             </IconButton>
-            <IconButton>
+            <IconButton
+              color="contrast"
+              onClick={() => {
+                initCache(window.currentPage.cacheToState);
+              }}>
               <Refresh />
             </IconButton>
             <IconButton
@@ -215,8 +226,6 @@ class AppFrame extends Component {
           open={(drawerDocked || this.state.drawerOpen)}
         />
         {children}
-        <Tip />
-
       </div>
     );
   }

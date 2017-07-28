@@ -11,7 +11,7 @@ import Typography from 'material-ui/Typography';
 
 import StudentCard from '../card.js';
 
-import { getData, getRouter, getStudent, getCache } from '../../../utils/helpers';
+import { initCache, getData, getRouter, getStudent, getCache } from '../../../utils/helpers';
 import {
     QUERY, ENROLL_STUDENT, STATUS_ENROLLED, AGREE_ARRANGE, REFUSE_ARRANGE, DATA_TYPE_STUDENT, STATUS_ARRANGED_DOING,
     STATUS_ENROLLED_UNDO, STATUS_ARRANGED_UNDO, STATUS_AGREED_AGREE, STATUS_ENROLLED_DID, STATUS_ARRANGED, STATUS_AGREED
@@ -33,37 +33,8 @@ class Enrolled extends Component {
 
 
     componentWillMount() {
-
-        if (!window.CacheData) {
-            if (sessionStorage.logged === undefined || sessionStorage.logged === false) {
-                // 请先登录
-                // 路由转到 Home
-
-            }
-
-
-            var cb = (route, message, arg) => {
-                console.log(route);
-                console.log(message);
-                if (message.code === "0") {
-                    sessionStorage.logged = true;
-                    sessionStorage.account = arg['account'];
-                    sessionStorage.session = message.session;
-                    window.CacheData = message.data;
-                    arg.self.cacheToState();
-
-                    // window.
-                    // this.context.router.push("/company/home");
-                }
-            }
-            getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
-        } else {
-            this.cacheToState();
-
-
-
-        }
-
+        window.currentPage = this;
+        initCache(this.cacheToState);
     }
 
     cacheToState() {
@@ -81,7 +52,7 @@ class Enrolled extends Component {
                 arrangedStudents.push(students[i]);
             }
         }
-        this.setState({
+        window.currentPage.setState({
             newStudents: newStudents,
             unarragedStudents: unarragedStudents,
             arrangedStudents: arrangedStudents
@@ -135,6 +106,7 @@ class Enrolled extends Component {
                     <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.enrolled.unenrolled}</ListSubheader>}>
                         {this.state.newStudents.map(student =>
                             <StudentCard
+                                key={student.id}
                                 name={student.base_info.name}
                                 tel={student.base_info.tel}
                                 email={student.base_info.email}
@@ -148,6 +120,7 @@ class Enrolled extends Component {
                     <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.enrolled.unarrange}</ListSubheader>}>
                         {this.state.unarragedStudents.map(student =>
                             <StudentCard
+                                key={student.id}
                                 name={student.base_info.name}
                                 tel={student.base_info.tel}
                                 email={student.base_info.email}
@@ -161,6 +134,7 @@ class Enrolled extends Component {
                     <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.enrolled.arranged}</ListSubheader>}>
                         {this.state.arrangedStudents.map(student =>
                             <StudentCard
+                                key={student.id}
                                 name={student.base_info.name}
                                 tel={student.base_info.tel}
                                 email={student.base_info.email}

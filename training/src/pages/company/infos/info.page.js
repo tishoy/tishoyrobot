@@ -23,7 +23,8 @@ import Finance from './finance.paper';
 import Express from './express.paper';
 import Admin from './admin.paper';
 
-import { getCache } from '../../../utils/helpers';
+import { initCache, getCache } from '../../../utils/helpers';
+import Lang from '../../../language';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
@@ -37,11 +38,27 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
     },
 }));
 
+const LANG_PREFIX = Lang[window.Lang].pages.company.infos;
+
 class Info extends Component {
 
     state = {
+        gotData: false,
         open: true
     }
+
+    componentDidMount() {
+        window.currentPage = this;
+        initCache(this.cacheToState);
+    }
+
+    cacheToState() {
+
+        window.currentPage.setState({
+            gotData: true
+        });
+    }
+
 
     render() {
 
@@ -56,53 +73,52 @@ class Info extends Component {
                 {/* </Drawer> */}
 
                 <div style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}>
-                    <Grid container gutter={27}>
-                        <Grid item xs={3} sm={3}>
-                            <List style={{
-                                height: "100%"
-                            }} disablePadding>
-                                <div>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <InboxIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Inbox" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <StarIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <SendIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Send mail" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <DraftsIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Drafts" />
-                                    </ListItem>
-                                </div>
-                            </List>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                            <Base />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Finance />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Express />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Admin />
-                        </Grid>
-                    </Grid>
+                    <List style={{
+                        height: "100%"
+                    }} disablePadding>
+                        <div>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={LANG_PREFIX.base.title} />
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <StarIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={LANG_PREFIX.finance.title} />
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <SendIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={LANG_PREFIX.express.title} />
+                            </ListItem>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <DraftsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={LANG_PREFIX.admin.title} />
+                            </ListItem>
+                        </div>
+                    </List>
+                    {this.state.gotData === true ?
+                        <Grid container gutter={24}>
+                            <Grid item xs={12} sm={6}>
+                                <Base />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Finance />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Express />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Admin />
+                            </Grid>
+                        </Grid> : <div />
+                    }
                 </div>
             </div>
         );

@@ -15,8 +15,6 @@ import App from 'training/src/components/App';
 //   a11y(React, { includeSrcNode: true, ReactDOM });
 // }
 
-window.Lang = "Chin";
-
 const training = (state = { dark: false }, action) => {
   if (action.type === 'TOGGLE_THEME_SHADE') {
     return {

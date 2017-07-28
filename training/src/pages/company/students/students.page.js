@@ -16,7 +16,7 @@ import List, {
 import StudentCard from '../card';
 
 import Lang from '../../../language';
-import { getData, getRouter, getCache } from '../../../utils/helpers';
+import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP, DATA_TYPE_STUDENT, QUERY } from '../../../enum';
 
 
@@ -31,49 +31,19 @@ class Students extends Component {
 
     state = {
         students: [],
-        selected: {}
+        selected: {},
+        showInfo: false
     }
 
     componentDidMount() {
-        if (!window.CacheData) {
-            if (sessionStorage.logged === undefined || sessionStorage.logged === false) {
-                // 请先登录
-                // 路由转到 Home
-
-            }
-
-
-            var cb = (route, message, arg) => {
-                console.log(route);
-                console.log(message);
-                if (message.code === "0") {
-                    sessionStorage.logged = true;
-                    sessionStorage.account = arg['account'];
-                    sessionStorage.session = message.session;
-                    window.CacheData = message.data;
-                    console.log(window.CacheData);
-                    arg.self.cacheToState();
-
-
-                    // window.
-                    // this.context.router.push("/company/home");
-                }
-            }
-            getData(getRouter(QUERY), { session: sessionStorage.session, type: 1 }, cb, { self: this });
-        } else {
-            // 设置界面
-            this.cacheToState();
-        }
-
+        window.currentData = this;
+        initCache(this.cacheToState);
     }
 
     cacheToState() {
         let students = getCache(DATA_TYPE_STUDENT);
-        this.setState({ students: students })
-
-
+        window.currentData.setState({ students: students })
     }
-
 
     getStudents() {
 
@@ -117,6 +87,7 @@ class Students extends Component {
                         <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                             {this.state.students.map(student =>
                                 <StudentCard
+                                    key={student.id}
                                     name={student.base_info.name}
                                     tel={student.base_info.tel}
                                     email={student.base_info.email}
@@ -126,135 +97,134 @@ class Students extends Component {
                             )}
                         </List>
                     </div>
-                    <Paper style={{ margin: 10, width: 800, float: "left" }} elevation={4}>
-                        <div>
-                            <Typography type="headline" component="h3">
-                                {"基本信息"}
-                            </Typography>
-                            <Typography type="body1" component="p">
-                                {"姓名"}
-                            </Typography>
-                            <TextField>
+                    {this.state.showInfo === true ?
+                        <Paper style={{ margin: 10, width: 800, float: "left" }} elevation={4}>
+                            <div>
+                                <Typography type="headline" component="h3">
+                                    {"基本信息"}
+                                </Typography>
+                                <Typography type="body1" component="p">
+                                    {"姓名"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {"电话"}
-                            </Typography>
-                            <TextField>
+                                </TextField>
+                                <Typography type="body1" component="p">
+                                    {"电话"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {"电子邮件"}
-                            </Typography>
-                            <TextField>
+                                </TextField>
+                                <Typography type="body1" component="p">
+                                    {"电子邮件"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
+                                </TextField>
 
-                            <Typography type="body1" component="p">
-                                {"地区"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="body1" component="p">
+                                    {"地区"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
+                                </TextField>
 
-                            <Typography type="body1" component="p">
-                                {"级别"}
-                            </Typography>
+                                <Typography type="body1" component="p">
+                                    {"级别"}
+                                </Typography>
 
-                            <TextField>
+                                <TextField>
 
-                            </TextField>
-                            <Button color="primary" style={{ margin: 10 }}>
-                                Primary
+                                </TextField>
+                                <Button color="primary" style={{ margin: 10 }}>
+                                    Primary
                             </Button>
-                        </div>
-                        <div>
-                            <Typography type="headline" component="h3">
-                                {"个人信息"}
-                            </Typography>
+                            </div>
+                            <div>
+                                <Typography type="headline" component="h3">
+                                    {"个人信息"}
+                                </Typography>
 
 
-                            <Typography type="body1" component="p">
-                                {"身份证号"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="body1" component="p">
+                                    {"身份证号"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
+                                </TextField>
 
-                            <Typography type="body1" component="p">
-                                {"学历"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="body1" component="p">
+                                    {"学历"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
+                                </TextField>
 
-                            <Typography type="body1" component="p">
-                                {"从业时间"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="body1" component="p">
+                                    {"从业时间"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
+                                </TextField>
 
-                            <Typography type="body1" component="p">
-                                {"累计项目总金额"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="body1" component="p">
+                                    {"累计项目总金额"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
+                                </TextField>
 
-                            <Typography type="body1" component="p">
-                                {"累计项目软件服务金额"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="body1" component="p">
+                                    {"累计项目软件服务金额"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Button color="primary" style={{ margin: 10 }}>
-                                Primary
+                                </TextField>
+                                <Button color="primary" style={{ margin: 10 }}>
+                                    Primary
                             </Button>
-                        </div>
-                        <div>
+                            </div>
+                            <div>
 
-                            <Typography type="headline" component="h3">
-                                {"项目经历"}
-                            </Typography>
-                            <Typography type="body1" component="p">
-                                {"项目名称"}
-                            </Typography>
-                            <TextField>
+                                <Typography type="headline" component="h3">
+                                    {"项目经历"}
+                                </Typography>
+                                <Typography type="body1" component="p">
+                                    {"项目名称"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {"项目时间"}
-                            </Typography>
-                            <TextField>
+                                </TextField>
+                                <Typography type="body1" component="p">
+                                    {"项目时间"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {"担任角色"}
-                            </Typography>
-                            <TextField>
+                                </TextField>
+                                <Typography type="body1" component="p">
+                                    {"担任角色"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {"项目总额"}
-                            </Typography>
-                            <TextField>
+                                </TextField>
+                                <Typography type="body1" component="p">
+                                    {"项目总额"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Typography type="body1" component="p">
-                                {"软件和IT服务金额"}
-                            </Typography>
-                            <TextField>
+                                </TextField>
+                                <Typography type="body1" component="p">
+                                    {"软件和IT服务金额"}
+                                </Typography>
+                                <TextField>
 
-                            </TextField>
-                            <Button color="primary" style={{ margin: 10 }}>
-                                Primary
+                                </TextField>
+                                <Button color="primary" style={{ margin: 10 }}>
+                                    Primary
                             </Button>
-                        </div>
-                    </Paper>
+                            </div>
+                        </Paper> : <div />}
 
-                    {/*<NamePaper />*/}
-                    {/*<UnarrangedPaper />*/}
                 </div>
             </div>
         )
