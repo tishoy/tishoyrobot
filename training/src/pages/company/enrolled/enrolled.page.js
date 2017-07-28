@@ -34,6 +34,10 @@ class Enrolled extends Component {
 
     componentWillMount() {
         window.currentPage = this;
+        this.fresh()
+    }
+
+    fresh = () => {
         initCache(this.cacheToState);
     }
 
@@ -63,10 +67,6 @@ class Enrolled extends Component {
     erollStudent() {
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                // getCache(DATA_TYPE_STUDENT).
-                // newStudents slice
-                // unarragedStudents push
-                // getCache(STUDENT)[]
                 getStudent(arg.id)[STATUS_ENROLLED] = STATUS_ENROLLED_DID;
             }
         }
@@ -76,10 +76,6 @@ class Enrolled extends Component {
     agreeArrange() {
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                // getCache(DATA_TYPE_STUDENT).
-                // newStudents slice
-                // unarragedStudents push
-                // getCache(STUDENT)[]
                 getStudent(arg.id)[STATUS_ENROLLED] = STATUS_AGREED_AGREE;
             }
         }
@@ -89,10 +85,6 @@ class Enrolled extends Component {
     refuseArrange() {
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                // getCache(DATA_TYPE_STUDENT).
-                // newStudents slice
-                // unarragedStudents push
-                // getCache(STUDENT)[]
                 getStudent(arg.id)[STATUS_AGREED] = STATUS_AGREED_REFUSED;
             }
         }

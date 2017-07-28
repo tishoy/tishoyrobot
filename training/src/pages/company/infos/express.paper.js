@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
@@ -29,13 +30,44 @@ const LANG_PREFIX = Lang[window.Lang].pages.company.infos.express;
 
 class Express extends Component {
     componentDidMount() {
-        this.setState({
-            data: getCache(DATA_TYPE_EXPRESS)
-        });
+        if (getCache(DATA_TYPE_EXPRESS) !== undefined) {
+            this.setState({
+                data: getCache(DATA_TYPE_EXPRESS)
+            });
+        }
     }
 
     state = {
-        data: {}
+        data: { express_code: "", express_address: "", address: "", express_person: "", contact_way: "" }
+    }
+
+    submit = () => {
+
+        var express_code = document.getElementById("express_code").value;
+        var express_address = document.getElementById("express_address").value;
+        var address = document.getElementById("address").value;
+        var express_person = document.getElementById("express_person").value;
+        var contact_way = document.getElementById("contact_way").value;
+
+        var cb = (route, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+
+                window.CacheData.express = arg.data;
+
+                console.log(getCache(DATA_TYPE_EXPRESS));
+                // arg.self.state.data = 
+            }
+
+        }
+
+        var obj = {
+            express_code: express_code,
+            express_address: express_address,
+            contact_way: contact_way,
+            address: address,
+            contact_way: qualification
+        }
+        getData(getRouter(RESET_INFO), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: obj });
     }
 
     render() {
@@ -46,9 +78,9 @@ class Express extends Component {
 
 
                     <TextField
-                        id="code"
-                        label={LANG_PREFIX.code}
-                        defaultValue={this.state.data.code}>
+                        id="express_code"
+                        label={LANG_PREFIX.express_code}
+                        defaultValue={this.state.data.express_code}>
                     </TextField>
                     <TextField
                         id="express_address"
@@ -74,6 +106,15 @@ class Express extends Component {
                         label={LANG_PREFIX.contact_way}
                         defaultValue={this.state.data.contact_way}>
                     </TextField>
+                    <Button
+                        raised
+                        color="accent"
+                        onClick={() => {
+                            this.submit();
+                        }}
+                    >
+                        {Lang[window.Lang].pages.main.certain_button}
+                    </Button>
                 </Paper>
 
             </div>

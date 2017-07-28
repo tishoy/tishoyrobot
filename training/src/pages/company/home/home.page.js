@@ -43,6 +43,10 @@ class Home extends Component {
 
     componentWillMount() {
         window.currentPage = this;
+        this.fresh()
+    }
+
+    fresh = () => {
         initCache(this.cacheToState);
     }
 

@@ -7,6 +7,7 @@ import Link from 'react-router/lib/Link';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import MobileStepper from 'material-ui/MobileStepper';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -26,7 +27,10 @@ import config from '../config';
 import Lang from '../language';
 import Code from '../code';
 
-
+import Base from './company/infos/base.paper';
+import Finance from './company/infos/finance.paper';
+import Express from './company/infos/express.paper';
+import Admin from './company/infos/admin.paper';
 
 const palette = createPalette({
   primary: blue,
@@ -46,15 +50,22 @@ class Home extends Component {
 
   state = {
     logged: Boolean(sessionStorage.getItem("logged")),
-    name: ""
+    showRegister: true,
+    name: "",
+    activeStep: 0,
   }
 
   componentDidMount() {
     console.log(this.context.router)
-
+    window.CacheData = {};
+    window.currentPage = this;
     this.getRoutes();
 
     // this.context.
+  }
+
+  fresh = () => {
+
   }
 
   getRoutes = () => {
@@ -109,7 +120,7 @@ class Home extends Component {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-        window.CacheData = {};
+
         // window.CacheData = message.data;
         // 严谨检查服务端传过来的数据正确性
         if (message.data.base !== undefined) {
@@ -153,31 +164,46 @@ class Home extends Component {
     getData(getRouter(LOGIN), { account: account, password: password, type: APP_TYPE_COMPANY }, cb, { account: account });
   }
 
-  RegisterDialog = () => {
-    return (
-      <div>
-        <Dialog
-          open={true}
-        >
+  handleNext = () => {
+    this.setState({
+      activeStep: this.state.activeStep + 1,
+    });
+  };
+
+  handleBack = () => {
+    this.setState({
+      activeStep: this.state.activeStep - 1,
+    });
+  };
+
+  RegisterStep = () => {
+    switch (this.state.activeStep) {
+      // 遵守协议
+      case 0:
+        return <div>
+
+        </div>
+      // 注册账号密码
+      case 1:
+        return <div>
           <TextField
             name="register_account"
             id="register_account"
-            hintText={Lang[window.Lang].pages.main.input_your_account}
-            floatingLabelText={Lang[window.Lang].pages.main.account}
+            label={Lang[window.Lang].pages.main.account}
             fullWidth={true}
             defaultValue={sessionStorage.account}
             onBlur={() => {
               this.check_available(document.getElementById("register_account").value);
+              console.log("可以用");
             }}
           />
           <TextField
             name="register_password"
             id="register_password"
+            label={Lang[window.Lang].pages.main.password}
             type="password"
-            hintText={Lang[window.Lang].pages.main.input_your_password}
-            floatingLabelText={Lang[window.Lang].pages.main.password}
             fullWidth={true}
-            defaultValue={""}
+          // defaultValue={Lang[window.Lang].pages.main.input_your_password}
           />
           {/* <Checkbox
                     label="记住密码"
@@ -198,14 +224,53 @@ class Home extends Component {
               this.register();
             }}
           >
-            Lang[window.Lang].pages.main.register_button
+            {Lang[window.Lang].pages.main.register_button}
           </Button>
-        </Dialog>
+        </div>
+      case 2:
+        return <div>
+          <Base />
+        </div>
+      case 3:
+        return <div>
+          <Finance />
+        </div>
+      case 4:
+        return <div>
+          <Express />
+        </div>
+      case 5:
+        return <div>
+          <Admin />
+        </div>
+
+    }
+  }
+
+  RegisterView = () => {
+    return (
+      <div>
+        {this.RegisterStep()}
+        <MobileStepper
+          type="text"
+          steps={6}
+          position="static"
+          activeStep={this.state.activeStep}
+          style={{
+            maxWidth: 400,
+            flexGrow: 1,
+          }}
+          onBack={this.handleBack}
+          onNext={this.handleNext}
+          disableBack={this.state.activeStep === 0}
+          disableNext={this.state.activeStep === 5}
+        />
+
       </div>
     )
   }
 
-  LoginDialog = () => {
+  LoginView = () => {
     return (
       <div>
         <TextField
@@ -224,7 +289,7 @@ class Home extends Component {
           label={Lang[window.Lang].pages.main.password}
           id="login_password"
           type="password"
-          // defaultValue={Lang[window.Lang].pages.main.input_your_password}
+        // defaultValue={Lang[window.Lang].pages.main.input_your_password}
         />
         <Button
           raised
@@ -263,7 +328,7 @@ class Home extends Component {
               padding: '120px 30px',
             },
           }}>
-            {this.LoginDialog()}
+            {this.state.showRegister === true ? this.RegisterView() : this.LoginView()}
           </div>
         </div>
       </div>

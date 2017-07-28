@@ -49,6 +49,10 @@ class Info extends Component {
 
     componentDidMount() {
         window.currentPage = this;
+        this.fresh()
+    }
+
+    fresh = () => {
         initCache(this.cacheToState);
     }
 

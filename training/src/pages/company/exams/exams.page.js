@@ -29,8 +29,11 @@ class Exams extends Component {
 
     componentWillMount() {
         window.currentPage = this;
-        initCache(this.cacheToState);
+        this.fresh()
+    }
 
+    fresh = () => {
+        initCache(this.cacheToState);
     }
 
     cacheToState() {
@@ -59,10 +62,7 @@ class Exams extends Component {
     arrangeExam() {
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                // getCache(DATA_TYPE_STUDENT).
-                // newStudents slice
-                // unarragedStudents push
-                // getCache(STUDENT)[]
+                
                 getStudent(arg.id)[STATUS_ENROLLED] = STATUS_ENROLLED_DID;
             }
         }
@@ -72,11 +72,6 @@ class Exams extends Component {
     retryExam() {
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                // getCache(DATA_TYPE_STUDENT).
-                // newStudents slice
-                // unarragedStudents push
-                // getCache(STUDENT)[]
-                // getStudent(arg.id)[STATUS_AGREED] = STATUS_AGREED_REFUSED;
             }
         }
         getData(getRouter(RETRY_EXAM), { session: sessionStorage.session, id: id }, cb, { id: id });

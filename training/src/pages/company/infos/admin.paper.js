@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
@@ -27,13 +28,43 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Admin extends Component {
     state = {
-        data: {}
+        data: { account: "", password: "", name: "", tel: "", email: "" }
     }
 
     componentDidMount() {
-        this.setState({
-            data: getCache(DATA_TYPE_ADMIN)
-        });
+        if (getCache(DATA_TYPE_ADMIN) !== undefined) {
+            this.setState({
+                data: getCache(DATA_TYPE_ADMIN)
+            });
+        }
+    }
+
+    submit = () => {
+
+        var account = document.getElementById("account").value;
+        var password = document.getElementById("password").value;
+        var name = document.getElementById("name").value;
+        var tel = document.getElementById("tel").value;
+        var email = document.getElementById("email").value;
+
+        var cb = (route, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+
+                window.CacheData.admin = arg.data;
+
+                console.log(getCache(DATA_TYPE_ADMIN));
+                // arg.self.state.data = 
+            }
+
+        }
+        var obj = {
+            account: account,
+            password: password,
+            name: name,
+            tel: tel,
+            email: email
+        }
+        getData(getRouter(RESET_INFO), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: obj });
     }
 
     render() {
@@ -68,6 +99,15 @@ class Admin extends Component {
                         defaultValue={this.state.data.email}>
 
                     </TextField>
+                    <Button
+                        raised
+                        color="accent"
+                        onClick={() => {
+                            this.submit();
+                        }}
+                    >
+                        {Lang[window.Lang].pages.main.certain_button}
+                    </Button>
                 </Paper>
 
             </div>

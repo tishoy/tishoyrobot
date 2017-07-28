@@ -37,6 +37,10 @@ class Students extends Component {
 
     componentDidMount() {
         window.currentData = this;
+        this.fresh()
+    }
+
+    fresh = () => {
         initCache(this.cacheToState);
     }
 

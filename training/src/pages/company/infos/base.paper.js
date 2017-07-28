@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
@@ -27,25 +28,29 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Base extends Component {
     state = {
-        data: {}
+        data: { company_name: "", province: "", qualification: "" }
     }
 
     componentDidMount() {
-        this.setState({
-            data: getCache(DATA_TYPE_BASE)
-        });
+        if (getCache(DATA_TYPE_BASE) !== undefined) {
+            this.setState({
+                data: getCache(DATA_TYPE_BASE)
+            });
+        }
     }
 
     submit = () => {
 
-        var name = document.getElementById("name").value;
+        var company_name = document.getElementById("company_name").value;
         var province = document.getElementById("province").value;
         var qualification = document.getElementById("qualification").value;
 
         var cb = (route, message, arg) => {
-            if (message.id === Code.LOGIC_SUCCESS) {
+            if (message.code === Code.LOGIC_SUCCESS) {
 
-                getCache(DATA_TYPE_BASE).value = arg.base;
+                console.log(arg.data);
+
+                window.CacheData.base = arg.data;
 
                 console.log(getCache(DATA_TYPE_BASE));
                 // arg.self.state.data = 
@@ -53,11 +58,11 @@ class Base extends Component {
 
         }
         var obj = {
-            name: name,
+            company_name: company_name,
             province: province,
             qualification: qualification
         }
-        getData(getRouter(RESET), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: base });
+        getData(getRouter(RESET_INFO), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: obj });
     }
 
     render() {
@@ -66,9 +71,9 @@ class Base extends Component {
             <div>
                 <Paper style={{ width: 600 }}>
                     <TextField
-                        id="name"
+                        id="company_name"
                         label={Lang[window.Lang].pages.company.infos.base.company_name}
-                        defaultValue={this.state.data.name}
+                        defaultValue={this.state.data.company_name}
                     />
                     <TextField
                         id="province"
@@ -80,6 +85,15 @@ class Base extends Component {
                         label={Lang[window.Lang].pages.company.infos.base.qualification}
                         defaultValue={this.state.data.qualification}
                     />
+                    <Button
+                        raised
+                        color="accent"
+                        onClick={() => {
+                            this.submit();
+                        }}
+                    >
+                        {Lang[window.Lang].pages.main.certain_button}
+                    </Button>
                 </Paper>
 
             </div>

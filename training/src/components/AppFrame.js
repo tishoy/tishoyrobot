@@ -91,6 +91,10 @@ const styleSheet = createStyleSheet('AppFrame', theme => ({
 }));
 
 class AppFrame extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   state = {
     drawerOpen: false,
     open: false,
@@ -99,6 +103,10 @@ class AppFrame extends Component {
 
   componentDidMount() {
     console.log("frame mouted");
+    if (!sessionStorage.logged || sessionStorage.logged === false) {
+      console.log("123")
+      this.context.router.push("/");
+    }
   }
 
   handleDrawerClose = () => {
@@ -106,6 +114,9 @@ class AppFrame extends Component {
   };
 
   handleDrawerToggle = () => {
+    if (!sessionStorage.logged || sessionStorage.logged === false) {
+      return;
+    }
     this.setState({ drawerOpen: !this.state.drawerOpen });
   };
 
@@ -125,6 +136,7 @@ class AppFrame extends Component {
   }
 
   render() {
+
 
     console.log("render frame")
 
@@ -174,7 +186,7 @@ class AppFrame extends Component {
             <IconButton
               color="contrast"
               onClick={() => {
-                initCache(window.currentPage.cacheToState);
+                window.currentPage.fresh();
               }}>
               <Refresh />
             </IconButton>

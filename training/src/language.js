@@ -49,7 +49,7 @@ const Language = {
                         tel: "电话"
                     },
                     express: {
-                        code: "邮编",
+                        express_code: "邮编",
                         express_address: "收件地址",
                         address: "详细地址",
                         express_person: "收件人",
