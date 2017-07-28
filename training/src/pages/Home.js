@@ -56,16 +56,14 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    console.log(this.context.router)
     window.CacheData = {};
     window.currentPage = this;
     this.getRoutes();
 
-    // this.context.
   }
 
   fresh = () => {
-
+    this.setState({ showRegister: !this.state.showRegister })
   }
 
   getRoutes = () => {
