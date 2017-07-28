@@ -59,7 +59,6 @@ class Home extends Component {
     window.CacheData = {};
     window.currentPage = this;
     this.getRoutes();
-
   }
 
   fresh = () => {

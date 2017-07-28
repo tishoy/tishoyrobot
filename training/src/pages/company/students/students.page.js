@@ -36,7 +36,7 @@ class Students extends Component {
     }
 
     componentDidMount() {
-        window.currentData = this;
+        window.currentPage = this;
         this.fresh()
     }
 
