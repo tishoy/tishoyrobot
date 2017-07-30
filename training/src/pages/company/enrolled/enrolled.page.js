@@ -9,12 +9,13 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import StudentCard from '../card.js';
+import StudentCard from '../StudentCard.js';
 
 import { initCache, getData, getRouter, getStudent, getCache } from '../../../utils/helpers';
 import {
     QUERY, ENROLL_STUDENT, STATUS_ENROLLED, AGREE_ARRANGE, REFUSE_ARRANGE, DATA_TYPE_STUDENT, STATUS_ARRANGED_DOING,
-    STATUS_ENROLLED_UNDO, STATUS_ARRANGED_UNDO, STATUS_AGREED_AGREE, STATUS_ENROLLED_DID, STATUS_ARRANGED, STATUS_AGREED
+    STATUS_ENROLLED_UNDO, STATUS_ARRANGED_UNDO, STATUS_AGREED_AGREE, STATUS_ENROLLED_DID, STATUS_ARRANGED, STATUS_AGREED,
+    CARD_TYPE_ENROLL, CARD_TYPE_ARRANGE, CARD_TYPE_UNARRANGE
 } from '../../../enum';
 import Lang from '../../../language';
 import Code from '../../../code';
@@ -98,6 +99,7 @@ class Enrolled extends Component {
                     <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.enrolled.unenrolled}</ListSubheader>}>
                         {this.state.newStudents.map(student =>
                             <StudentCard
+                                type={CARD_TYPE_ENROLL}
                                 key={student.id}
                                 name={student.base_info.name}
                                 tel={student.base_info.tel}
@@ -112,6 +114,7 @@ class Enrolled extends Component {
                     <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.enrolled.unarrange}</ListSubheader>}>
                         {this.state.unarragedStudents.map(student =>
                             <StudentCard
+                                type={CARD_TYPE_UNARRANGE}
                                 key={student.id}
                                 name={student.base_info.name}
                                 tel={student.base_info.tel}
@@ -126,6 +129,7 @@ class Enrolled extends Component {
                     <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.enrolled.arranged}</ListSubheader>}>
                         {this.state.arrangedStudents.map(student =>
                             <StudentCard
+                                type={CARD_TYPE_ARRANGE}
                                 key={student.id}
                                 name={student.base_info.name}
                                 tel={student.base_info.tel}

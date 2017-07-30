@@ -100,3 +100,12 @@ export const ENTRANCE_CLASS = "entrance";
 export const EXIT_CLASS = "exit";
 
 export const QUERY = "query";
+
+// 卡片类型
+export const CARD_TYPE_COMMON = "common";
+export const CARD_TYPE_INFO = "info";
+export const CARD_TYPE_ENROLL = "enroll";
+export const CARD_TYPE_ARRANGE = "arrange";
+export const CARD_TYPE_EXAM = "exam";
+export const CARD_TYPE_UNARRANGE = "unarrange";
+

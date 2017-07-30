@@ -121,6 +121,14 @@ const Language = {
                     unenrolled: "未报名",
                     unarrange: "待安排",
                     arranged: "已安排",
+                },
+                card: {
+                    modify: "修改",
+                    enroll: "报名",
+                    agree: "同意",
+                    refuse: "拒绝",
+                    retry: "重考试",
+                    giveup: "放弃",
                 }
             },
 

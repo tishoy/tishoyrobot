@@ -72,17 +72,17 @@ class Base extends Component {
                 <Paper style={{ width: 600 }}>
                     <TextField
                         id="company_name"
-                        label={Lang[window.Lang].pages.company.infos.base.company_name}
+                        placeholder={Lang[window.Lang].pages.company.infos.base.company_name}
                         defaultValue={this.state.data.company_name}
                     />
                     <TextField
                         id="province"
-                        label={Lang[window.Lang].pages.company.infos.base.province}
+                        placeholder={Lang[window.Lang].pages.company.infos.base.province}
                         defaultValue={this.state.data.province}
                     />
                     <TextField
                         id="qualification"
-                        label={Lang[window.Lang].pages.company.infos.base.qualification}
+                        placeholder={Lang[window.Lang].pages.company.infos.base.qualification}
                         defaultValue={this.state.data.qualification}
                     />
                     <Button

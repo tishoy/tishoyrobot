@@ -13,11 +13,11 @@ import List, {
 } from 'material-ui/List';
 
 
-import StudentCard from '../card';
+import StudentCard from '../StudentCard';
 
 import Lang from '../../../language';
 import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
-import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP, DATA_TYPE_STUDENT, QUERY } from '../../../enum';
+import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP, DATA_TYPE_STUDENT, QUERY, CARD_TYPE_INFO } from '../../../enum';
 
 
 
@@ -46,7 +46,7 @@ class Students extends Component {
 
     cacheToState() {
         let students = getCache(DATA_TYPE_STUDENT);
-        window.currentData.setState({ students: students })
+        window.currentPage.setState({ students: students })
     }
 
     getStudents() {
@@ -91,12 +91,20 @@ class Students extends Component {
                         <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                             {this.state.students.map(student =>
                                 <StudentCard
+                                    type={CARD_TYPE_INFO}
                                     key={student.id}
                                     name={student.base_info.name}
                                     tel={student.base_info.tel}
                                     email={student.base_info.email}
                                     level={student.base_info.level}
-                                    city={student.base_info.city}>
+                                    city={student.base_info.city}
+                                    action={() => {
+                                        this.setState({
+                                            showInfo: true,
+                                            selected: student
+                                        })
+                                    }}
+                                >
                                 </StudentCard>
                             )}
                         </List>
@@ -105,53 +113,46 @@ class Students extends Component {
                         <Paper style={{ margin: 10, width: 800, float: "left" }} elevation={4}>
                             <div>
                                 <Typography type="headline" component="h3">
-                                    {"基本信息"}
+                                    {Lang[window.Lang].pages.company.students.base_info}
                                 </Typography>
-                                <Typography type="body1" component="p">
-                                    {"姓名"}
-                                </Typography>
-                                <TextField>
+                                <TextField
+                                    id="name"
+                                    placeholder={Lang[window.Lang].pages.company.students.name}
+                                    defaultValue={this.state.selected.name}
+                                />
+                                <TextField
+                                    id="tel"
+                                    placeholder={Lang[window.Lang].pages.company.students.tel}
+                                    defaultValue={this.state.selected.tel}
+                                />
+                                <TextField
+                                    id="email"
+                                    placeholder={Lang[window.Lang].pages.company.students.email}
+                                    defaultValue={this.state.selected.email}
+                                />
+                                <TextField
+                                    id="city"
+                                    placeholder={Lang[window.Lang].pages.company.students.city}
+                                    defaultValue={this.state.selected.city}
+                                />
+                                <TextField
+                                    id="level"
+                                    placeholder={Lang[window.Lang].pages.company.students.level.title}
+                                    defaultValue={this.state.selected.level}
+                                />
 
-                                </TextField>
-                                <Typography type="body1" component="p">
-                                    {"电话"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
-                                <Typography type="body1" component="p">
-                                    {"电子邮件"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
-
-                                <Typography type="body1" component="p">
-                                    {"地区"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
-
-                                <Typography type="body1" component="p">
-                                    {"级别"}
-                                </Typography>
-
-                                <TextField>
-
-                                </TextField>
                                 <Button color="primary" style={{ margin: 10 }}>
-                                    Primary
-                            </Button>
+                                    {Lang[window.Lang].pages.main.certain_button}
+                                </Button>
                             </div>
                             <div>
                                 <Typography type="headline" component="h3">
-                                    {"个人信息"}
+                                    {Lang[window.Lang].pages.company.students.personal_info.title}
                                 </Typography>
 
 
                                 <Typography type="body1" component="p">
-                                    {"身份证号"}
+                                    {Lang[window.Lang].pages.company.students.personal_info.licence}
                                 </Typography>
                                 <TextField>
 
@@ -185,8 +186,8 @@ class Students extends Component {
 
                                 </TextField>
                                 <Button color="primary" style={{ margin: 10 }}>
-                                    Primary
-                            </Button>
+                                    {Lang[window.Lang].pages.main.certain_button}
+                                </Button>
                             </div>
                             <div>
 
@@ -224,8 +225,8 @@ class Students extends Component {
 
                                 </TextField>
                                 <Button color="primary" style={{ margin: 10 }}>
-                                    Primary
-                            </Button>
+                                    {Lang[window.Lang].pages.main.certain_button}
+                                </Button>
                             </div>
                         </Paper> : <div />}
 

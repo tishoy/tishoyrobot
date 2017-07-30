@@ -12,10 +12,11 @@ import Typography from 'material-ui/Typography';
 import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import {
     DATA_TYPE_BASE, DATA_TYPE_CLAZZ, STATUS_ENROLLED, STATUS_ARRANGED, STATUS_ARRANGED_DOING, STATUS_ARRANGED_UNDO,
-    STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT
+    STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT,
+    CARD_TYPE_UNARRANGE, CARD_TYPE_ARRANGE
 } from '../../../enum';
 import Lang from '../../../language';
-import StudentCard from '../card.js';
+import StudentCard from '../studentCard.js';
 import Code from '../../../code';
 
 import CommonAlert from '../../../components/CommonAlert';
@@ -35,8 +36,8 @@ class Home extends Component {
         // 界面状态
 
         // 提示状态
-        alertOpen: false,
-        alertType: "alert",
+        alertOpen: true,
+        alertType: "notice",
         alertCode: Code.LOGIC_SUCCESS,
         alertContent: "登录成功"
     };
@@ -102,7 +103,7 @@ class Home extends Component {
                     style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}
                 >
                     <div style={{ margin: 10, width: 400, float: "left" }}>
-                        <Paper id="companyid" width="500px">
+                        <Paper id="companyid" width="400px">
                             <Typography type="headline" component="h5">
                                 {this.state.name}
                             </Typography>
@@ -115,12 +116,11 @@ class Home extends Component {
                                     + this.state.passed + Lang[window.Lang].pages.company.home.human + "/" + this.state.examing + Lang[window.Lang].pages.company.home.human}
                             </Typography>
                         </Paper>
-                        <Paper elevation={4} style={{ width: "500px", }}>
-                            {/* <StudentCard>
-                    </StudentCard> */}
+                        <Paper elevation={4} style={{ marginTop: 10, width: "400px", }}>
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(student =>
                                     <StudentCard
+                                        type={CARD_TYPE_UNARRANGE}
                                         key={student.id}
                                         name={student.base_info.name}
                                         tel={student.base_info.tel}
@@ -138,6 +138,7 @@ class Home extends Component {
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arranged_title}</ListSubheader>}>
                                 {this.state.arrangedStudents.map(student =>
                                     <StudentCard
+                                        type={CARD_TYPE_ARRANGE}
                                         key={student.id}
                                         name={student.base_info.name}
                                         tel={student.base_info.tel}
@@ -155,10 +156,10 @@ class Home extends Component {
                         <Paper elevation={4}>
 
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.clazz_title}</ListSubheader>}>
-                                {this.state.clazz.map(value =>
-                                    <ListItem dense button key={value}>
+                                {this.state.clazz.map(clazz =>
+                                    <ListItem dense button key={clazz}>
                                         {/* <Avatar alt="Remy Sharp" src={remyImage} /> */}
-                                        <ListItemText primary={`班级 ${value + 1}`} />
+                                        <ListItemText primary={clazz.id} />
                                         <ListItemSecondaryAction>
                                             {/* <Checkbox
                   onClick={event => this.handleToggle(event, value)}

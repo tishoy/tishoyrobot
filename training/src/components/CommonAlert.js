@@ -46,7 +46,7 @@ export default class CommonAlert extends Component {
   warningButtons = (handleCertainClose) => {
     return <div>
       <Button
-        onClick={handleCancelClose}
+        onClick={handleCertainClose}
       >
         {Lang[window.Lang].pages.main.certain_button}
       </Button>

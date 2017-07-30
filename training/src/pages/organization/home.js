@@ -9,16 +9,16 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
+import { initCache, getData, getRouter, getCache } from '../../utils/helpers';
 import {
     DATA_TYPE_BASE, DATA_TYPE_CLAZZ, STATUS_ENROLLED, STATUS_ARRANGED, STATUS_ARRANGED_DOING, STATUS_ARRANGED_UNDO,
     STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT
-} from '../../../enum';
-import Lang from '../../../language';
-import StudentCard from '../card.js';
-import Code from '../../../code';
+} from '../../enum';
+import Lang from '../../language';
+import StudentCard from './StudentCard.js';
+import Code from '../../code';
 
-import CommonAlert from '../../../components/CommonAlert';
+import CommonAlert from '../../components/CommonAlert';
 
 class Home extends Component {
 

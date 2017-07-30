@@ -16,15 +16,57 @@ import Students from '../pages/company/students/students.page.js';
 import Exams from '../pages/company/exams/exams.page.js';
 import Infos from '../pages/company/infos/info.page.js';
 
+import Enroll from '../pages/organization/enroll';
+import OrganizationHome from '../pages/organization/home';
+import Area from '../pages/organization/area';
+import Score from '../pages/organization/score';
+import Clazz from '../pages/organization/clazz';
 
-export default function AppRouter() {
-
+var CompanyRouter = () => {
   return (
     <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
       <Route title="Training" path="/" component={AppFrame}>
         <IndexRoute dockDrawer title={null} nav component={Home} />
+        <Route
+          title={titleize("首页")}
+          path={'/organization/home'}
+          nav component={OrganizationHome}
+        />
+        <Route
+          title={titleize("报名查看")}
+          path={'/organization/enroll'}
+          content={Enroll}
+          nav component={Enroll}
+        />
+        <Route
+          title={titleize("班级安排")}
+          path={'/organization/clazz'}
+          content={Clazz}
+          nav component={Clazz}
+        />
+        <Route
+          title={titleize("成绩管理")}
+          path={'/organization/score'}
+          content={Score}
+          nav component={Score}
+        />
+        <Route
+          title={titleize("服务区域")}
+          path={'/organization/area'}
+          content={Area}
+          nav component={Area}
+        />
+        {/* </Route> */}
+      </Route>
+    </Router>
+  )
+}
 
-        {/* <Route title="企业账号" path="/company" nav > */}
+var OgnizationRouter = () => {
+  return (
+    <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
+      <Route title="Training" path="/" component={AppFrame}>
+        <IndexRoute dockDrawer title={null} nav component={Home} />
         <Route
           title={titleize("首页")}
           path={'/company/home'}
@@ -58,7 +100,46 @@ export default function AppRouter() {
       </Route>
     </Router>
   )
+}
+
+export default function AppRouter() {
 
 
-
+  return (
+    <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
+      <Route title="Training" path="/" component={AppFrame}>
+        <IndexRoute dockDrawer title={null} nav component={Home} />
+        <Route
+          title={titleize("首页")}
+          path={'/company/home'}
+          nav component={CompanyHome}
+        />
+        <Route
+          title={titleize("企业信息")}
+          path={'/company/infos'}
+          content={Infos}
+          nav component={Infos}
+        />
+        <Route
+          title={titleize("学生")}
+          path={'/company/students'}
+          content={Students}
+          nav component={Students}
+        />
+        <Route
+          title={titleize("报名")}
+          path={'/company/enrolled'}
+          content={Enrolled}
+          nav component={Enrolled}
+        />
+        <Route
+          title={titleize("考试")}
+          path={'/company/exams'}
+          content={Exams}
+          nav component={Exams}
+        />
+        {/* </Route> */}
+      </Route>
+    </Router>
+  )
 }

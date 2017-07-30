@@ -186,7 +186,7 @@ class Home extends Component {
           <TextField
             name="register_account"
             id="register_account"
-            label={Lang[window.Lang].pages.main.account}
+            placeholder={Lang[window.Lang].pages.main.account}
             fullWidth={true}
             defaultValue={sessionStorage.account}
             onBlur={() => {
@@ -197,7 +197,7 @@ class Home extends Component {
           <TextField
             name="register_password"
             id="register_password"
-            label={Lang[window.Lang].pages.main.password}
+            placeholder={Lang[window.Lang].pages.main.password}
             type="password"
             fullWidth={true}
           // defaultValue={Lang[window.Lang].pages.main.input_your_password}
@@ -283,7 +283,7 @@ class Home extends Component {
           onChange={event => this.setState({ name: event.target.value })}
         />
         <TextField
-          label={Lang[window.Lang].pages.main.password}
+          placeholder={Lang[window.Lang].pages.main.password}
           id="login_password"
           type="password"
         // defaultValue={Lang[window.Lang].pages.main.input_your_password}
