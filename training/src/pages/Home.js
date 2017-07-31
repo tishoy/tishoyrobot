@@ -117,7 +117,7 @@ class Home extends Component {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-
+        // sessionStorage.type = 
         // window.CacheData = message.data;
         // 严谨检查服务端传过来的数据正确性
         if (message.data.base !== undefined) {

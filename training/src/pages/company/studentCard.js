@@ -10,7 +10,7 @@ import Typography from 'material-ui/Typography';
 import { CARD_TYPE_COMMON, CARD_TYPE_INFO, CARD_TYPE_ENROLL, CARD_TYPE_ARRANGE, CARD_TYPE_EXAM, CARD_TYPE_UNARRANGE } from '../../enum';
 import Lang from '../../language';
 
-class SimpleCard extends Component {
+class ComCard extends Component {
   state = {
     type: ""
   }
@@ -139,4 +139,4 @@ class SimpleCard extends Component {
   }
 }
 
-export default SimpleCard;
+export default ComCard;

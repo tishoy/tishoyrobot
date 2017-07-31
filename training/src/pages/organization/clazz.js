@@ -4,7 +4,7 @@ class Clazz extends Component {
     state = {}
 
     componentDidMount() {
-window.currentPage = this;
+        window.currentPage = this;
         this.fresh()
     }
 
