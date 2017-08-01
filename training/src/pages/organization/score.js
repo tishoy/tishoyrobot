@@ -3,6 +3,7 @@ import List, {
     ListItem, ListItemSecondaryAction, ListItemText,
     ListSubheader,
 } from 'material-ui/List';
+import TextField from 'material-ui/TextField';
 import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 import CommonAlert from '../../components/CommonAlert';
@@ -86,6 +87,36 @@ class Score extends Component {
                                         {level}<br />
                                         {city}
                                     </Typography>
+                                    <TextField
+                                        id="daily_score"
+                                        label={Lang[window.Lang].pages.main.account}
+                                        style={{
+                                            marginLeft: 200,//styleManager.theme.spacing.unit,
+                                            marginRight: 200,//theme.spacing.unit,  
+                                            width: 200,
+                                        }}
+                                        defaultValue={Lang[window.Lang].pages.main.input_your_account}
+                                    />
+                                    <TextField
+                                        id="exam_score"
+                                        label={Lang[window.Lang].pages.main.account}
+                                        style={{
+                                            marginLeft: 200,//styleManager.theme.spacing.unit,
+                                            marginRight: 200,//theme.spacing.unit,  
+                                            width: 200,
+                                        }}
+                                        defaultValue={Lang[window.Lang].pages.main.input_your_account}
+                                    />
+                                    <TextField
+                                        id="total_score"
+                                        label={Lang[window.Lang].pages.main.account}
+                                        style={{
+                                            marginLeft: 200,//styleManager.theme.spacing.unit,
+                                            marginRight: 200,//theme.spacing.unit,  
+                                            width: 200,
+                                        }}
+                                        defaultValue={Lang[window.Lang].pages.main.input_your_account}
+                                    />
                                 </CardContent>
                             </div>
                             <div>
