@@ -15,7 +15,6 @@ import {
     STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT
 } from '../../enum';
 import Lang from '../../language';
-import StudentCard from './OrganizationStudent.js';
 import Code from '../../code';
 
 import CommonAlert from '../../components/CommonAlert';

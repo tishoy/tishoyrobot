@@ -17,7 +17,7 @@ import {
     STATUS_AGREED_REFUSED, STATUS_ENROLLED_REDO
 } from '../../../enum';
 import Lang from '../../../language';
-import StudentCard from '../CompanyStudent.js';
+import StudentCard from '../studentCard.js';
 import Code from '../../../code';
 
 import CommonAlert from '../../../components/CommonAlert';

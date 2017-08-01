@@ -9,7 +9,7 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import StudentCard from '../CompanyStudent.js';
+import StudentCard from '../studentCard.js';
 import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import {
     DATA_TYPE_STUDENT, STATUS_EXAMING, STATUS_PASSED, STATUS_PASSED_DID, STATUS_EXAMING_DOING, STATUS_PASSED_UNDO, STATUS_EXAMING_DID,

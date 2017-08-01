@@ -3,13 +3,15 @@ import List, {
     ListItem, ListItemSecondaryAction, ListItemText,
     ListSubheader,
 } from 'material-ui/List';
-
-import StudentCard from './OrganizationStudent';
+import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 import CommonAlert from '../../components/CommonAlert';
 
 class Score extends Component {
-    state = {// 提示状态
+    state = {
+        clazzes: [],
+        students: [],
+        // 提示状态
         alertOpen: true,
         alertType: "notice",
         alertCode: Code.LOGIC_SUCCESS,
@@ -33,23 +35,63 @@ class Score extends Component {
         return <div>
             <div style={{ margin: 10, width: 400, float: "left" }}>
                 <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.students.list_title}</ListSubheader>}>
+                    {this.state.clazzes.map(clazz =>
+                        <Card style={{ display: 'flex', }}>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}>
+                                <CardContent>
+                                    <Typography type="body1">
+                                        {name}
+                                    </Typography>
+                                    <Typography type="body1" component="h2">
+                                        {tel}
+                                    </Typography>
+                                    <Typography type="body1">
+                                        {email}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {level}<br />
+                                        {city}
+                                    </Typography>
+                                </CardContent>
+                            </div>
+                            <div>
+                                {this.buttonActions()}
+                            </div>
+                        </Card>
+                    )}
+                </List>
+            </div>
+            <div style={{ margin: 10, width: 400, float: "left" }}>
+                <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.students.list_title}</ListSubheader>}>
                     {this.state.students.map(student =>
-                        <StudentCard
-                            type={CARD_TYPE_INFO}
-                            key={student.id}
-                            name={student.base_info.name}
-                            tel={student.base_info.tel}
-                            email={student.base_info.email}
-                            level={student.base_info.level}
-                            city={student.base_info.city}
-                            action={[() => {
-                                this.setState({
-                                    showInfo: true,
-                                    selected: student
-                                })
-                            }]}
-                        >
-                        </StudentCard>
+                        <Card style={{ display: 'flex', }}>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}>
+                                <CardContent>
+                                    <Typography type="body1">
+                                        {name}
+                                    </Typography>
+                                    <Typography type="body1" component="h2">
+                                        {tel}
+                                    </Typography>
+                                    <Typography type="body1">
+                                        {email}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {level}<br />
+                                        {city}
+                                    </Typography>
+                                </CardContent>
+                            </div>
+                            <div>
+                                {this.buttonActions()}
+                            </div>
+                        </Card>
                     )}
                 </List>
             </div>

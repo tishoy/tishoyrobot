@@ -13,7 +13,7 @@ import List, {
 } from 'material-ui/List';
 
 
-import StudentCard from '../CompanyStudent';
+import StudentCard from '../studentCard';
 
 import Lang from '../../../language';
 import Code from '../../../code';
