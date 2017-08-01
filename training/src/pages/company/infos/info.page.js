@@ -25,6 +25,9 @@ import Admin from './admin.paper';
 
 import { initCache, getCache } from '../../../utils/helpers';
 import Lang from '../../../language';
+import Code from '../../../code';
+
+import CommonAlert from '../../../components/CommonAlert';
 
 const styleSheet = createStyleSheet('PaperSheet', theme => ({
     root: theme.mixins.gutters({
@@ -44,7 +47,14 @@ class Info extends Component {
 
     state = {
         gotData: false,
-        open: true
+        open: true,
+        show: "all",
+
+        // 提示状态
+        alertOpen: true,
+        alertType: "notice",
+        alertCode: Code.LOGIC_SUCCESS,
+        alertContent: "登录成功"
     }
 
     componentDidMount() {
@@ -61,6 +71,10 @@ class Info extends Component {
         window.currentPage.setState({
             gotData: true
         });
+    }
+
+    popUpNotice = (type, code, content) => {
+        this.setState({ type: type, code: code, content: content, alertOpen: true });
     }
 
 
@@ -81,25 +95,29 @@ class Info extends Component {
                         height: "100%"
                     }} disablePadding>
                         <div>
-                            <ListItem button>
+                            <ListItem button
+                                onClick={() => { this.setState({ show: "base" }) }}>
                                 <ListItemIcon>
                                     <InboxIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={LANG_PREFIX.base.title} />
                             </ListItem>
-                            <ListItem button>
+                            <ListItem button
+                                onClick={() => { this.setState({ show: "finance" }) }}>
                                 <ListItemIcon>
                                     <StarIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={LANG_PREFIX.finance.title} />
                             </ListItem>
-                            <ListItem button>
+                            <ListItem button
+                                onClick={() => { this.setState({ show: "express" }) }}>
                                 <ListItemIcon>
                                     <SendIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={LANG_PREFIX.express.title} />
                             </ListItem>
-                            <ListItem button>
+                            <ListItem button
+                                onClick={() => { this.setState({ show: "admin" }) }}>
                                 <ListItemIcon>
                                     <DraftsIcon />
                                 </ListItemIcon>
@@ -109,18 +127,18 @@ class Info extends Component {
                     </List>
                     {this.state.gotData === true ?
                         <Grid container gutter={24}>
-                            <Grid item xs={12} sm={6}>
+                            {this.state.show === "all" || this.state.show === "base" ? <Grid item xs={12} sm={6}>
                                 <Base />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                            </Grid> : ""}
+                            {this.state.show === "all" || this.state.show === "finance" ? <Grid item xs={12} sm={6}>
                                 <Finance />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                            </Grid> : ""}
+                            {this.state.show === "all" || this.state.show === "express" ? <Grid item xs={12} sm={6}>
                                 <Express />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                            </Grid> : ""}
+                            {this.state.show === "all" || this.state.show === "admin" ? <Grid item xs={12} sm={6}>
                                 <Admin />
-                            </Grid>
+                            </Grid> : ""}
                         </Grid> : <div />
                     }
                 </div>

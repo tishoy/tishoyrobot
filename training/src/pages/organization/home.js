@@ -15,7 +15,7 @@ import {
     STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT
 } from '../../enum';
 import Lang from '../../language';
-import StudentCard from './StudentCard.js';
+import StudentCard from './OrganizationStudent.js';
 import Code from '../../code';
 
 import CommonAlert from '../../components/CommonAlert';
@@ -116,7 +116,7 @@ class Home extends Component {
                             </Typography>
                         </Paper>
                         <Paper elevation={4} style={{ width: "500px", }}>
-                            
+
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(student =>
                                     <StudentCard
@@ -170,20 +170,21 @@ class Home extends Component {
 
 
                         </Paper>
-                        <CommonAlert
-                            show={this.state.alertOpen}
-                            type={this.state.alertType}
-                            code={this.state.alertCode}
-                            content={this.state.alertContent}
-                            handleCertainClose={() => {
-                                this.setState({ alertOpen: false });
-                            }}
-                            handleCancelClose={() => {
-                                this.setState({ alertOpen: false })
-                            }}>
-                        </CommonAlert>
+
                     </div>
                 </div>
+                <CommonAlert
+                    show={this.state.alertOpen}
+                    type={this.state.alertType}
+                    code={this.state.alertCode}
+                    content={this.state.alertContent}
+                    handleCertainClose={() => {
+                        this.setState({ alertOpen: false });
+                    }}
+                    handleCancelClose={() => {
+                        this.setState({ alertOpen: false })
+                    }}>
+                </CommonAlert>
             </div>
         )
     }

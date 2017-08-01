@@ -9,24 +9,32 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import StudentCard from '../StudentCard.js';
+import StudentCard from '../CompanyStudent.js';
 import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import {
     DATA_TYPE_STUDENT, STATUS_EXAMING, STATUS_PASSED, STATUS_PASSED_DID, STATUS_EXAMING_DOING, STATUS_PASSED_UNDO, STATUS_EXAMING_DID,
     CARD_TYPE_EXAM, CARD_TYPE_COMMON
 } from '../../../enum';
 import Lang from '../../../language';
+import Code from '../../../code';
+
+import CommonAlert from '../../../components/CommonAlert';
 
 const Style = {
     paper: { margin: 10, width: 400, float: "left" }
 }
-
 
 class Exams extends Component {
     state = {
         examingStudents: [],
         passedStudents: [],
         unpassedStudents: [],
+
+        // 提示状态
+        alertOpen: true,
+        alertType: "notice",
+        alertCode: Code.LOGIC_SUCCESS,
+        alertContent: "登录成功"
     };
 
 
@@ -80,6 +88,10 @@ class Exams extends Component {
         getData(getRouter(RETRY_EXAM), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
+    popUpNotice = (type, code, content) => {
+        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    }
+    
     render() {
         return (
             <div>

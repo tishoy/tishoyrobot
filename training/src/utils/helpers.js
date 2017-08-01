@@ -1,6 +1,6 @@
 // @flow
 import config from "../config";
-import { DATA_TYPE_ALL, QUERY, APP_TYPE_COMPANY } from "../enum";
+import { DATA_TYPE_ALL, QUERY, APP_TYPE_COMPANY, DATA_TYPE_STUDENT } from "../enum";
 import Code from "../code";
 
 export function kebabCase(string: String) {
@@ -135,9 +135,10 @@ export function getCache(key = DATA_TYPE_ALL) {
  * @param {*学生ID} id 
  */
 export function getStudent(id = 0) {
-  for (var i = 0; i < window.CacheData[STUDENT].length; i++) {
-    if (window.CacheData[STUDENT].id === id) {
-      return window.CacheData[STUDENT][i];
+  for (var i = 0; i < window.CacheData[DATA_TYPE_STUDENT].length; i++) {
+    if (window.CacheData[DATA_TYPE_STUDENT][i].id === id) {
+      console.log(window.CacheData[DATA_TYPE_STUDENT][i]);
+      return window.CacheData[DATA_TYPE_STUDENT][i];
     }
   }
   return {};

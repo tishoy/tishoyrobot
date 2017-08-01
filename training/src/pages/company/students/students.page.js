@@ -13,13 +13,14 @@ import List, {
 } from 'material-ui/List';
 
 
-import StudentCard from '../StudentCard';
+import StudentCard from '../CompanyStudent';
 
 import Lang from '../../../language';
+import Code from '../../../code';
 import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import { INSERT_STUDENT, REMOVE_STUDENT, BASE_INFO, SELF_INFO, ADDEXP, DELEXP, DATA_TYPE_STUDENT, QUERY, CARD_TYPE_INFO } from '../../../enum';
 
-
+import CommonAlert from '../../../components/CommonAlert';
 
 const Style = {
     paper: { paddingTop: 80, paddingLeft: 40, display: 'flex', FlexDirection: 'row', justifyContent: 'spacebetween' }
@@ -32,7 +33,13 @@ class Students extends Component {
     state = {
         students: [],
         selected: {},
-        showInfo: false
+        showInfo: false,
+
+        // 提示状态
+        alertOpen: true,
+        alertType: "notice",
+        alertCode: Code.LOGIC_SUCCESS,
+        alertContent: ""
     }
 
     componentDidMount() {
@@ -55,30 +62,57 @@ class Students extends Component {
 
     newStudent(student) {
         var cb = (route, message, arg) => {
-            if (message.code === 0) {
-                getCache(student).push(student)
-
+            if (message.code === Code.LOGIC_SUCCESS) {
+                getCache(DATA_TYPE_STUDENT).push(student)
             }
         }
-        getData(getRouter(IN))
+        getData(getRouter(INSERT_STUDENT), { session: sessionStorage.session, student: student }, cb, { student: student });
     }
 
     removeStudent(id) {
-        for (var i = 0; i < getCache(student).length; i++) {
-            if (getCache(student)[i].id === student.id) {
-                getCache(student).splice(i, 1);
-                break;
+        var cb = (route, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                for (var i = 0; i < getCache(student).length; i++) {
+                    if (getCache(DATA_TYPE_STUDENT)[i].id === student.id) {
+                        getCache(DATA_TYPE_STUDENT).splice(i, 1);
+                        break;
+                    }
+                }
             }
         }
+        getData(getRouter(REMOVE_STUDENT), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
     updateStudent(id, key, info) {
-        for (var i = 0; i < getCache(student).length; i++) {
-            if (getCache(student)[i].id === id) {
-                getCache(student)[i].key = info;
-                break;
+        var cb = (route, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                for (var i = 0; i < getCache(student).length; i++) {
+                    if (getCache(DATA_TYPE_STUDENT)[i].id === arg.id) {
+                        getCache(DATA_TYPE_STUDENT)[i][arg.key] = info;
+                        break;
+                    }
+                }
             }
         }
+
+        switch (key) {
+            case BASE_INFO:
+                getData(getRouter(BASE_INFO), { session: sessionStorage.session, id: id, info: info }, cb, { id: id, info: info, key: key });
+                break;
+            case SELF_INFO:
+                getData(getRouter(SELF_INFO), { session: sessionStorage.session, id: id, info: info }, cb, { id: id, info: info, key: key });
+                break;
+            case ADDEXP:
+                getData(getRouter(ADDEXP), { session: sessionStorage.session, id: id, info: info }, cb, { id: id, info: info, key: key });
+                break;
+            case DELEXP:
+                getData(getRouter(DELEXP), { session: sessionStorage.session, id: id, info: info }, cb, { id: id, info: info, key: key });
+                break;
+        }
+    }
+
+    popUpNotice = (type, code, content) => {
+        this.setState({ type: type, code: code, content: content, alertOpen: true });
     }
 
     render() {
@@ -88,7 +122,7 @@ class Students extends Component {
                     style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}
                 >
                     <div style={{ margin: 10, width: 400, float: "left" }}>
-                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
+                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.students.list_title}</ListSubheader>}>
                             {this.state.students.map(student =>
                                 <StudentCard
                                     type={CARD_TYPE_INFO}
@@ -98,12 +132,12 @@ class Students extends Component {
                                     email={student.base_info.email}
                                     level={student.base_info.level}
                                     city={student.base_info.city}
-                                    action={() => {
+                                    action={[() => {
                                         this.setState({
                                             showInfo: true,
                                             selected: student
                                         })
-                                    }}
+                                    }]}
                                 >
                                 </StudentCard>
                             )}

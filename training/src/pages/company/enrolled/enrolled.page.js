@@ -9,7 +9,7 @@ import List, {
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import StudentCard from '../StudentCard.js';
+import StudentCard from '../CompanyStudent.js';
 
 import { initCache, getData, getRouter, getStudent, getCache } from '../../../utils/helpers';
 import {
@@ -19,6 +19,8 @@ import {
 } from '../../../enum';
 import Lang from '../../../language';
 import Code from '../../../code';
+
+import CommonAlert from '../../../components/CommonAlert';
 
 const Style = {
     paper: { margin: 10, width: 400, float: "left" }
@@ -30,6 +32,12 @@ class Enrolled extends Component {
         newStudents: [],
         unarragedStudents: [],
         arrangedStudents: [],
+
+        // 提示状态
+        alertOpen: true,
+        alertType: "notice",
+        alertCode: Code.LOGIC_SUCCESS,
+        alertContent: "登录成功"
     };
 
 
@@ -65,7 +73,7 @@ class Enrolled extends Component {
     }
 
     // 将新加入的学生排队
-    erollStudent() {
+    erollStudent(id) {
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
                 getStudent(arg.id)[STATUS_ENROLLED] = STATUS_ENROLLED_DID;
@@ -92,6 +100,10 @@ class Enrolled extends Component {
         getData(getRouter(REFUSE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
+    popUpNotice = (type, code, content) => {
+        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    }
+
     render() {
         return (
             <div style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}>
@@ -105,7 +117,11 @@ class Enrolled extends Component {
                                 tel={student.base_info.tel}
                                 email={student.base_info.email}
                                 level={student.base_info.level}
-                                city={student.base_info.city}>
+                                city={student.base_info.city}
+                                action={() => {
+                                    console.log("erollStudent" + student.id)
+                                    this.erollStudent(student.id);
+                                }}>
                             </StudentCard>
                         )}
                     </List>
@@ -120,7 +136,8 @@ class Enrolled extends Component {
                                 tel={student.base_info.tel}
                                 email={student.base_info.email}
                                 level={student.base_info.level}
-                                city={student.base_info.city}>
+                                city={student.base_info.city}
+                            >
                             </StudentCard>
                         )}
                     </List>
@@ -135,11 +152,30 @@ class Enrolled extends Component {
                                 tel={student.base_info.tel}
                                 email={student.base_info.email}
                                 level={student.base_info.level}
-                                city={student.base_info.city}>
+                                city={student.base_info.city}
+                                action={[() => {
+                                    console.log("agreeArrange" + student.id)
+                                    this.agreeArrange(student.id);
+                                }, () => {
+                                    console.log("refuseArrange" + student.id)
+                                    this.refuseArrange(student.id);
+                                }]}>
                             </StudentCard>
                         )}
                     </List>
                 </Paper>
+                <CommonAlert
+                    show={this.state.alertOpen}
+                    type={this.state.alertType}
+                    code={this.state.alertCode}
+                    content={this.state.alertContent}
+                    handleCertainClose={() => {
+                        this.setState({ alertOpen: false });
+                    }}
+                    handleCancelClose={() => {
+                        this.setState({ alertOpen: false })
+                    }}>
+                </CommonAlert>
             </div>
         )
     }

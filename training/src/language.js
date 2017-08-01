@@ -30,7 +30,9 @@ const Language = {
                     human: "人次",
                     unarranged_title: "待安排的学员",
                     arranged_title: "已安排的学员",
-                    clazz_title: "企业所属地区正在开设班级的"
+                    clazz_title: "企业所属地区正在开设班级的",
+
+                    being_reroll: "正在重新排队"
                 },
                 infos: {
                     base: {
@@ -41,6 +43,7 @@ const Language = {
                         qualification: "企业资质"
                     },
                     finance: {
+                        title: "财务信息",
                         name: "公司全称",
                         taxpayer_identify: "纳税人识别号",
                         bank: "开户银行",
@@ -49,6 +52,7 @@ const Language = {
                         tel: "电话"
                     },
                     express: {
+                        title: "邮政信息",
                         express_code: "邮编",
                         express_address: "收件地址",
                         address: "详细地址",
@@ -56,6 +60,7 @@ const Language = {
                         contact_way: "联系方式"
                     },
                     admin: {
+                        title: "管理员信息",
                         account: "用户名",
                         password: "密码",
                         name: "管理员姓名",
@@ -64,6 +69,7 @@ const Language = {
                     }
                 },
                 students: {
+                    list_title: "学员列表",
                     new_student: "新增",
                     del_student: "删除",
                     exam_record: "考试记录",
@@ -129,6 +135,10 @@ const Language = {
                     refuse: "拒绝",
                     retry: "重考试",
                     giveup: "放弃",
+                    status: {
+                        1: "已通过",
+                        2: "已拒绝",
+                    }
                 }
             },
 

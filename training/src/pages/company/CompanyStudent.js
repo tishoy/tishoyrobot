@@ -7,12 +7,17 @@ import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
-import { CARD_TYPE_COMMON, CARD_TYPE_INFO, CARD_TYPE_ENROLL, CARD_TYPE_ARRANGE, CARD_TYPE_EXAM, CARD_TYPE_UNARRANGE } from '../../enum';
+import {
+  CARD_TYPE_COMMON, CARD_TYPE_INFO, CARD_TYPE_ENROLL, CARD_TYPE_ARRANGE, CARD_TYPE_EXAM, CARD_TYPE_UNARRANGE,
+  STATUS_AGREED_UNDO, STATUS_AGREED_AGREE, STATUS_AGREED_REFUSED
+} from '../../enum';
 import Lang from '../../language';
 
 class ComCard extends Component {
   state = {
-    type: ""
+    type: "",
+    status: 0,
+    action: []
   }
 
   static propTypes = {
@@ -22,13 +27,13 @@ class ComCard extends Component {
     email: PropTypes.string.isRequired,
     level: PropTypes.number.isRequired,
     city: PropTypes.number.isRequired,
-    action: PropTypes.func.isRequired
+    action: PropTypes.array.isRequired,
+    status: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
-    action: () => {
-
-    }
+    action: [],
+    status: 0
   }
 
   buttonActions() {
@@ -41,7 +46,7 @@ class ComCard extends Component {
         return <CardActions>
           <Button
             dense
-            onClick={this.state.action}>
+            onClick={this.state.action[0]}>
             {Lang[window.Lang].pages.company.card.modify}
           </Button>
         </CardActions>
@@ -49,33 +54,36 @@ class ComCard extends Component {
         return <CardActions>
           <Button
             dense
-            onClick={this.state.action}>
+            onClick={this.state.action[0]}>
             {Lang[window.Lang].pages.company.card.enroll}
           </Button>
         </CardActions>
       case CARD_TYPE_ARRANGE:
         return <CardActions>
-          <Button
-            dense
-            onClick={this.state.action}>
-            {Lang[window.Lang].pages.company.card.agree}
-          </Button>
-          <Button
-            dense
-            onClick={this.state.action}>
-            {Lang[window.Lang].pages.company.card.refuse}
-          </Button>
+          {this.state.status === STATUS_AGREED_UNDO ?
+            <div>
+              <Button
+                dense
+                onClick={this.state.action[0]}>
+                {Lang[window.Lang].pages.company.card.agree}
+              </Button>
+              <Button
+                dense
+                onClick={this.state.action[1]}>
+                {Lang[window.Lang].pages.company.card.refuse}
+              </Button>
+            </div> : Lang[window.Lang].pages.company.card.status[this.state.status]}
         </CardActions>
       case CARD_TYPE_EXAM:
         return <CardActions>
           <Button
             dense
-            onClick={this.state.action}>
+            onClick={this.state.action[0]}>
             {Lang[window.Lang].pages.company.card.retry}
           </Button>
           <Button
             dense
-            onClick={this.state.action}>
+            onClick={this.state.action[1]}>
             {Lang[window.Lang].pages.company.card.giveup}
           </Button>
         </CardActions>
@@ -84,7 +92,7 @@ class ComCard extends Component {
           <CardActions>
             <Button
               dense
-              onClick={this.state.action}>
+              onClick={this.state.action[0]}>
             </Button>
           </CardActions>
         )
@@ -101,10 +109,12 @@ class ComCard extends Component {
       email,
       level,
       city,
-      action
+      action,
+      status
     } = this.props;
 
     this.state.type = type;
+    this.state.status = status;
     this.state.action = action;
 
     return (
@@ -132,6 +142,7 @@ class ComCard extends Component {
           </div>
           <div>
             {this.buttonActions()}
+            {status}
           </div>
         </Card>
       </div>
