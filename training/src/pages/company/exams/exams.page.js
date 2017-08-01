@@ -91,7 +91,7 @@ class Exams extends Component {
     popUpNotice = (type, code, content) => {
         this.setState({ type: type, code: code, content: content, alertOpen: true });
     }
-    
+
     render() {
         return (
             <div>
@@ -145,6 +145,18 @@ class Exams extends Component {
                         </List>
                     </Paper>
                 </div>
+                <CommonAlert
+                    show={this.state.alertOpen}
+                    type={this.state.alertType}
+                    code={this.state.alertCode}
+                    content={this.state.alertContent}
+                    handleCertainClose={() => {
+                        this.setState({ alertOpen: false });
+                    }}
+                    handleCancelClose={() => {
+                        this.setState({ alertOpen: false })
+                    }}>
+                </CommonAlert>
             </div>
         )
     }

@@ -178,7 +178,7 @@ class Home extends Component {
       // 遵守协议
       case 0:
         return <div>
-
+          {"遵循中软科技以下条款"}
         </div>
       // 注册账号密码
       case 1:
@@ -219,6 +219,7 @@ class Home extends Component {
             onClick={() => {
               console.log("123");
               this.register();
+              this.handleNext();
             }}
           >
             {Lang[window.Lang].pages.main.register_button}
@@ -246,9 +247,11 @@ class Home extends Component {
 
   RegisterView = () => {
     return (
-      <div>
+      <paper>
         {this.RegisterStep()}
         <MobileStepper
+          nextButtonText={Lang[window.Lang].pages.main.next_step}
+          backButtonText={Lang[window.Lang].pages.main.pre_step}
           type="text"
           steps={6}
           position="static"
@@ -259,11 +262,11 @@ class Home extends Component {
           }}
           onBack={this.handleBack}
           onNext={this.handleNext}
-          disableBack={this.state.activeStep === 0}
-          disableNext={this.state.activeStep === 5}
+          disableBack={this.state.activeStep === 0 || this.state.activeStep === 2}
+          disableNext={this.state.activeStep === 5 || this.state.activeStep === 1}
         />
 
-      </div>
+      </paper>
     )
   }
 

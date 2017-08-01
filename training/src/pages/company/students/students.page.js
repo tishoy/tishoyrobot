@@ -265,6 +265,14 @@ class Students extends Component {
                         </Paper> : <div />}
 
                 </div>
+                <CommonAlert
+                    show={this.state.alertOpen}
+                    type={this.state.alertType}
+                    code={this.state.alertCode}
+                    content={this.state.alertContent}
+                    action={this.state.alertAction}
+                >
+                </CommonAlert>
             </div>
         )
     }

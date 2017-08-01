@@ -38,9 +38,10 @@ class Home extends Component {
 
         // 提示状态
         alertOpen: true,
-        alertType: "notice",
+        alertType: "alert",
         alertCode: Code.LOGIC_SUCCESS,
-        alertContent: "登录成功"
+        alertContent: "登录成功",
+        alertAction: []
     };
 
     componentWillMount() {
@@ -232,20 +233,17 @@ class Home extends Component {
 
 
                         </Paper>
-                        <CommonAlert
-                            show={this.state.alertOpen}
-                            type={this.state.alertType}
-                            code={this.state.alertCode}
-                            content={this.state.alertContent}
-                            handleCertainClose={() => {
-                                this.setState({ alertOpen: false });
-                            }}
-                            handleCancelClose={() => {
-                                this.setState({ alertOpen: false })
-                            }}>
-                        </CommonAlert>
+
                     </div>
                 </div>
+                <CommonAlert
+                    show={this.state.alertOpen}
+                    type={this.state.alertType}
+                    code={this.state.alertCode}
+                    content={this.state.alertContent}
+                    action={this.state.alertAction}
+                >
+                </CommonAlert>
             </div>
         )
     }

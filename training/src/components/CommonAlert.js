@@ -9,7 +9,7 @@ import Button from 'material-ui/Button';
 import Snackbar from 'material-ui/Snackbar';
 
 import Lang from '../language';
-import {WARNING, ALERT, NOTICE} from '../enum';
+import { WARNING, ALERT, NOTICE } from '../enum';
 
 /**
  * Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.
@@ -21,8 +21,7 @@ export default class CommonAlert extends Component {
     code: PropTypes.number,
     content: PropTypes.string,
     args: PropTypes.object,
-    handleCertainClose: PropTypes.func,
-    handleCancelClose: PropTypes.func
+    action: PropTypes.array,
   };
 
   static defaultProps = {
@@ -31,12 +30,15 @@ export default class CommonAlert extends Component {
     type: 'notice',
     args: {},
     content: "",
-    // handleCertainClose: () => {
-    //   this.setState({ open: false });
-    // },
-    // handleCancelClose: () => {
-    //   this.setState({ open: false });
-    // }
+    action: [
+      () => {
+        console.log("123")
+        this.setState({ open: false });
+      },
+      () => {
+        this.setState({ open: false });
+      }
+    ]
   }
 
   state = {
@@ -75,8 +77,7 @@ export default class CommonAlert extends Component {
       code,
       content,
       args,
-      handleCertainClose,
-      handleCancelClose
+      action
     } = this.props;
 
     this.state.open = show;
@@ -88,7 +89,9 @@ export default class CommonAlert extends Component {
             open={this.state.open}
             message={code !== 0 ? Lang[window.Lang].ErrorCode[code] : content}
             autoHideDuration={1500}
-            onRequestClose={handleCancelClose}
+            onRequestClose={() => {
+              this.setState({ open: false });
+            }}
           >
           </Snackbar> :
           <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
@@ -101,7 +104,7 @@ export default class CommonAlert extends Component {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              {type === "warning" ? this.warningButtons(handleCertainClose) : this.alertButtons(handleCertainClose, handleCancelClose)}
+              {type === "warning" ? this.warningButtons(action[0]) : this.alertButtons(action[0], action[1])}
             </DialogActions>
           </Dialog>
         }

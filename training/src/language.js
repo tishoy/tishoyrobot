@@ -18,7 +18,9 @@ const Language = {
                 login_button: "登录",
                 register_button: "注册",
                 certain_button: "确定",
-                cancel_button: "取消"
+                cancel_button: "取消",
+                next_step: "跳过",
+                pre_step: "上一步",
             },
             company: {
                 home: {
