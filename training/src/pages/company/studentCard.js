@@ -28,20 +28,19 @@ class ComCard extends Component {
     level: PropTypes.number.isRequired,
     city: PropTypes.number.isRequired,
     action: PropTypes.array.isRequired,
-    status: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
     action: [],
-    status: 0
+    status: ""
   }
 
   buttonActions() {
     switch (this.state.type) {
       case CARD_TYPE_COMMON:
         return
-        <CardActions>
-        </CardActions>
+        this.getStatusDescribe();
       case CARD_TYPE_INFO:
         return <CardActions>
           <Button
@@ -60,7 +59,7 @@ class ComCard extends Component {
         </CardActions>
       case CARD_TYPE_ARRANGE:
         return <CardActions>
-          {this.state.status === STATUS_AGREED_UNDO ?
+          {this.state.status === "" ?
             <div>
               <Button
                 dense
@@ -72,7 +71,7 @@ class ComCard extends Component {
                 onClick={this.state.action[1]}>
                 {Lang[window.Lang].pages.company.card.refuse}
               </Button>
-            </div> : Lang[window.Lang].pages.company.card.status[this.state.status]}
+            </div> : Lang[window.Lang].pages.company.card.status[1]}
         </CardActions>
       case CARD_TYPE_EXAM:
         return <CardActions>
@@ -97,7 +96,24 @@ class ComCard extends Component {
           </CardActions>
         )
       default:
-        return {}
+        return this.getStatusDescribe();
+    }
+  }
+
+  getStatusDescribe() {
+    if (this.state.type === STATUS_ENROLLED) {
+      if (this.state.status === STATUS_ENROLLED_REDO) {
+        return <Typography type="body1">
+          {"重新排队中"}
+        </Typography>
+      }
+    }
+    if (this.state.type === STATUS_AGREED) {
+      if (this.state.status === STATUS_AGREED_AGREE) {
+        return <Typography type="body1">
+          {"已通过"}
+        </Typography>
+      }
     }
   }
 
@@ -142,7 +158,6 @@ class ComCard extends Component {
           </div>
           <div>
             {this.buttonActions()}
-            {status}
           </div>
         </Card>
       </div>

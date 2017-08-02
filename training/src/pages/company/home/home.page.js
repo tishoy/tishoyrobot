@@ -14,7 +14,7 @@ import {
     DATA_TYPE_BASE, DATA_TYPE_CLAZZ, STATUS_ENROLLED, STATUS_ARRANGED, STATUS_ARRANGED_DOING, STATUS_ARRANGED_UNDO,
     STATUS_ENROLLED_DID, STATUS_EXAMING, STATUS_EXAMING_DID, STATUS_PASSED, STATUS_PASSED_DID, QUERY, DATA_TYPE_STUDENT,
     CARD_TYPE_UNARRANGE, CARD_TYPE_ARRANGE, AGREE_ARRANGE, REFUSE_ARRANGE, STATUS_AGREED_AGREE, STATUS_AGREED, STATUS_AGREED_UNDO,
-    STATUS_AGREED_REFUSED, STATUS_ENROLLED_REDO
+    STATUS_AGREED_REFUSED, STATUS_ENROLLED_REDO, NOTICE, ALERT, CARD_TYPE_COMMON
 } from '../../../enum';
 import Lang from '../../../language';
 import StudentCard from '../studentCard.js';
@@ -35,12 +35,12 @@ class Home extends Component {
         arrangedStudents: [],
         clazz: [],
         // 界面状态
-
+        selectedStudentId: undefined,
         // 提示状态
-        alertOpen: true,
-        alertType: "alert",
+        alertOpen: false,
+        alertType: ALERT,
         alertCode: Code.LOGIC_SUCCESS,
-        alertContent: "登录成功",
+        alertContent: "",
         alertAction: []
     };
 
@@ -93,9 +93,9 @@ class Home extends Component {
         })
     }
 
-    agreeArrange(id) {
+    agreeArrange() {
+        var id = this.state.selectedStudentId;
         var cb = (router, message, arg) => {
-            console.log(message.code)
             if (message.code === Code.LOGIC_SUCCESS) {
                 getStudent(arg.id).status[STATUS_AGREED].status = STATUS_AGREED_AGREE;
                 this.fresh();
@@ -104,18 +104,35 @@ class Home extends Component {
         getData(getRouter(AGREE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
-    refuseArrange(id) {
+    refuseArrange() {
+        var id = this.state.selectedStudentId;
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                getStudent(arg.id).status[STATUS_AGREED].status = STATUS_AGREED_REFUSED;
+                let student = getStudent(arg.id);
+                student.status[STATUS_AGREED].status = STATUS_AGREED_REFUSED;
+                student.status[STATUS_ARRANGED].status = STATUS_ARRANGED_UNDO;
                 this.fresh();
             }
         }
         getData(getRouter(REFUSE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
-    popUpNotice = (type, code, content) => {
-        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    popUpNotice(type, code, content, action = [() => {
+        this.setState({
+            alertOpen: false,
+        })
+    }, () => {
+        this.setState({
+            alertOpen: false,
+        })
+    }]) {
+        this.setState({
+            alertType: type,
+            alertCode: code,
+            alertContent: content,
+            alertOpen: true,
+            alertAction: action
+        });
     }
 
     render() {
@@ -143,7 +160,7 @@ class Home extends Component {
                                 {this.state.unarragedStudents.map(student =>
                                     <StudentCard
                                         type={CARD_TYPE_UNARRANGE}
-                                        key={student.id}
+                                        key={CARD_TYPE_UNARRANGE + student.id}
                                         name={student.base_info.name}
                                         tel={student.base_info.tel}
                                         email={student.base_info.email}
@@ -172,14 +189,37 @@ class Home extends Component {
                                                 email={student.base_info.email}
                                                 level={student.base_info.level}
                                                 city={student.base_info.city}
-                                                action={[() => {
-                                                    console.log("agreeArrange" + student.id)
-                                                    this.agreeArrange(student.id);
-                                                }, () => {
-                                                    console.log("refuseArrange" + student.id)
-                                                    this.refuseArrange(student.id);
-                                                }]}
-                                                status={student.status[STATUS_AGREED].status}
+                                                action={[
+                                                    () => {
+                                                        console.log("agreeArrange" + student.id);
+                                                        this.state.selectedStudentId = student.id;
+                                                        this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                                            () => {
+                                                                this.agreeArrange();
+                                                                this.setState({
+                                                                    alertOpen: false,
+                                                                })
+                                                            }, () => {
+                                                                this.setState({
+                                                                    alertOpen: false,
+                                                                })
+                                                            }]);
+                                                    },
+                                                    () => {
+                                                        this.state.selectedStudentId = student.id;
+
+                                                        this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                                            () => {
+                                                                this.refuseArrange();
+                                                                this.setState({
+                                                                    alertOpen: false,
+                                                                })
+                                                            }, () => {
+                                                                this.setState({
+                                                                    alertOpen: false,
+                                                                })
+                                                            }]);
+                                                    }]}
                                             >
                                             </StudentCard>)
                                         case STATUS_AGREED_AGREE:
@@ -191,7 +231,7 @@ class Home extends Component {
                                                 email={student.base_info.email}
                                                 level={student.base_info.level}
                                                 city={student.base_info.city}
-                                                status={student.status[STATUS_AGREED].status}
+                                                status={"已通过"}
                                             >
                                             </StudentCard>)
                                         case STATUS_AGREED_REFUSED:
@@ -203,7 +243,7 @@ class Home extends Component {
                                                 email={student.base_info.email}
                                                 level={student.base_info.level}
                                                 city={student.base_info.city}
-                                                status={student.status[STATUS_AGREED].status}
+                                                status={"已拒绝"}
                                             >
                                             </StudentCard>)
                                     }

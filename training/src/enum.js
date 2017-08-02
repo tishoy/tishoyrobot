@@ -36,6 +36,7 @@ export const STATUS_EXAM_RESULT_SCORE = "score";           //考试成绩
 
 /**
  * 报名状态枚举
+ * 设置STATUS_ENROLLED_DID 同时 STATUS_ARRANGED 为 UNDO
  */
 export const STATUS_ENROLLED_UNDO = 0;              //未报名
 export const STATUS_ENROLLED_DID = 1;                //已经报名
@@ -43,6 +44,7 @@ export const STATUS_ENROLLED_REDO = 2;                //重报名
 
 /**
  * 课程安排状态枚举
+ * 设置STATUS_ARRANGED_DOING 同时 STATUS_AGREED 为 UNDO
  */
 export const STATUS_ARRANGED_UNDO = 0;              //未安排
 export const STATUS_ARRANGED_DOING = 1;                //已安排

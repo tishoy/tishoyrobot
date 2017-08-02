@@ -30,15 +30,7 @@ export default class CommonAlert extends Component {
     type: 'notice',
     args: {},
     content: "",
-    action: [
-      () => {
-        console.log("123")
-        this.setState({ open: false });
-      },
-      () => {
-        this.setState({ open: false });
-      }
-    ]
+    action: []
   }
 
   state = {
@@ -48,7 +40,9 @@ export default class CommonAlert extends Component {
   warningButtons = (handleCertainClose) => {
     return <div>
       <Button
-        onClick={handleCertainClose}
+        onClick={() => {
+          handleCertainClose();
+        }}
       >
         {Lang[window.Lang].pages.main.certain_button}
       </Button>
