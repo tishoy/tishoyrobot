@@ -38,7 +38,11 @@ class Home extends Component {
         selectedStudentId: undefined,
         // 提示状态
         alertOpen: false,
+<<<<<<< Updated upstream
         alertType: ALERT,
+=======
+        alertType: "alert",
+>>>>>>> Stashed changes
         alertCode: Code.LOGIC_SUCCESS,
         alertContent: "",
         alertAction: []
@@ -189,6 +193,7 @@ class Home extends Component {
                                                 email={student.base_info.email}
                                                 level={student.base_info.level}
                                                 city={student.base_info.city}
+<<<<<<< Updated upstream
                                                 action={[
                                                     () => {
                                                         console.log("agreeArrange" + student.id);
@@ -220,6 +225,17 @@ class Home extends Component {
                                                                 })
                                                             }]);
                                                     }]}
+=======
+                                                action={[() => {
+                                                    console.log("agreeArrange" + student.id)
+                                                    this.popUpNotice()
+                                                    this.agreeArrange(student.id);
+                                                }, () => {
+                                                    console.log("refuseArrange" + student.id)
+                                                    this.refuseArrange(student.id);
+                                                }]}
+                                                status={student.status[STATUS_AGREED].status}
+>>>>>>> Stashed changes
                                             >
                                             </StudentCard>)
                                         case STATUS_AGREED_AGREE:
@@ -281,7 +297,6 @@ class Home extends Component {
                     type={this.state.alertType}
                     code={this.state.alertCode}
                     content={this.state.alertContent}
-                    action={this.state.alertAction}
                 >
                 </CommonAlert>
             </div>

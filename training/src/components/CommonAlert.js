@@ -74,6 +74,16 @@ export default class CommonAlert extends Component {
       action
     } = this.props;
 
+
+    this.state.action = [
+      () => {
+        console.log("123")
+        this.setState({ open: false });
+      },
+      () => {
+        this.setState({ open: false });
+      }
+    ];
     this.state.open = show;
 
     return (
@@ -98,7 +108,7 @@ export default class CommonAlert extends Component {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              {type === "warning" ? this.warningButtons(action[0]) : this.alertButtons(action[0], action[1])}
+              {type === "warning" ? this.warningButtons(this.state.action[0]) : this.alertButtons(action[0], action[1])}
             </DialogActions>
           </Dialog>
         }
