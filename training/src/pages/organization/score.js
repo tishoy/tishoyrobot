@@ -6,6 +6,9 @@ import List, {
 import TextField from 'material-ui/TextField';
 import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
+import Code from '../../code';
+import Lang from '../../language';
+
 import CommonAlert from '../../components/CommonAlert';
 
 class Score extends Component {

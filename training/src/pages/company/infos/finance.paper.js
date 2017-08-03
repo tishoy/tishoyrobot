@@ -30,27 +30,24 @@ const LANG_PREFIX = Lang[window.Lang].pages.company.infos.finance;
 class Finance extends Component {
 
     state = {
-        data: {
-            name: "", taxpayer_identify: "", bank: "", bank_account: "", address: "", tel: ""
-        }
+        name: "", taxpayer_identify: "", bank: "", bank_account: "", address: "", tel: ""
     }
 
     componentDidMount() {
         if (getCache(DATA_TYPE_FINANCE) !== undefined) {
+            var data = getCache(DATA_TYPE_FINANCE)
             this.setState({
-                data: getCache(DATA_TYPE_FINANCE)
+                name: data.name,
+                taxpayer_identify: data.taxpayer_identify,
+                bank: data.bank,
+                bank_account: data.bank_account,
+                address: data.address,
+                tel: data.tel
             });
         }
     }
 
     submit = () => {
-
-        var name = document.getElementById("name").value;
-        var taxpayer_identify = document.getElementById("taxpayer_identify").value;
-        var bank = document.getElementById("bank").value;
-        var bank_account = document.getElementById("bank_account").value;
-        var address = document.getElementById("address").value;
-        var tel = document.getElementById("tel").value;
 
         var cb = (route, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
@@ -59,12 +56,12 @@ class Finance extends Component {
             }
         }
         var obj = {
-            name: name,
-            taxpayer_identify: taxpayer_identify,
-            bank: bank,
-            bank_account: bank_account,
-            address: address,
-            tel: tel
+            name: this.state.name,
+            taxpayer_identify: this.state.taxpayer_identify,
+            bank: this.state.bank,
+            bank_account: this.state.bank_account,
+            address: this.state.address,
+            tel: this.state.tel
         }
         getData(getRouter(RESET_INFO), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: obj });
     }
@@ -78,32 +75,68 @@ class Finance extends Component {
                     <TextField
                         id="name"
                         label={LANG_PREFIX.name}
-                        defaultValue={this.state.data.name}>
+                        value={this.state.name}
+                        onChange={event => {
+                            this.setState({
+                                name: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="taxpayer_identify"
                         label={LANG_PREFIX.taxpayer_identify}
-                        defaultValue={this.state.data.taxpayer_identify}>
+                        value={this.state.taxpayer_identify}
+                        onChange={event => {
+                            this.setState({
+                                taxpayer_identify: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="bank"
                         label={LANG_PREFIX.bank}
-                        defaultValue={this.state.data.bank}>
+                        value={this.state.bank}
+                        onChange={event => {
+                            this.setState({
+                                bank: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="bank_account"
                         label={LANG_PREFIX.bank_account}
-                        defaultValue={this.state.data.bank_account}>
+                        value={this.state.bank_account}
+                        onChange={event => {
+                            this.setState({
+                                bank_account: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="address"
                         label={LANG_PREFIX.address}
-                        defaultValue={this.state.data.address}>
+                        value={this.state.address}
+                        onChange={event => {
+                            this.setState({
+                                address: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="tel"
                         label={LANG_PREFIX.tel}
-                        defaultValue={this.state.data.tel}>
+                        value={this.state.tel}
+                        onChange={event => {
+                            this.setState({
+                                tel: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <Button
                         raised

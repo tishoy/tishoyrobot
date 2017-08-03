@@ -31,23 +31,23 @@ const LANG_PREFIX = Lang[window.Lang].pages.company.infos.express;
 class Express extends Component {
     componentDidMount() {
         if (getCache(DATA_TYPE_EXPRESS) !== undefined) {
+            var data = getCache(DATA_TYPE_EXPRESS)
             this.setState({
-                data: getCache(DATA_TYPE_EXPRESS)
+                express_code: data.express_code,
+                express_address: data.address,
+                address: data.address,
+                express_person: data.express_person,
+                contact_way: data.contact_way
             });
         }
     }
 
     state = {
-        data: { express_code: "", express_address: "", address: "", express_person: "", contact_way: "" }
+        express_code: "", express_address: "", address: "", express_person: "", contact_way: ""
     }
 
     submit = () => {
 
-        var express_code = document.getElementById("express_code").value;
-        var express_address = document.getElementById("express_address").value;
-        var address = document.getElementById("address").value;
-        var express_person = document.getElementById("express_person").value;
-        var contact_way = document.getElementById("contact_way").value;
 
         var cb = (route, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
@@ -80,31 +80,61 @@ class Express extends Component {
                     <TextField
                         id="express_code"
                         label={LANG_PREFIX.express_code}
-                        defaultValue={this.state.data.express_code}>
+                        value={this.state.express_code}
+                        onChange={event => {
+                            this.setState({
+                                express_code: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="express_address"
                         label={LANG_PREFIX.express_address}
-                        defaultValue={this.state.data.express_address}>
+                        value={this.state.express_address}
+                        onChange={event => {
+                            this.setState({
+                                express_address: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
 
                     <TextField
                         id="address"
                         label={LANG_PREFIX.address}
-                        defaultValue={this.state.data.address}>
+                        value={this.state.address}
+                        onChange={event => {
+                            this.setState({
+                                address: event.target.value,
+                            });
+                        }}
+                        fullWidth>
 
                     </TextField>
 
                     <TextField
                         id="express_person"
                         label={LANG_PREFIX.express_person}
-                        defaultValue={this.state.data.express_person}>
+                        value={this.state.express_person}
+                        onChange={event => {
+                            this.setState({
+                                express_person: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
 
                     <TextField
                         id="contact_way"
                         label={LANG_PREFIX.contact_way}
-                        defaultValue={this.state.data.contact_way}>
+                        value={this.state.contact_way}
+                        onChange={event => {
+                            this.setState({
+                                contact_way: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <Button
                         raised

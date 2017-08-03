@@ -31,10 +31,11 @@ class Exams extends Component {
         unpassedStudents: [],
 
         // 提示状态
-        alertOpen: true,
+        alertOpen: false,
         alertType: "notice",
         alertCode: Code.LOGIC_SUCCESS,
-        alertContent: "登录成功"
+        alertContent: "",
+        alertAction: []
     };
 
 
@@ -87,9 +88,29 @@ class Exams extends Component {
         }
         getData(getRouter(RETRY_EXAM), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
+    
+    popUpNotice(type, code, content, action = [() => {
+        this.setState({
+            alertOpen: false,
+        })
+    }, () => {
+        this.setState({
+            alertOpen: false,
+        })
+    }]) {
+        this.setState({
+            alertType: type,
+            alertCode: code,
+            alertContent: content,
+            alertOpen: true,
+            alertAction: action
+        });
+    }
 
-    popUpNotice = (type, code, content) => {
-        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    closeNotice = () => {
+        this.setState({
+            alertOpen: false,
+        })
     }
 
     render() {
@@ -139,7 +160,8 @@ class Exams extends Component {
                                     tel={student.base_info.tel}
                                     email={student.base_info.email}
                                     level={student.base_info.level}
-                                    city={student.base_info.city}>
+                                    city={student.base_info.city}
+                                >
                                 </StudentCard>
                             )}
                         </List>
@@ -150,12 +172,7 @@ class Exams extends Component {
                     type={this.state.alertType}
                     code={this.state.alertCode}
                     content={this.state.alertContent}
-                    handleCertainClose={() => {
-                        this.setState({ alertOpen: false });
-                    }}
-                    handleCancelClose={() => {
-                        this.setState({ alertOpen: false })
-                    }}>
+                    action={this.state.alertAction}>
                 </CommonAlert>
             </div>
         )

@@ -38,11 +38,7 @@ class Home extends Component {
         selectedStudentId: undefined,
         // 提示状态
         alertOpen: false,
-<<<<<<< Updated upstream
         alertType: ALERT,
-=======
-        alertType: "alert",
->>>>>>> Stashed changes
         alertCode: Code.LOGIC_SUCCESS,
         alertContent: "",
         alertAction: []
@@ -139,6 +135,13 @@ class Home extends Component {
         });
     }
 
+    closeNotice = () => {
+        console.log("123");
+        this.setState({
+            alertOpen: false,
+        })
+    }
+
     render() {
         return (
             <div>
@@ -187,7 +190,7 @@ class Home extends Component {
                                         case STATUS_AGREED_UNDO:
                                             return (<StudentCard
                                                 type={CARD_TYPE_ARRANGE}
-                                                key={student.id}
+                                                key={CARD_TYPE_ARRANGE + student.id}
                                                 name={student.base_info.name}
                                                 tel={student.base_info.tel}
                                                 email={student.base_info.email}
@@ -199,14 +202,11 @@ class Home extends Component {
                                                         this.state.selectedStudentId = student.id;
                                                         this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
                                                             () => {
+                                                                console.log("456");
                                                                 this.agreeArrange();
-                                                                this.setState({
-                                                                    alertOpen: false,
-                                                                })
+                                                                this.closeNotice();
                                                             }, () => {
-                                                                this.setState({
-                                                                    alertOpen: false,
-                                                                })
+                                                                this.closeNotice();
                                                             }]);
                                                     },
                                                     () => {
@@ -215,13 +215,9 @@ class Home extends Component {
                                                         this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
                                                             () => {
                                                                 this.refuseArrange();
-                                                                this.setState({
-                                                                    alertOpen: false,
-                                                                })
+                                                                this.closeNotice();
                                                             }, () => {
-                                                                this.setState({
-                                                                    alertOpen: false,
-                                                                })
+                                                                this.closeNotice();
                                                             }]);
                                                     }]}
                                             >
@@ -229,7 +225,7 @@ class Home extends Component {
                                         case STATUS_AGREED_AGREE:
                                             return (<StudentCard
                                                 type={CARD_TYPE_ARRANGE}
-                                                key={student.id}
+                                                key={CARD_TYPE_ARRANGE + student.id}
                                                 name={student.base_info.name}
                                                 tel={student.base_info.tel}
                                                 email={student.base_info.email}
@@ -241,7 +237,7 @@ class Home extends Component {
                                         case STATUS_AGREED_REFUSED:
                                             return (<StudentCard
                                                 type={CARD_TYPE_ARRANGE}
-                                                key={student.id}
+                                                key={CARD_TYPE_ARRANGE + student.id}
                                                 name={student.base_info.name}
                                                 tel={student.base_info.tel}
                                                 email={student.base_info.email}
@@ -285,6 +281,7 @@ class Home extends Component {
                     type={this.state.alertType}
                     code={this.state.alertCode}
                     content={this.state.alertContent}
+                    action={this.state.alertAction}
                 >
                 </CommonAlert>
             </div>

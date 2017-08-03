@@ -36,10 +36,11 @@ class Students extends Component {
         showInfo: false,
 
         // 提示状态
-        alertOpen: true,
+        alertOpen: false,
         alertType: "notice",
         alertCode: Code.LOGIC_SUCCESS,
-        alertContent: ""
+        alertContent: "",
+        alertAction: []
     }
 
     componentDidMount() {
@@ -69,7 +70,7 @@ class Students extends Component {
         getData(getRouter(INSERT_STUDENT), { session: sessionStorage.session, student: student }, cb, { student: student });
     }
 
-    removeStudent(id) {
+    removeStudent() {
         var cb = (route, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
                 for (var i = 0; i < getCache(student).length; i++) {
@@ -111,8 +112,22 @@ class Students extends Component {
         }
     }
 
-    popUpNotice = (type, code, content) => {
-        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    popUpNotice(type, code, content, action = [() => {
+        this.setState({
+            alertOpen: false,
+        })
+    }, () => {
+        this.setState({
+            alertOpen: false,
+        })
+    }]) {
+        this.setState({
+            alertType: type,
+            alertCode: code,
+            alertContent: content,
+            alertOpen: true,
+            alertAction: action
+        });
     }
 
     render() {
@@ -122,7 +137,18 @@ class Students extends Component {
                     style={{ paddingTop: 80, paddingLeft: 40, justifyContent: 'space-between' }}
                 >
                     <div style={{ margin: 10, width: 400, float: "left" }}>
-                        <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.students.list_title}</ListSubheader>}>
+                        <List subheader={
+                            <ListSubheader>
+                                <Button
+                                    color="primary"
+                                    style={{ margin: 10 }}
+                                    onClick={() => {
+                                        var student = {};
+                                        this.newStudent(student);
+                                    }}>
+                                    {Lang[window.Lang].pages.company.students.new_student}
+                                </Button>
+                            </ListSubheader>}>
                             {this.state.students.map(student =>
                                 <StudentCard
                                     type={CARD_TYPE_INFO}
@@ -133,10 +159,12 @@ class Students extends Component {
                                     level={student.base_info.level}
                                     city={student.base_info.city}
                                     action={[() => {
+                                        this.state.selected = student;
                                         this.setState({
-                                            showInfo: true,
-                                            selected: student
+                                            showInfo: true
                                         })
+                                    }, () => {
+
                                     }]}
                                 >
                                 </StudentCard>
@@ -150,29 +178,34 @@ class Students extends Component {
                                     {Lang[window.Lang].pages.company.students.base_info}
                                 </Typography>
                                 <TextField
-                                    id="name"
-                                    placeholder={Lang[window.Lang].pages.company.students.name}
-                                    defaultValue={this.state.selected.name}
+                                    id="student_name"
+                                    label={Lang[window.Lang].pages.company.students.name}
+                                    defaultValue={this.state.selected.base_info.name}
+                                    fullWidth
                                 />
                                 <TextField
                                     id="tel"
-                                    placeholder={Lang[window.Lang].pages.company.students.tel}
-                                    defaultValue={this.state.selected.tel}
+                                    label={Lang[window.Lang].pages.company.students.tel}
+                                    defaultValue={this.state.selected.base_info.tel}
+                                    fullWidth
                                 />
                                 <TextField
                                     id="email"
-                                    placeholder={Lang[window.Lang].pages.company.students.email}
-                                    defaultValue={this.state.selected.email}
+                                    label={Lang[window.Lang].pages.company.students.email}
+                                    defaultValue={this.state.selected.base_info.email}
+                                    fullWidth
                                 />
                                 <TextField
                                     id="city"
-                                    placeholder={Lang[window.Lang].pages.company.students.city}
-                                    defaultValue={this.state.selected.city}
+                                    label={Lang[window.Lang].pages.company.students.city}
+                                    defaultValue={this.state.selected.base_info.city}
+                                    fullWidth
                                 />
                                 <TextField
                                     id="level"
-                                    placeholder={Lang[window.Lang].pages.company.students.level.title}
-                                    defaultValue={this.state.selected.level}
+                                    label={Lang[window.Lang].pages.company.students.level.title}
+                                    defaultValue={this.state.selected.base_info.level}
+                                    fullWidth
                                 />
 
                                 <Button color="primary" style={{ margin: 10 }}>
@@ -183,81 +216,95 @@ class Students extends Component {
                                 <Typography type="headline" component="h3">
                                     {Lang[window.Lang].pages.company.students.personal_info.title}
                                 </Typography>
-
-
-                                <Typography type="body1" component="p">
-                                    {Lang[window.Lang].pages.company.students.personal_info.licence}
-                                </Typography>
-                                <TextField>
-
+                                <TextField
+                                    id="licence"
+                                    label={Lang[window.Lang].pages.company.students.personal_info.licence}
+                                    defaultValue={this.state.selected.personal_info.licence}
+                                    fullWidth>
                                 </TextField>
-
-                                <Typography type="body1" component="p">
-                                    {"学历"}
-                                </Typography>
-                                <TextField>
-
+                                <TextField
+                                    id="edu"
+                                    label={Lang[window.Lang].pages.company.students.personal_info.edu}
+                                    defaultValue={this.state.selected.personal_info.edu}
+                                    fullWidth>
                                 </TextField>
-
-                                <Typography type="body1" component="p">
-                                    {"从业时间"}
-                                </Typography>
-                                <TextField>
-
+                                <TextField
+                                    id="working_time"
+                                    label={Lang[window.Lang].pages.company.students.personal_info.working_time}
+                                    defaultValue={this.state.selected.personal_info.working_time}
+                                    fullWidth>
                                 </TextField>
-
-                                <Typography type="body1" component="p">
-                                    {"累计项目总金额"}
-                                </Typography>
-                                <TextField>
-
+                                <TextField
+                                    id="total_amount"
+                                    label={Lang[window.Lang].pages.company.students.personal_info.total_amount}
+                                    defaultValue={this.state.selected.personal_info.total_amount}
+                                    fullWidth>
                                 </TextField>
-
-                                <Typography type="body1" component="p">
-                                    {"累计项目软件服务金额"}
-                                </Typography>
-                                <TextField>
-
+                                <TextField
+                                    id="soft_amount"
+                                    label={Lang[window.Lang].pages.company.students.personal_info.soft_amount}
+                                    defaultValue={this.state.selected.personal_info.soft_amount}
+                                    fullWidth>
                                 </TextField>
                                 <Button color="primary" style={{ margin: 10 }}>
                                     {Lang[window.Lang].pages.main.certain_button}
                                 </Button>
                             </div>
                             <div>
-
                                 <Typography type="headline" component="h3">
-                                    {"项目经历"}
+                                    {Lang[window.Lang].pages.company.students.proj_exp.title}
                                 </Typography>
-                                <Typography type="body1" component="p">
-                                    {"项目名称"}
-                                </Typography>
-                                <TextField>
+                                {
+                                    this.state.selected.proj_exp.map(exp =>
+                                        <div id={exp.id}>
+                                            <Typography type="body1" component="p">
+                                                {exp.name}
+                                            </Typography>
 
-                                </TextField>
-                                <Typography type="body1" component="p">
-                                    {"项目时间"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
-                                <Typography type="body1" component="p">
-                                    {"担任角色"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
-                                <Typography type="body1" component="p">
-                                    {"项目总额"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
-                                <Typography type="body1" component="p">
-                                    {"软件和IT服务金额"}
-                                </Typography>
-                                <TextField>
-
-                                </TextField>
+                                            <Typography type="body1" component="p">
+                                                {exp.time}
+                                            </Typography>
+                                            <Typography type="body1" component="p">
+                                                {exp.actor}
+                                            </Typography>
+                                            <Typography type="body1" component="p">
+                                                {exp.total_amount}
+                                            </Typography>
+                                            <Typography type="body1" component="p">
+                                                {exp.soft_amount}
+                                            </Typography>
+                                            <Button color="primary" style={{ margin: 10 }}>
+                                                {Lang[window.Lang].pages.main.certain_button}
+                                            </Button>
+                                        </div>)
+                                }
+                                <div>
+                                    <TextField
+                                        id="proj_name"
+                                        label={Lang[window.Lang].pages.company.students.proj_exp.name}
+                                        defaultValue={this.state.selected.proj_exp.name}>
+                                    </TextField>
+                                    <TextField
+                                        id="time"
+                                        label={Lang[window.Lang].pages.company.students.proj_exp.time}
+                                        defaultValue={this.state.selected.proj_exp.time}>
+                                    </TextField>
+                                    <TextField
+                                        id="actor"
+                                        label={Lang[window.Lang].pages.company.students.proj_exp.actor}
+                                        defaultValue={this.state.selected.proj_exp.actor}>
+                                    </TextField>
+                                    <TextField
+                                        id="exp_total_amount"
+                                        label={Lang[window.Lang].pages.company.students.proj_exp.total_amount}
+                                        defaultValue={this.state.selected.proj_exp.total_amount}>
+                                    </TextField>
+                                    <TextField
+                                        id="exp_soft_amount"
+                                        label={Lang[window.Lang].pages.company.students.proj_exp.soft_amount}
+                                        defaultValue={this.state.selected.proj_exp.soft_amount}>
+                                    </TextField>
+                                </div>
                                 <Button color="primary" style={{ margin: 10 }}>
                                     {Lang[window.Lang].pages.main.certain_button}
                                 </Button>

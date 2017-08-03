@@ -28,22 +28,22 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Base extends Component {
     state = {
-        data: { company_name: "", province: "", qualification: "" }
+        company_name: "", province: "", qualification: ""
     }
 
     componentDidMount() {
         if (getCache(DATA_TYPE_BASE) !== undefined) {
+            var data = getCache(DATA_TYPE_BASE);
             this.setState({
-                data: getCache(DATA_TYPE_BASE)
+                company_name: data.company_name,
+                province: data.province,
+                qualification: data.qualification
             });
         }
     }
 
     submit = () => {
 
-        var company_name = document.getElementById("company_name").value;
-        var province = document.getElementById("province").value;
-        var qualification = document.getElementById("qualification").value;
 
         var cb = (route, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
@@ -66,24 +66,41 @@ class Base extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <Paper style={{ width: 600 }}>
                     <TextField
                         id="company_name"
-                        placeholder={Lang[window.Lang].pages.company.infos.base.company_name}
-                        defaultValue={this.state.data.company_name}
+                        label={Lang[window.Lang].pages.company.infos.base.company_name}
+                        value={this.state.company_name}
+                        onChange={event => {
+                            this.setState({
+                                company_name: event.target.value,
+                            });
+                        }}
+                        fullWidth
                     />
                     <TextField
                         id="province"
-                        placeholder={Lang[window.Lang].pages.company.infos.base.province}
-                        defaultValue={this.state.data.province}
+                        label={Lang[window.Lang].pages.company.infos.base.province}
+                        value={this.state.province}
+                        onChange={event => {
+                            this.setState({
+                                province: event.target.value,
+                            });
+                        }}
+                        fullWidth
                     />
                     <TextField
                         id="qualification"
-                        placeholder={Lang[window.Lang].pages.company.infos.base.qualification}
-                        defaultValue={this.state.data.qualification}
+                        label={Lang[window.Lang].pages.company.infos.base.qualification}
+                        value={this.state.qualification}
+                        onChange={event => {
+                            this.setState({
+                                qualification: event.target.value,
+                            });
+                        }}
+                        fullWidth
                     />
                     <Button
                         raised

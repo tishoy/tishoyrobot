@@ -8,6 +8,7 @@ import List, {
     ListSubheader,
 } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
+import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 import { initCache, getData, getRouter, getCache } from '../../utils/helpers';
 import {
@@ -118,14 +119,9 @@ class Home extends Component {
 
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.unarranged_title}</ListSubheader>}>
                                 {this.state.unarragedStudents.map(student =>
-                                    <StudentCard
-                                        key={student.id}
-                                        name={student.base_info.name}
-                                        tel={student.base_info.tel}
-                                        email={student.base_info.email}
-                                        level={student.base_info.level}
-                                        city={student.base_info.city}>
-                                    </StudentCard>
+                                    <Card
+                                    >
+                                    </Card>
                                 )}
                             </List>
                         </Paper>
@@ -135,14 +131,9 @@ class Home extends Component {
 
                             <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.home.arranged_title}</ListSubheader>}>
                                 {this.state.arrangedStudents.map(student =>
-                                    <StudentCard
-                                        key={student.id}
-                                        name={student.base_info.name}
-                                        tel={student.base_info.tel}
-                                        email={student.base_info.email}
-                                        level={student.base_info.level}
-                                        city={student.base_info.city}>
-                                    </StudentCard>
+                                    <Card
+                                    >
+                                    </Card>
                                 )}
                             </List>
 

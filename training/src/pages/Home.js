@@ -286,7 +286,7 @@ class Home extends Component {
           onChange={event => this.setState({ name: event.target.value })}
         />
         <TextField
-          placeholder={Lang[window.Lang].pages.main.password}
+          label={Lang[window.Lang].pages.main.password}
           id="login_password"
           type="password"
         // defaultValue={Lang[window.Lang].pages.main.input_your_password}

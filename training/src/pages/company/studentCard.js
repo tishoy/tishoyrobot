@@ -63,11 +63,13 @@ class ComCard extends Component {
             <div>
               <Button
                 dense
+                id={"left"}
                 onClick={this.state.action[0]}>
                 {Lang[window.Lang].pages.company.card.agree}
               </Button>
               <Button
                 dense
+                id={"right"}
                 onClick={this.state.action[1]}>
                 {Lang[window.Lang].pages.company.card.refuse}
               </Button>
@@ -77,11 +79,13 @@ class ComCard extends Component {
         return <CardActions>
           <Button
             dense
+            id={"left"}
             onClick={this.state.action[0]}>
             {Lang[window.Lang].pages.company.card.retry}
           </Button>
           <Button
             dense
+            id={"right"}
             onClick={this.state.action[1]}>
             {Lang[window.Lang].pages.company.card.giveup}
           </Button>

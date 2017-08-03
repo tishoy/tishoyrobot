@@ -46,9 +46,10 @@ function App(props) {
     setPrismTheme(lightTheme);
   }
 
+
   return (
     <MuiThemeProvider theme={theme} styleManager={styleManager}>
-      <AppRouter />
+      {AppRouter[1]}
     </MuiThemeProvider>
   );
 }

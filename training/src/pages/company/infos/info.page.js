@@ -51,10 +51,11 @@ class Info extends Component {
         show: "all",
 
         // 提示状态
-        alertOpen: true,
+        alertOpen: false,
         alertType: "notice",
         alertCode: Code.LOGIC_SUCCESS,
-        alertContent: "登录成功"
+        alertContent: "",
+        alertAction: []
     }
 
     componentDidMount() {
@@ -73,10 +74,23 @@ class Info extends Component {
         });
     }
 
-    popUpNotice = (type, code, content) => {
-        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    popUpNotice(type, code, content, action = [() => {
+        this.setState({
+            alertOpen: false,
+        })
+    }, () => {
+        this.setState({
+            alertOpen: false,
+        })
+    }]) {
+        this.setState({
+            alertType: type,
+            alertCode: code,
+            alertContent: content,
+            alertOpen: true,
+            alertAction: action
+        });
     }
-
 
     render() {
 

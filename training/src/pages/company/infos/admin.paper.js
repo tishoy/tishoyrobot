@@ -28,24 +28,23 @@ const styleSheet = createStyleSheet('PaperSheet', theme => ({
 
 class Admin extends Component {
     state = {
-        data: { account: "", password: "", name: "", tel: "", email: "" }
+        account: "", password: "", name: "", tel: "", email: ""
     }
 
     componentDidMount() {
         if (getCache(DATA_TYPE_ADMIN) !== undefined) {
+            var data = getCache(DATA_TYPE_ADMIN);
             this.setState({
-                data: getCache(DATA_TYPE_ADMIN)
+                account: data.account, 
+                password: data.password, 
+                name: data.name, 
+                tel: data.tel, 
+                email: data.email
             });
         }
     }
 
     submit = () => {
-
-        var account = document.getElementById("account").value;
-        var password = document.getElementById("password").value;
-        var name = document.getElementById("name").value;
-        var tel = document.getElementById("tel").value;
-        var email = document.getElementById("email").value;
 
         var cb = (route, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
@@ -58,11 +57,11 @@ class Admin extends Component {
 
         }
         var obj = {
-            account: account,
-            password: password,
-            name: name,
-            tel: tel,
-            email: email
+            account: this.state.account,
+            password: this.state.password,
+            name: this.state.name,
+            tel: this.state.tel,
+            email: this.state.email
         }
         getData(getRouter(RESET_INFO), { session: sessionStorage.session, base: JSON.stringify(obj) }, cb, { self: this, data: obj });
     }
@@ -76,28 +75,57 @@ class Admin extends Component {
                     <TextField
                         id="account"
                         label={Lang[window.Lang].pages.company.infos.admin.account}
-                        defaultValue={this.state.data.name}>
+                        value={this.state.account}
+                        onChange={event => {
+                            this.setState({
+                                account: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="password"
                         label={Lang[window.Lang].pages.company.infos.admin.password}
-                        defaultValue={this.state.data.password}>
+                        value={this.state.password}
+                        onChange={event => {
+                            this.setState({
+                                password: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="name"
                         label={Lang[window.Lang].pages.company.infos.admin.name}
-                        defaultValue={this.state.data.name}>
+                        value={this.state.name}
+                        onChange={event => {
+                            this.setState({
+                                name: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="tel"
                         label={Lang[window.Lang].pages.company.infos.admin.tel}
-                        defaultValue={this.state.data.tel}>
+                        value={this.state.tel}
+                        onChange={event => {
+                            this.setState({
+                                tel: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <TextField
                         id="email"
                         label={Lang[window.Lang].pages.company.infos.admin.email}
-                        defaultValue={this.state.data.email}>
-
+                        value={this.state.email}
+                        onChange={event => {
+                            this.setState({
+                                email: event.target.value,
+                            });
+                        }}
+                        fullWidth>
                     </TextField>
                     <Button
                         raised

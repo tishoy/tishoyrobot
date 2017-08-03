@@ -15,7 +15,7 @@ import { initCache, getData, getRouter, getStudent, getCache } from '../../../ut
 import {
     QUERY, ENROLL_STUDENT, STATUS_ENROLLED, AGREE_ARRANGE, REFUSE_ARRANGE, DATA_TYPE_STUDENT, STATUS_ARRANGED_DOING,
     STATUS_ENROLLED_UNDO, STATUS_ARRANGED_UNDO, STATUS_AGREED_AGREE, STATUS_ENROLLED_DID, STATUS_ARRANGED, STATUS_AGREED,
-    CARD_TYPE_ENROLL, CARD_TYPE_ARRANGE, CARD_TYPE_UNARRANGE, STATUS_ARRANGED_DID
+    CARD_TYPE_ENROLL, CARD_TYPE_ARRANGE, CARD_TYPE_UNARRANGE, STATUS_ARRANGED_DID, ALERT, STATUS_AGREED_REFUSED
 } from '../../../enum';
 import Lang from '../../../language';
 import Code from '../../../code';
@@ -26,18 +26,19 @@ const Style = {
     paper: { margin: 10, width: 400, float: "left" }
 }
 
-
 class Enrolled extends Component {
     state = {
         newStudents: [],
         unarragedStudents: [],
         arrangedStudents: [],
-
+        // 界面状态
+        selectedStudentId: undefined,
         // 提示状态
-        alertOpen: true,
-        alertType: "notice",
+        alertOpen: false,
+        alertType: ALERT,
         alertCode: Code.LOGIC_SUCCESS,
-        alertContent: "登录成功"
+        alertContent: "",
+        alertAction: []
     };
 
 
@@ -73,35 +74,66 @@ class Enrolled extends Component {
     }
 
     // 将新加入的学生排队
-    erollStudent(id) {
+    erollStudent() {
+        var id = this.state.selectedStudentId;
         var cb = (router, message, arg) => {
+            console.log(message);
             if (message.code === Code.LOGIC_SUCCESS) {
-                getStudent(arg.id)[STATUS_ENROLLED] = STATUS_ENROLLED_DID;
+                let student = getStudent(arg.id);
+                student.status[STATUS_ENROLLED].status = STATUS_ENROLLED_DID;
+                student.status[STATUS_ARRANGED].status = STATUS_ARRANGED_UNDO;
+                this.fresh();
             }
         }
         getData(getRouter(ENROLL_STUDENT), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
     agreeArrange() {
+        var id = this.state.selectedStudentId;
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                getStudent(arg.id)[STATUS_ENROLLED] = STATUS_AGREED_AGREE;
+                getStudent(arg.id).status[STATUS_AGREED].status = STATUS_AGREED_AGREE;
+                this.fresh();
             }
         }
         getData(getRouter(AGREE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
     refuseArrange() {
+        var id = this.state.selectedStudentId;
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
-                getStudent(arg.id)[STATUS_AGREED] = STATUS_AGREED_REFUSED;
+                let student = getStudent(arg.id);
+                student.status[STATUS_AGREED].status = STATUS_AGREED_REFUSED;
+                student.status[STATUS_ARRANGED].status = STATUS_ARRANGED_UNDO;
+                this.fresh();
             }
         }
         getData(getRouter(REFUSE_ARRANGE), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
 
-    popUpNotice = (type, code, content) => {
-        this.setState({ type: type, code: code, content: content, alertOpen: true });
+    closeNotice = () => {
+        this.setState({
+            alertOpen: false,
+        })
+    }
+
+    popUpNotice(type, code, content, action = [() => {
+        this.setState({
+            alertOpen: false,
+        })
+    }, () => {
+        this.setState({
+            alertOpen: false,
+        })
+    }]) {
+        this.setState({
+            alertType: type,
+            alertCode: code,
+            alertContent: content,
+            alertOpen: true,
+            alertAction: action
+        });
     }
 
     render() {
@@ -118,10 +150,16 @@ class Enrolled extends Component {
                                 email={student.base_info.email}
                                 level={student.base_info.level}
                                 city={student.base_info.city}
-                                action={() => {
-                                    console.log("erollStudent" + student.id)
-                                    this.erollStudent(student.id);
-                                }}>
+                                action={[() => {
+                                    this.state.selectedStudentId = student.id;
+                                    this.popUpNotice(ALERT, 0, "为" + student.base_info.name + "报名", [
+                                        () => {
+                                            this.erollStudent();
+                                            this.closeNotice();
+                                        }, () => {
+                                            this.closeNotice();
+                                        }]);
+                                }]}>
                             </StudentCard>
                         )}
                     </List>
@@ -137,6 +175,16 @@ class Enrolled extends Component {
                                 email={student.base_info.email}
                                 level={student.base_info.level}
                                 city={student.base_info.city}
+                                action={[() => {
+                                    this.state.selectedStudentId = student.id;
+                                    this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                        () => {
+                                            this.enrolled();
+                                            this.closeNotice();
+                                        }, () => {
+                                            this.closeNotice();
+                                        }]);
+                                }]}
                             >
                             </StudentCard>
                         )}
@@ -153,13 +201,29 @@ class Enrolled extends Component {
                                 email={student.base_info.email}
                                 level={student.base_info.level}
                                 city={student.base_info.city}
-                                action={[() => {
-                                    console.log("agreeArrange" + student.id)
-                                    this.agreeArrange(student.id);
-                                }, () => {
-                                    console.log("refuseArrange" + student.id)
-                                    this.refuseArrange(student.id);
-                                }]}>
+                                action={[
+                                    () => {
+                                        this.state.selectedStudentId = student.id;
+                                        this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                            () => {
+                                                console.log("agreeArrange" + student.id);
+                                                this.agreeArrange();
+                                                this.closeNotice();
+                                            }, () => {
+                                                this.closeNotice();
+                                            }]);
+                                    },
+                                    () => {
+                                        this.state.selectedStudentId = student.id;
+
+                                        this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                            () => {
+                                                this.refuseArrange();
+                                                this.closeNotice();
+                                            }, () => {
+                                                this.closeNotice();
+                                            }]);
+                                    }]}>
                             </StudentCard>
                         )}
                     </List>
@@ -169,12 +233,7 @@ class Enrolled extends Component {
                     type={this.state.alertType}
                     code={this.state.alertCode}
                     content={this.state.alertContent}
-                    handleCertainClose={() => {
-                        this.setState({ alertOpen: false });
-                    }}
-                    handleCancelClose={() => {
-                        this.setState({ alertOpen: false })
-                    }}>
+                    action={this.state.alertAction}>
                 </CommonAlert>
             </div>
         )
