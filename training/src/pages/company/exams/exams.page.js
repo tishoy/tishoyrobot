@@ -13,7 +13,7 @@ import StudentCard from '../studentCard.js';
 import { initCache, getData, getRouter, getCache } from '../../../utils/helpers';
 import {
     DATA_TYPE_STUDENT, STATUS_EXAMING, STATUS_PASSED, STATUS_PASSED_DID, STATUS_EXAMING_DOING, STATUS_PASSED_UNDO, STATUS_EXAMING_DID,
-    CARD_TYPE_EXAM, CARD_TYPE_COMMON
+    CARD_TYPE_EXAM, CARD_TYPE_COMMON, NOTICE, ALERT
 } from '../../../enum';
 import Lang from '../../../language';
 import Code from '../../../code';
@@ -29,10 +29,11 @@ class Exams extends Component {
         examingStudents: [],
         passedStudents: [],
         unpassedStudents: [],
-
+        // 界面状态
+        selectedStudentId: undefined,
         // 提示状态
         alertOpen: false,
-        alertType: "notice",
+        alertType: NOTICE,
         alertCode: Code.LOGIC_SUCCESS,
         alertContent: "",
         alertAction: []
@@ -82,13 +83,26 @@ class Exams extends Component {
     }
 
     retryExam() {
+        var id = this.state.selectedStudentId;
         var cb = (router, message, arg) => {
             if (message.code === Code.LOGIC_SUCCESS) {
+                getStudent(arg.id).status[STATUS_EXAMING].status = STATUS_EXAMING_DOING;
+                this.fresh();
             }
         }
         getData(getRouter(RETRY_EXAM), { session: sessionStorage.session, id: id }, cb, { id: id });
     }
-    
+
+    giveUp() {
+        var id = this.state.selectedStudentId;
+        var cb = (router, message, arg) => {
+            if (message.code === Code.LOGIC_SUCCESS) {
+                getStudent(arg.id).status[STATUS_AGREED].status = STATUS_AGREED_AGREE;
+                this.fresh();
+            }
+        }
+    }
+
     popUpNotice(type, code, content, action = [() => {
         this.setState({
             alertOpen: false,
@@ -161,6 +175,30 @@ class Exams extends Component {
                                     email={student.base_info.email}
                                     level={student.base_info.level}
                                     city={student.base_info.city}
+                                    action={
+                                        [
+                                            () => {
+                                                this.state.selectedStudentId = student.id;
+                                                this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                                    () => {
+                                                        this.retryExam();
+                                                        this.closeNotice();
+                                                    }, () => {
+                                                        this.closeNotice();
+                                                    }]);
+                                            },
+                                            () => {
+                                                this.state.selectedStudentId = student.id;
+
+                                                this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                                    () => {
+                                                        this.giveUp();
+                                                        this.closeNotice();
+                                                    }, () => {
+                                                        this.closeNotice();
+                                                    }]);
+                                            }]
+                                    }
                                 >
                                 </StudentCard>
                             )}
