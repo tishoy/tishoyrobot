@@ -87,11 +87,14 @@ function AppDrawer(props) {
     >
       <div className={classes.nav}>
         <Toolbar className={classes.toolbar}>
-          <Link className={classes.title} to="/" onClick={props.onRequestClose}>
-            <Typography type="title" gutterBottom color="inherit">
-              企业登陆
+          <Typography type="title" gutterBottom color="inherit">
+            企业登陆
             </Typography>
-          </Link>
+          {
+            /**<Link className={classes.title} to="/" onClick={props.onRequestClose}>
+            
+          </Link>*/
+          }
           <Divider absolute />
         </Toolbar>
         {renderNavItems(props, props.routes[0])}

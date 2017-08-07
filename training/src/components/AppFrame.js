@@ -23,6 +23,7 @@ import AppSearch from 'training/src/components/AppSearch';
 
 import Lang from '../language';
 import { initCache, getData, getRouter, getCache } from '../utils/helpers';
+import { APP_TYPE_COMPANY, APP_TYPE_ORANIZATION } from '../enum';
 
 function getTitle(routes) {
   for (let i = routes.length - 1; i >= 0; i -= 1) {
@@ -97,7 +98,9 @@ class AppFrame extends Component {
 
   state = {
     drawerOpen: false,
+    menuOpen: false,
     open: false,
+    anchorEl: undefined,
     logged: sessionStorage.getItem("logged"),
   };
 
@@ -128,10 +131,19 @@ class AppFrame extends Component {
     this.setState({ logged: sessionStorage.getItem("logged") });
   }
 
+  handleMenuClick = event => {
+    this.setState({ menuOpen: true, anchorEl: event.currentTarget });
+  };
+
+  handleMenuClose = () => {
+    this.setState({ menuOpen: false });
+  };
+
   logout = () => {
     sessionStorage.logged = false;
     sessionStorage.account = "";
     sessionStorage.session = "";
+    this.context.router.push("/");
     this.handleLogin();
   }
 
@@ -201,33 +213,39 @@ class AppFrame extends Component {
             <Menu
               id="api-menu"
               anchorEl={this.state.anchorEl}
-              open={this.state.open}
-              onRequestClose={this.handleMenuRequestClose}
+              open={this.state.menuOpen}
+              onRequestClose={this.handleMenuClose}
             >
-              <MenuItem key={Lang[window.Lang].components.AppFrame.Info}
+              <MenuItem key="info"
                 onClick={() => {
                   this.handleOpenDetail();
-                }} />
+                  if (sessionStorage.appType === undefined) {
 
+                  } else if (sessionStorage.appType === APP_TYPE_COMPANY) {
+
+                  } else if (sessionStorage.appType === APP_TYPE_ORANIZATION) {
+
+                  }
+                }} >
+                {Lang[window.Lang].components.AppFrame.Info}
+              </MenuItem>
               <MenuItem
-                key={Lang[window.Lang].components.AppFrame.Reset}
+                key="reset"
                 onClick={() => {
                   this.handleOpenReset();
-                }} />
+                }} >
+                {Lang[window.Lang].components.AppFrame.Reset}
+              </MenuItem>
               <MenuItem
-                key={Lang[window.Lang].components.AppFrame.Logout}
+                key="logout"
                 onClick={() => {
-
                   // location.reload();
                   // location.replace("/web_client");
                   this.logout();
-
-                }
-                } />
-
+                }}>
+                {Lang[window.Lang].components.AppFrame.Logout}
+              </MenuItem>
             </Menu>
-
-
           </Toolbar>
         </AppBar>
         <AppDrawer

@@ -133,7 +133,6 @@ class Exams extends Component {
                 <div
                     style={{ paddingTop: "80px", paddingLeft: 40, display: 'flex', FlexDirection: 'row', justifyContent: 'space-between' }}
                 >
-
                     <Paper elevation={4} style={Style.paper}>
                         <List subheader={<ListSubheader>{Lang[window.Lang].pages.company.exams.examing}</ListSubheader>}>
                             {this.state.examingStudents.map(student =>
@@ -179,7 +178,7 @@ class Exams extends Component {
                                         [
                                             () => {
                                                 this.state.selectedStudentId = student.id;
-                                                this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                                this.popUpNotice(ALERT, 0, "重新" + student.base_info.name + "准备参加考试？", [
                                                     () => {
                                                         this.retryExam();
                                                         this.closeNotice();
@@ -190,7 +189,7 @@ class Exams extends Component {
                                             () => {
                                                 this.state.selectedStudentId = student.id;
 
-                                                this.popUpNotice(ALERT, 0, "通过" + student.base_info.name + "课程安排？", [
+                                                this.popUpNotice(ALERT, 0, student.base_info.name + "放弃此次考试？", [
                                                     () => {
                                                         this.giveUp();
                                                         this.closeNotice();
