@@ -88,4 +88,14 @@ describe('服务器API测试', function () {
             expect(json).to.be.an('object');
         });
     });
+
+    it('请求数据', function () {
+        return fetch(routes.query, Object.assign(header, {
+            body: JSON.stringify({ session: "tishoy" })
+        })).then(function (res) {
+            return res.json();
+        }).then(function (json) {
+            expect(json).to.be.an('object');
+        })
+    })
 });
