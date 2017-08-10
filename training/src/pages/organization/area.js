@@ -4,6 +4,7 @@ import List, {
     ListSubheader,
 } from 'material-ui/List';
 import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 
 import Code from '../../code';
 import Lang from '../../language';
@@ -45,17 +46,12 @@ class Area extends Component {
                             }}>
                                 <CardContent>
                                     <Typography type="body1">
-                                        {name}
                                     </Typography>
                                     <Typography type="body1" component="h2">
-                                        {tel}
                                     </Typography>
                                     <Typography type="body1">
-                                        {email}
                                     </Typography>
                                     <Typography component="p">
-                                        {level}<br />
-                                        {city}
                                     </Typography>
                                 </CardContent>
                             </div>
