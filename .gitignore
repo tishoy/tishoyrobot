@@ -1,5 +1,5 @@
 # 
-
+training/node_module/
 training/build/dll.manifest.json
 training/build/dll.bundle.js
 .gitignore

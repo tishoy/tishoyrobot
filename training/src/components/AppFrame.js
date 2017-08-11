@@ -23,7 +23,7 @@ import AppSearch from 'training/src/components/AppSearch';
 
 import Lang from '../language';
 import { initCache, getData, getRouter, getCache } from '../utils/helpers';
-import { APP_TYPE_COMPANY, APP_TYPE_ORANIZATION } from '../enum';
+import { APP_TYPE_COMPANY, APP_TYPE_ORANIZATION, APP_TYPE_UNLOGIN } from '../enum';
 
 function getTitle(routes) {
   for (let i = routes.length - 1; i >= 0; i -= 1) {
@@ -143,6 +143,7 @@ class AppFrame extends Component {
     sessionStorage.logged = false;
     sessionStorage.account = "";
     sessionStorage.session = "";
+    sessionStorage.apptype = APP_TYPE_UNLOGIN;
     this.context.router.push("/");
     this.handleLogin();
   }

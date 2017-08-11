@@ -1,8 +1,9 @@
 /**
  * APP类型
  */
-export const  APP_TYPE_COMPANY = 1;                //公司
-export const  APP_TYPE_ORANIZATION = 2;            //培训机构
+export const APP_TYPE_UNLOGIN = 0;
+export const APP_TYPE_COMPANY = 1;                //公司
+export const APP_TYPE_ORANIZATION = 2;            //培训机构
 /**
  * Alert 類型
  */

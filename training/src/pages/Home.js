@@ -25,7 +25,7 @@ import AppBar from 'material-ui/AppBar';
 import SwipeableViews from 'react-swipeable-views';
 
 import { getData, getRouter } from '../utils/helpers';
-import { APP_TYPE_COMPANY, LOGIN, REGISTER_COMPANY, CHECK_AVAILABLE } from '../enum';
+import { APP_TYPE_COMPANY, APP_TYPE_ORANIZATION, LOGIN, REGISTER_COMPANY, CHECK_AVAILABLE } from '../enum';
 import config from '../config';
 import Lang from '../language';
 import Code from '../code';
@@ -34,6 +34,10 @@ import Base from './company/infos/base.paper';
 import Finance from './company/infos/finance.paper';
 import Express from './company/infos/express.paper';
 import Admin from './company/infos/admin.paper';
+
+const COMPANY_LOING_INDEX = 0;
+const COMPANY_REGISTER_INDEX = 1;
+const ORANIZATION_LOING_INDEX = 2;
 
 const palette = createPalette({
   primary: blue,
@@ -131,7 +135,7 @@ class Home extends Component {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
         sessionStorage.session = message.session;
-        // sessionStorage.type = 
+        sessionStorage.apptype = arg["type"];
         // window.CacheData = message.data;
         // 严谨检查服务端传过来的数据正确性
         if (message.data.base !== undefined) {
@@ -166,13 +170,27 @@ class Home extends Component {
         }
 
         console.log(window.CacheData);
-        this.context.router.push("/company/home");
-
+        switch (sessionStorage.apptype) {
+          case APP_TYPE_COMPANY:
+            this.context.router.push("/company/home");
+            break;
+          case APP_TYPE_ORANIZATION:
+            this.context.router.push("/organization/home");
+            break;
+        }
         // window.
         // this.context.router.push("/company/home");
       }
     }
-    getData(getRouter(LOGIN), { account: account, password: password, type: APP_TYPE_COMPANY }, cb, { account: account });
+    console.log(this.state.index);
+    var apptype;
+    if (this.state.index === COMPANY_LOING_INDEX) {
+      apptype = APP_TYPE_COMPANY;
+    } else if (this.state.index === ORANIZATION_LOING_INDEX) {
+      apptype = APP_TYPE_ORANIZATION;
+    }
+    console.log(apptype);
+    getData(getRouter(LOGIN), { account: account, password: password, type: apptype }, cb, { account: account, type: apptype });
   }
 
   handleNext = () => {
@@ -309,7 +327,7 @@ class Home extends Component {
         />
         <TextField
           label={Lang[window.Lang].pages.main.password}
-          id="login_password"
+          id={"login_password" + this.state.index}
           type="password"
         // defaultValue={Lang[window.Lang].pages.main.input_your_password}
         />
@@ -318,10 +336,13 @@ class Home extends Component {
           color="accent"
           onClick={() => {
             var name = document.getElementById("login_name").value;
-            var password = document.getElementById("login_password").value;
+            var password = document.getElementById("login_password" + this.state.index).value;
+            console.log(name);
+
             if (name === "" || password === "") {
               return
             }
+
             this.login(name, password);
           }}
         >
