@@ -20,6 +20,9 @@ import createPalette from 'material-ui/styles/palette';
 import blue from 'material-ui/colors/blue';
 import pink from 'material-ui/colors/pink';
 import AppFrame from '../components/AppFrame';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import AppBar from 'material-ui/AppBar';
+import SwipeableViews from 'react-swipeable-views';
 
 import { getData, getRouter } from '../utils/helpers';
 import { APP_TYPE_COMPANY, LOGIN, REGISTER_COMPANY, CHECK_AVAILABLE } from '../enum';
@@ -40,6 +43,15 @@ const palette = createPalette({
 
 const theme = createMuiTheme({ palette });
 
+const TabContainer = props =>
+  <div style={{ padding: 24 }}>
+    {props.children}
+  </div>;
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 class Home extends Component {
 
 
@@ -53,6 +65,7 @@ class Home extends Component {
     showRegister: true,
     name: "",
     activeStep: 0,
+    index: 0,
   }
 
   componentDidMount() {
@@ -62,7 +75,8 @@ class Home extends Component {
   }
 
   fresh = () => {
-    this.setState({ showRegister: !this.state.showRegister })
+    return;
+    this.setState({ index: 0 })
   }
 
   getRoutes = () => {
@@ -171,6 +185,14 @@ class Home extends Component {
     this.setState({
       activeStep: this.state.activeStep - 1,
     });
+  };
+
+  handleChange = (event, index) => {
+    this.setState({ index });
+  };
+
+  handleChangeIndex = index => {
+    this.setState({ index });
   };
 
   RegisterStep = () => {
@@ -328,7 +350,35 @@ class Home extends Component {
               padding: '120px 30px',
             },
           }}>
-            {this.state.showRegister === true ? this.RegisterView() : this.LoginView()}
+            <div style={{
+              backgroundColor: theme.palette.background.paper,
+              width: 500
+            }}>
+              <AppBar position="static" color="default">
+                <Tabs
+                  index={this.state.index}
+                  onChange={this.handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  fullWidth
+                >
+                  <Tab label="公司登陆" />
+                  <Tab label="公司注册" />
+                  <Tab label="机构登陆" />
+                </Tabs>
+              </AppBar>
+              <SwipeableViews index={this.state.index} onChangeIndex={this.handleChangeIndex}>
+                <TabContainer>
+                  {this.LoginView()}
+                </TabContainer>
+                <TabContainer>
+                  {this.RegisterView()}
+                </TabContainer>
+                <TabContainer>
+                  {this.LoginView()}
+                </TabContainer>
+              </SwipeableViews>
+            </div>
           </div>
         </div>
       </div>
