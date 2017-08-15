@@ -67,7 +67,7 @@ export function getData(router, json, callback = null, args = {}) {
     cache: 'default',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/json'
     },
     body: JSON.stringify(json)
   }).then(function status(response) {

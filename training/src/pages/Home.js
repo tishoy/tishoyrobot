@@ -97,7 +97,7 @@ class Home extends Component {
       }
     }
 
-    getData(config.routes, { type: APP_TYPE_COMPANY, version: config.version }, cb);
+    getData(config.routers, { type: APP_TYPE_COMPANY, version: config.version }, cb);
   }
 
   check_available = (account) => {
@@ -218,7 +218,7 @@ class Home extends Component {
       // 遵守协议
       case 0:
         return <div>
-          {"遵循中软科技以下条款"}
+          <Typography>遵循中软科技以下条款</Typography>
         </div>
       // 注册账号密码
       case 1:
