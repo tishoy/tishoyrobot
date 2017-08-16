@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MuiThemeProvider, { MUI_SHEET_ORDER } from 'material-ui/styles/MuiThemeProvider';
@@ -14,48 +14,57 @@ import { APP_TYPE_UNLOGIN } from '../enum';
 
 let styleManager;
 
-function App(props) {
-  const { dark } = props;
+class App extends Component {
 
-  const palette = createPalette({
-    primary: blue,
-    accent: pink,
-    type: dark ? 'dark' : 'light',
-  });
-
-  const theme = createMuiTheme({ palette });
-
-  if (!styleManager) {
-    const themeContext = MuiThemeProvider.createDefaultContext({ theme });
-    styleManager = themeContext.styleManager;
-  } else {
-    styleManager.updateTheme(theme);
+  state = {
+    apptype: sessionStorage.apptype | 0
   }
 
-  styleManager.setSheetOrder(
-    MUI_SHEET_ORDER.concat([
-      'Link',
-      'AppDrawer',
-      'AppDrawerNavItem',
-      'AppFrame',
-    ]),
-  );
+  static propTypes = {
+    dark: PropTypes.bool.isRequired,
+  };
 
-  if (dark) {
-    setPrismTheme(darkTheme);
-  } else {
-    setPrismTheme(lightTheme);
+  render() {
+    const { dark } = this.props;
+
+    const palette = createPalette({
+      primary: blue,
+      accent: pink,
+      type: dark ? 'dark' : 'light',
+    });
+
+    const theme = createMuiTheme({ palette });
+
+    if (!styleManager) {
+      const themeContext = MuiThemeProvider.createDefaultContext({ theme });
+      styleManager = themeContext.styleManager;
+    } else {
+      styleManager.updateTheme(theme);
+    }
+
+    styleManager.setSheetOrder(
+      MUI_SHEET_ORDER.concat([
+        'Link',
+        'AppDrawer',
+        'AppDrawerNavItem',
+        'AppFrame',
+      ]),
+    );
+
+    if (dark) {
+      setPrismTheme(darkTheme);
+    } else {
+      setPrismTheme(lightTheme);
+    }
+
+    console.log("changing");
+
+    return (
+      <MuiThemeProvider theme={theme} styleManager={styleManager}>
+        {AppRouter[this.state.apptype]}
+      </MuiThemeProvider>
+    );
   }
-
-  return (
-    <MuiThemeProvider theme={theme} styleManager={styleManager}>
-      {AppRouter[sessionStorage.apptype | 0]}
-    </MuiThemeProvider>
-  );
 }
-
-App.propTypes = {
-  dark: PropTypes.bool.isRequired,
-};
 
 export default connect(state => ({ dark: state.dark }))(App);
