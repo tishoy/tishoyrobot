@@ -131,6 +131,8 @@ class Home extends Component {
     var cb = (route, message, arg) => {
       console.log(route);
       console.log(message);
+
+      window.location = "http://localhost:8805/company/home";
       if (message.code === Code.LOGIC_SUCCESS) {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
@@ -172,10 +174,16 @@ class Home extends Component {
         console.log(window.CacheData);
         switch (sessionStorage.apptype) {
           case APP_TYPE_COMPANY:
-            this.context.router.push("/company/home");
+
+            window.location = "http://www.baidu.com";
+            // window.location.href = "http://localhost:8805//company/home";
+            // this.context.router.push("/company/home");
             break;
           case APP_TYPE_ORANIZATION:
-            this.context.router.push("/organization/home");
+            window.navigate("http://shanghepinpai.com");
+            window.location = "http://www.baidu.com";
+            // window.location.href = "http://localhost:8805//organization/home";
+            // this.context.router.push("/organization/home");
             break;
         }
         // window.
@@ -183,6 +191,7 @@ class Home extends Component {
       }
     }
     console.log(this.state.index);
+    console.log("123");
     var apptype;
     if (this.state.index === COMPANY_LOING_INDEX) {
       apptype = APP_TYPE_COMPANY;
