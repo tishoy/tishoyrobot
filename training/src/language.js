@@ -13,6 +13,7 @@ const Language = {
                 input_your_account: "输入账号",
                 account: "账号",
                 password: "密码",
+                repeat_password: "密码确认",
                 input_your_password: "输入密码",
                 change_account: "切换账号",
                 login_button: "登录",
@@ -174,7 +175,8 @@ const Language = {
             }
         },
         ErrorCode: {
-            0: "操作成功"
+            0: "操作成功",
+            10001: "账号已被注册",
         }
     }
 }

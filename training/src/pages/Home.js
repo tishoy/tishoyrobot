@@ -70,6 +70,8 @@ class Home extends Component {
     name: "",
     activeStep: 0,
     index: 0,
+    unavailable: false,
+    available_result: ""
   }
 
   componentDidMount() {
@@ -105,6 +107,11 @@ class Home extends Component {
       if (message.code === Code.LOGIC_SUCCESS) {
         // 与其他玩家不冲突
       } else {
+        console.log(message.code);
+        this.setState({
+          unavailable: true,
+          available_result: Lang[window.Lang].ErrorCode[10001]
+        })
         // 名字已经被占用，需要重新起一个有特色的名字
       }
 
@@ -118,11 +125,13 @@ class Home extends Component {
     // 判断两次密码是否一致
     if (password !== repeat) {
 
+      return;
     }
 
     var cb = (route, message, arg) => {
       console.log(route);
       console.log(message);
+      this.handleNext();
     }
     getData(getRouter(REGISTER_COMPANY), { account: account, password: password, type: APP_TYPE_COMPANY }, cb);
   }
@@ -132,7 +141,7 @@ class Home extends Component {
       console.log(route);
       console.log(message);
 
-      window.location = "http://localhost:8805/company/home";
+      // window.location = "http://localhost:8805/company/home";
       if (message.code === Code.LOGIC_SUCCESS) {
         sessionStorage.logged = true;
         sessionStorage.account = arg["account"];
@@ -174,24 +183,17 @@ class Home extends Component {
         console.log(window.CacheData);
         switch (sessionStorage.apptype) {
           case APP_TYPE_COMPANY:
-
-            window.location = "http://www.baidu.com";
-            // window.location.href = "http://localhost:8805//company/home";
-            // this.context.router.push("/company/home");
+            console.log(window.location);
+            window.location = window.location + "/company/home";
             break;
           case APP_TYPE_ORANIZATION:
-            window.navigate("http://shanghepinpai.com");
-            window.location = "http://www.baidu.com";
-            // window.location.href = "http://localhost:8805//organization/home";
-            // this.context.router.push("/organization/home");
+            window.location = "http://localhost:8805/organization/home";
             break;
         }
         // window.
         // this.context.router.push("/company/home");
       }
     }
-    console.log(this.state.index);
-    console.log("123");
     var apptype;
     if (this.state.index === COMPANY_LOING_INDEX) {
       apptype = APP_TYPE_COMPANY;
@@ -233,20 +235,32 @@ class Home extends Component {
       case 1:
         return <div>
           <TextField
+            error={this.state.unavailable}
             name="register_account"
             id="register_account"
-            placeholder={Lang[window.Lang].pages.main.account}
+            label={Lang[window.Lang].pages.main.account}
             fullWidth={true}
             defaultValue={sessionStorage.account}
             onBlur={() => {
               this.check_available(document.getElementById("register_account").value);
-              console.log("可以用");
             }}
+            helperText={this.state.available_result}
           />
           <TextField
             name="register_password"
             id="register_password"
-            placeholder={Lang[window.Lang].pages.main.password}
+            label={Lang[window.Lang].pages.main.password}
+            style={{
+              marginTop: 20,
+            }}
+            type="password"
+            fullWidth={true}
+          // defaultValue={Lang[window.Lang].pages.main.input_your_password}
+          />
+          <TextField
+            name="repeat_password"
+            id="repeat_password"
+            label={Lang[window.Lang].pages.main.repeat_password}
             type="password"
             fullWidth={true}
           // defaultValue={Lang[window.Lang].pages.main.input_your_password}
@@ -267,8 +281,10 @@ class Home extends Component {
             color="accent"
             onClick={() => {
               console.log("123");
-              this.register();
-              this.handleNext();
+              let account = document.getElementById("register_account").value;
+              let password = document.getElementById("register_account").value;
+              let repeat = document.getElementById("repeat_password").value;
+              this.register(account, password, repeat);
             }}
           >
             {Lang[window.Lang].pages.main.register_button}

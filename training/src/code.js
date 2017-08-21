@@ -7,8 +7,8 @@ module.exports = {
     "ERROR_PARAM_VALUE": 2,
     // 无效请求
     "ERROR_INVALID_REQUEST": 3,
-    // 不存在该账号
-    "": 10000
+    // 该账号已经被注册
+    "ACCOUNT_HAD_EXIST": 10001
     // 账号或密码错误
 
 }
