@@ -30,6 +30,21 @@ class Clazz extends Component {
     fresh = () => {
     }
 
+    newClazz = () => {
+
+    }
+
+    modifyClazz = () => {
+
+    }
+
+    deleteClazz = () => {
+
+    }
+
+    freshStudents = () => {
+
+    }
 
     popUpNotice = (type, code, content) => {
         this.setState({ type: type, code: code, content: content, alertOpen: true });
@@ -47,12 +62,31 @@ class Clazz extends Component {
                             }}>
                                 <CardContent>
                                     <Typography type="body1">
+                                        {clazz.id}
                                     </Typography>
                                     <Typography type="body1" component="h2">
+                                        {clazz.name}
                                     </Typography>
                                     <Typography type="body1">
+                                        {clazz.area}
                                     </Typography>
                                     <Typography component="p">
+                                        {clazz.master}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {clazz.tiid}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {clazz.teacher}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {clazz.address}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {clazz.start}
+                                    </Typography>
+                                    <Typography component="p">
+                                        {clazz.end}
                                     </Typography>
                                 </CardContent>
                             </div>

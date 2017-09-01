@@ -124,7 +124,10 @@ class Home extends Component {
   register = (account, password, repeat) => {
     // 判断两次密码是否一致
     if (password !== repeat) {
-
+      this.setState({
+        password_error: true,
+        password_result: Lang[window.Lang].ErrorCode[]
+      })
       return;
     }
 
@@ -241,6 +244,12 @@ class Home extends Component {
             label={Lang[window.Lang].pages.main.account}
             fullWidth={true}
             defaultValue={sessionStorage.account}
+            onFocus={() => {
+              this.setState({
+                unavailable: false,
+                available_result: ""
+              })
+            }}
             onBlur={() => {
               this.check_available(document.getElementById("register_account").value);
             }}
