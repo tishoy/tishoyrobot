@@ -107,10 +107,16 @@ class Home extends Component {
       if (message.code === Code.LOGIC_SUCCESS) {
         // 与其他玩家不冲突
       } else {
+        if (message.code === 0) {
+          this.setState({
+            unavailable: false,
+            available_result: Lang[window.Lang].pages.company.home.available
+          })
+        }
         console.log(message.code);
         this.setState({
           unavailable: true,
-          available_result: Lang[window.Lang].ErrorCode[10001]
+          available_result: Lang[window.Lang].ErrorCode[message.code]
         })
         // 名字已经被占用，需要重新起一个有特色的名字
       }
@@ -126,17 +132,22 @@ class Home extends Component {
     if (password !== repeat) {
       this.setState({
         password_error: true,
-        password_result: Lang[window.Lang].ErrorCode[]
+        password_result: Lang[window.Lang].ErrorCode["PASSWORD_NOT_SAME"]
       })
       return;
     }
+    if (account === "") {
 
+    }
+    if (password === "") {
+
+    }
     var cb = (route, message, arg) => {
       console.log(route);
       console.log(message);
       this.handleNext();
     }
-    getData(getRouter(REGISTER_COMPANY), { account: account, password: password, type: APP_TYPE_COMPANY }, cb);
+    getData(getRouter(REGISTER_COMPANY), { account: account, password: password, type: APP_TYPE_COMPANY }, cb, {});
   }
 
   login = (account, password) => {
@@ -291,7 +302,8 @@ class Home extends Component {
             onClick={() => {
               console.log("123");
               let account = document.getElementById("register_account").value;
-              let password = document.getElementById("register_account").value;
+              console.log(account);
+              let password = document.getElementById("register_password").value;
               let repeat = document.getElementById("repeat_password").value;
               this.register(account, password, repeat);
             }}

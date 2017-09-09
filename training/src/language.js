@@ -34,7 +34,7 @@ const Language = {
                     unarranged_title: "待安排的学员",
                     arranged_title: "已安排的学员",
                     clazz_title: "企业所属地区正在开设班级的",
-
+                    available: "可以使用",
                     being_reroll: "正在重新排队"
                 },
                 infos: {
@@ -176,7 +176,9 @@ const Language = {
         },
         ErrorCode: {
             0: "操作成功",
+            1000: "两次密码不相同",
             10001: "账号已被注册",
+            10002: "帐号可注册",
         }
     }
 }
